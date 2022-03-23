@@ -1,0 +1,45 @@
+{
+  "name": "@internal/plugin-aws-proton-backend",
+  "version": "0.1.0",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "license": "Apache-2.0",
+  "private": true,
+  "publishConfig": {
+    "access": "public",
+    "main": "dist/index.cjs.js",
+    "types": "dist/index.d.ts"
+  },
+  "scripts": {
+    "start": "backstage-cli backend:dev",
+    "build": "backstage-cli backend:build",
+    "lint": "backstage-cli lint",
+    "test": "backstage-cli test",
+    "prepack": "backstage-cli prepack",
+    "postpack": "backstage-cli postpack",
+    "clean": "backstage-cli clean"
+  },
+  "dependencies": {
+    "@aws-sdk/util-arn-parser": "^3.52.0",
+    "@backstage/backend-common": "^0.10.8",
+    "@backstage/config": "^0.1.15",
+    "@backstage/plugin-scaffolder-backend": "^0.16.1",
+    "@internal/aws-proton-common": "file:../aws-proton-common",
+    "@types/express": "*",
+    "express": "^4.17.1",
+    "express-promise-router": "^4.1.0",
+    "moment": "^2.29.1",
+    "node-fetch": "^2.6.7",
+    "winston": "^3.2.1",
+    "yn": "^4.0.0"
+  },
+  "devDependencies": {
+    "@backstage/cli": "^0.14.0",
+    "@types/supertest": "^2.0.8",
+    "msw": "^0.35.0",
+    "supertest": "^4.0.2"
+  },
+  "files": [
+    "dist"
+  ]
+}

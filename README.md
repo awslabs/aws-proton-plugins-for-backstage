@@ -1,4 +1,4 @@
-## My Project
+## AWS Proton Plugins for Backstage
 
 TODO: Fill this README out!
 
