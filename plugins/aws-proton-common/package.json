@@ -11,6 +11,14 @@
     "module": "dist/index.esm.js",
     "types": "dist/index.d.ts"
   },
+  "repository": {
+    "type": "git",
+    "url": "github:awslabs/aws-proton-plugins-for-backstage",
+    "directory": "plugins/aws-proton-common"
+  },
+  "bugs": {
+    "url": "https://github.com/awslabs/aws-proton-plugins-for-backstage/issues"
+  },
   "backstage": {
     "role": "common-library"
   },
