@@ -29,7 +29,6 @@
     "clean": "backstage-cli clean"
   },
   "dependencies": {
-    "@aws-sdk/util-arn-parser": "^3.52.0",
     "@backstage/core-components": "^0.8.9",
     "@backstage/core-plugin-api": "^0.6.1",
     "@backstage/errors": "^0.2.2",
@@ -44,6 +43,7 @@
     "react": "^16.13.1 || ^17.0.0"
   },
   "devDependencies": {
+    "@aws-sdk/util-arn-parser": "^3.52.0",
     "@backstage/cli": "^0.14.0",
     "@backstage/core-app-api": "^0.5.3",
     "@backstage/dev-utils": "^0.2.22",
