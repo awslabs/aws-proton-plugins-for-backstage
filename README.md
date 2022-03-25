@@ -1,11 +1,16 @@
 ## AWS Proton Plugins for Backstage
 
-TODO: Fill this README out!
+This repository contains a set of Backstage plugins for interacting with the [AWS Proton](https://aws.amazon.com/proton/) service.
 
-Be sure to:
+This includes:
+- Entity card to display the status of an AWS Proton service
+- Scaffolder action to create an AWS Proton service
 
-* Change the title in this README
-* Edit your repository description on GitHub
+![AWS Proton Service entity card](/docs/images/proton-entity-card.png "AWS Proton Service entity card")
+
+## Usage
+
+See [usage documentation](./docs/usage.md).
 
 ## Security
 
