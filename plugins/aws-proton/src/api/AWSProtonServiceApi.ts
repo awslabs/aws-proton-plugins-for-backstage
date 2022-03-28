@@ -11,58 +11,18 @@
  * limitations under the License.
  */
 
-import { createApiRef, IdentityApi } from '@backstage/core-plugin-api';
+import { createApiRef } from '@backstage/core-plugin-api';
 
-import { ConfigApi } from '@backstage/core-plugin-api';
-import { ResponseError } from '@backstage/errors';
 import { ProtonService } from '@internal/aws-proton-common';
 
 export const awsProtonApiRef = createApiRef<AwsProtonApi>({
   id: 'plugin.awsproton.service',
 });
 
-export class AwsProtonApi {
-  private readonly configApi : ConfigApi;
-  private readonly identityApi : IdentityApi;
-
-  public constructor(options: {
-    configApi: ConfigApi,
-    identityApi : IdentityApi,
-  }) {
-    this.configApi = options.configApi;
-    this.identityApi = options.identityApi;
-  }
-
-  async getService({
-    arn,
-  }: {
-    arn: string,
-  }): Promise<ProtonService> {
-    const queryString = new URLSearchParams();
-    queryString.append('arn', arn);
-
-    const urlSegment = `service?${queryString}`
-
-    const service = await this.get<ProtonService>(urlSegment)
-
-    return service;
-  }
-
-  private async get<T>(path: string): Promise<T> {
-    const baseUrl = `${await this.configApi.getString('backend.baseUrl')}/api/aws-proton-backend/}`
-
-    const url = new URL(path, baseUrl)
-
-    const  { token: idToken } = await this.identityApi.getCredentials();
-
-    const response = await fetch(url.toString(), {
-      headers: idToken ? { Authorization: `Bearer ${idToken}`} : {}
-    });
-
-    if(!response.ok) {
-      throw await ResponseError.fromResponse(response);
-    }
-
-    return response.json() as Promise<T>;
-  }
+export interface AwsProtonApi {
+  getService({
+      arn,
+    }: {
+      arn: string,
+    }): Promise<ProtonService>;
 }

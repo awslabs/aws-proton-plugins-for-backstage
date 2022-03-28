@@ -15,7 +15,7 @@ import { configApiRef, createApiFactory,
   createComponentExtension, 
   createPlugin, 
   identityApiRef, } from '@backstage/core-plugin-api';
-import { AwsProtonApi, awsProtonApiRef } from './api';
+import { AwsProtonApiClient, awsProtonApiRef } from './api';
 import { AWS_PROTON_SERVICE_ANNOTATION } from './constants';
 import { Entity } from '@backstage/catalog-model';
 
@@ -32,7 +32,7 @@ export const awsProtonPlugin = createPlugin({
       api: awsProtonApiRef,
       deps: { configApi: configApiRef, identityApi: identityApiRef },
       factory: ({ configApi, identityApi }) =>
-        new AwsProtonApi({ configApi, identityApi }),
+        new AwsProtonApiClient({ configApi, identityApi }),
     }),
   ],
   routes: {

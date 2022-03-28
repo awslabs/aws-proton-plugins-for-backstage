@@ -12,3 +12,4 @@
  */
 
 export * from './AWSProtonServiceApi';
+export * from './AWSProtonServiceApiClient';
