@@ -22,7 +22,7 @@
     "build": "backstage-cli plugin:build",
     "start": "backstage-cli plugin:serve",
     "lint": "backstage-cli lint",
-    "test": "backstage-cli test",
+    "test": "backstage-cli test --watch false",
     "diff": "backstage-cli plugin:diff",
     "prepack": "backstage-cli prepack",
     "postpack": "backstage-cli postpack",
@@ -54,7 +54,9 @@
     "@types/jest": "*",
     "@types/node": "*",
     "cross-fetch": "^3.1.5",
-    "msw": "^0.35.0"
+    "msw": "^0.35.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
   "files": [
     "dist"

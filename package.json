@@ -1,0 +1,19 @@
+{
+  "name": "aws-proton-plugins-for-backstage",
+  "version": "1.0.0",
+  "repository": "https://github.com/awslabs/aws-proton-plugins-for-backstage.git",
+  "license": "Apache-2.0",
+  "private": true,
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "tsc": "lerna exec yarn tsc",
+    "build": "lerna run build",
+    "clean": "lerna run clean",
+    "test": "lerna run test",
+    "start:frontend": "lerna run --scope @internal/plugin-aws-proton start --stream",
+    "start:backend": "lerna run --scope @internal/plugin-aws-proton-backend start --stream"
+  },
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  }
+}
