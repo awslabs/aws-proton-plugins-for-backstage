@@ -6,6 +6,10 @@ This documentation covers how to use the AWS Proton plugins for Backstage.
 
 These instructions assumes you already have a working Backstage application in which to install the plugins. If this is not the case, please refer to the Backstage [Getting Started](https://backstage.io/docs/getting-started/) documentation.
 
+## AWS Authentication
+
+Currently the plugins inherit AWS IAM credentials from the context in which its run.
+
 ## Installation
 
 ### Backend
