@@ -12,8 +12,7 @@
  */
 
 import { Logger } from 'winston';
-import Proton from "aws-sdk/clients/proton";
-import { ProtonService } from '@internal/aws-proton-common'
+import { GetServiceCommand, ListServiceInstancesCommand, ProtonClient, Service, ServiceInstanceSummary } from '@aws-sdk/client-proton';
 import { parse } from '@aws-sdk/util-arn-parser'
 
 export class AwsProtonApi {
@@ -23,7 +22,7 @@ export class AwsProtonApi {
 
   public async getProtonService(
     arn: string,
-  ): Promise<ProtonService> {
+  ): Promise<Service> {
     this.logger?.debug(
       `Fetch Proton Service ${arn}`,
     );
@@ -34,23 +33,32 @@ export class AwsProtonApi {
 
     const serviceName = segments[1];
 
-    const protonApi = new Proton({region:region})
-    const resp = await protonApi
-      .getService({
-        name: serviceName,
-      })
-      .promise();
-    const v = resp.service!;
+    const client = new ProtonClient({ region: region });
+    const resp = await client
+      .send(new GetServiceCommand({
+        name: serviceName
+      }));
+    return resp.service!;
+  }
 
-    return {
-      name: v.name,
-      region: region,
-      status: v.status,
-      statusMessage: v.statusMessage,
-      lastModified: v.lastModifiedAt,
-      templateName: v.templateName,
-      templateMajorVersion: v.pipeline?.templateMajorVersion,
-      templateMinorVersion: v.pipeline?.templateMinorVersion,
-    }
+  public async listProtonServiceInstances(
+    arn: string,
+  ): Promise<ServiceInstanceSummary[]> {
+    this.logger?.debug(
+      `Fetch Proton Service ${arn}`,
+    );
+
+    const {region, resource} = parse(arn);
+    const segments = resource.split("/");
+    if (segments.length < 2) throw new Error("Malformed Proton Service ARN");
+
+    const serviceName = segments[1];
+
+    const client = new ProtonClient({ region: region });
+    const resp = await client
+      .send(new ListServiceInstancesCommand({
+        serviceName
+      }));
+    return resp.serviceInstances || [];
   }
 }

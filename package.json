@@ -10,6 +10,7 @@
     "build": "lerna run build",
     "clean": "lerna run clean",
     "test": "lerna run test",
+    "lint": "lerna run lint",
     "start:frontend": "lerna run --scope @internal/plugin-aws-proton start --stream",
     "start:backend": "lerna run --scope @internal/plugin-aws-proton-backend start --stream"
   },

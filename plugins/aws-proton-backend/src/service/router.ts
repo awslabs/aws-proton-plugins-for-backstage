@@ -37,8 +37,28 @@ export async function createRouter(
 
   router.get('/service', async (req, res) => {
     const arn = req.query.arn?.toString();
+
+    if(arn === undefined) {
+      res.status(400);
+      return;
+    }
+
     const service = await awsProtonApi.getProtonService(
-      arn || "",
+      arn,
+    );
+    res.status(200).json(service);
+  });
+
+  router.get('/serviceInstances', async (req, res) => {
+    const arn = req.query.arn?.toString();
+
+    if(arn === undefined) {
+      res.status(400);
+      return;
+    }
+
+    const service = await awsProtonApi.listProtonServiceInstances(
+      arn,
     );
     res.status(200).json(service);
   });

@@ -17,7 +17,7 @@ import {
 } from '@backstage/core-plugin-api';
 import { awsProtonApiRef } from '../api';
 import { useCallback } from 'react';
-import { ProtonService } from '@internal/aws-proton-common';
+import { ProtonServiceData } from '../types';
 
 export function useProtonService({
   arn,
@@ -28,9 +28,18 @@ export function useProtonService({
 
   const getService = useCallback(
     async () => {
-      return await protonServiceApi.getService({
+      const service = await protonServiceApi.getService({
         arn: arn,
       });
+
+      const serviceInstances = await protonServiceApi.listServiceInstances({
+        arn: arn,
+      });
+
+      return {
+        service,
+        serviceInstances,
+      }
     },
     [arn], // eslint-disable-line react-hooks/exhaustive-deps
   );
@@ -39,7 +48,7 @@ export function useProtonService({
     value: service,
     error,
     retry,
-  } = useAsyncRetry<ProtonService | null>(async () => {
+  } = useAsyncRetry<ProtonServiceData | null>(async () => {
     return await getService();
   }, []);
 

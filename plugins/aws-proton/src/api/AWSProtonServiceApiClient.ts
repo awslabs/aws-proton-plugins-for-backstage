@@ -15,8 +15,8 @@ import { IdentityApi } from '@backstage/core-plugin-api';
 
 import { ConfigApi } from '@backstage/core-plugin-api';
 import { ResponseError } from '@backstage/errors';
-import { ProtonService } from '@internal/aws-proton-common';
-import { AwsProtonApi } from './AWSProtonServiceApi';
+import { Service, ServiceInstanceSummary } from '@aws-sdk/client-proton'
+import { AwsProtonApi } from '.';
 
 export class AwsProtonApiClient implements AwsProtonApi {
   private readonly configApi : ConfigApi;
@@ -34,13 +34,28 @@ export class AwsProtonApiClient implements AwsProtonApi {
     arn,
   }: {
     arn: string,
-  }): Promise<ProtonService> {
+  }): Promise<Service> {
     const queryString = new URLSearchParams();
     queryString.append('arn', arn);
 
     const urlSegment = `service?${queryString}`
 
-    const service = await this.get<ProtonService>(urlSegment)
+    const service = await this.get<Service>(urlSegment)
+
+    return service;
+  }
+
+  async listServiceInstances({
+    arn,
+  }: {
+    arn: string,
+  }): Promise<ServiceInstanceSummary[]> {
+    const queryString = new URLSearchParams();
+    queryString.append('arn', arn);
+
+    const urlSegment = `serviceInstances?${queryString}`
+
+    const service = await this.get<ServiceInstanceSummary[]>(urlSegment)
 
     return service;
   }

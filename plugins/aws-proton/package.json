@@ -29,14 +29,15 @@
     "clean": "backstage-cli clean"
   },
   "dependencies": {
+    "@aws-sdk/client-proton": "^3.58.0",
     "@backstage/core-components": "^0.8.9",
     "@backstage/core-plugin-api": "^0.6.1",
     "@backstage/errors": "^0.2.2",
     "@backstage/theme": "^0.2.15",
-    "@internal/aws-proton-common": "file:../aws-proton-common",
     "@material-ui/core": "^4.12.2",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "4.0.0-alpha.57",
+    "moment": "^2.29.1",
     "react-use": "^17.2.4"
   },
   "peerDependencies": {

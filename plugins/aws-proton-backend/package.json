@@ -28,11 +28,11 @@
     "clean": "backstage-cli clean"
   },
   "dependencies": {
+    "@aws-sdk/client-proton": "^3.58.0",
     "@aws-sdk/util-arn-parser": "^3.52.0",
     "@backstage/backend-common": "^0.10.8",
     "@backstage/config": "^0.1.15",
     "@backstage/plugin-scaffolder-backend": "^0.16.1",
-    "@internal/aws-proton-common": "file:../aws-proton-common",
     "@types/express": "*",
     "express": "^4.17.1",
     "express-promise-router": "^4.1.0",
@@ -42,11 +42,12 @@
     "yn": "^4.0.0"
   },
   "devDependencies": {
-    "@aws-sdk/util-arn-parser": "^3.52.0",
     "@backstage/cli": "^0.14.0",
     "@backstage/dev-utils": "^1.0.0",
     "@types/jest": "^27.4.1",
     "@types/supertest": "^2.0.8",
+    "aws-sdk": "2.1100.0",
+    "aws-sdk-client-mock": "^0.6.2",
     "msw": "^0.35.0",
     "react": "^17.0.2",
     "supertest": "^4.0.2"

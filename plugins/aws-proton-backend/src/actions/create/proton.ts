@@ -12,15 +12,15 @@
  */
 
 import { createTemplateAction } from '@backstage/plugin-scaffolder-backend';
-import AWS from 'aws-sdk';
+import { CreateServiceCommand, ProtonClient } from '@aws-sdk/client-proton';
 import { readFile } from 'fs/promises';
 
 export const createProtonAction = () => {
-  return createTemplateAction<{ serviceName: string; templateName: string; templateMajorVersion: string; repository: any; repositoryConnectionArn: string; branchName: string; serviceSpecPath: string }>({
+  return createTemplateAction<{ serviceName: string; templateName: string; templateMajorVersion: string; repository: any; repositoryConnectionArn: string; branchName: string; serviceSpecPath: string; region: string }>({
     id: 'aws:create-proton-service',
     schema: {
       input: {
-        required: ['serviceName', 'templateName', 'templateMajorVersion', 'repository', 'repositoryConnectionArn', 'branchName', 'serviceSpecPath'],
+        required: ['serviceName', 'templateName', 'templateMajorVersion', 'repository', 'repositoryConnectionArn', 'branchName', 'serviceSpecPath', 'region'],
         type: 'object',
         properties: {
           serviceName: {
@@ -58,6 +58,11 @@ export const createProtonAction = () => {
             title: 'Service specification',
             description: 'The filesystem path to the AWS Proton service specification',
           },
+          region: {
+            type: 'string',
+            title: 'AWS region',
+            description: 'The AWS region',
+          },
         },
       },
       output: {
@@ -75,24 +80,22 @@ export const createProtonAction = () => {
 
       ctx.logger.info(`Creating AWS Proton service ${ctx.input.serviceName}`)
 
-      AWS.config.region = 'us-west-2'
-      const protonApi = new AWS.Proton({});
-      const resp = await protonApi
-        .createService({
-          name: ctx.input.serviceName,
-          templateName: ctx.input.templateName,
-          templateMajorVersion: ctx.input.templateMajorVersion,
-          repositoryId: `${ctx.input.repository['owner']}/${ctx.input.repository['repo']}`,
-          repositoryConnectionArn: ctx.input.repositoryConnectionArn,
-          branchName: ctx.input.branchName,
-          spec: spec.toString(),
-        })
-        .promise();
+      const client = new ProtonClient({ region: ctx.input.region });
+      
+      const resp = await client.send(new CreateServiceCommand({
+        name: ctx.input.serviceName,
+        templateName: ctx.input.templateName,
+        templateMajorVersion: ctx.input.templateMajorVersion,
+        repositoryId: `${ctx.input.repository.owner}/${ctx.input.repository.repo}`,
+        repositoryConnectionArn: ctx.input.repositoryConnectionArn,
+        branchName: ctx.input.branchName,
+        spec: spec.toString(),
+      }));
 
-      ctx.logger.info(`Successfully created service ${resp.service.arn}`)
-      ctx.output('arn', resp.service.arn);
-
-      console.log(resp.service)
+      if(resp.service !== undefined) {
+        ctx.logger.info(`Successfully created service ${resp.service.arn}`)
+        ctx.output('arn', `${resp.service.arn}`);
+      }
     },
   });
 };

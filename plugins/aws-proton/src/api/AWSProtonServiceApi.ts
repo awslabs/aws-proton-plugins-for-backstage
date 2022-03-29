@@ -11,9 +11,8 @@
  * limitations under the License.
  */
 
+import { Service, ServiceInstanceSummary } from '@aws-sdk/client-proton';
 import { createApiRef } from '@backstage/core-plugin-api';
-
-import { ProtonService } from '@internal/aws-proton-common';
 
 export const awsProtonApiRef = createApiRef<AwsProtonApi>({
   id: 'plugin.awsproton.service',
@@ -24,5 +23,11 @@ export interface AwsProtonApi {
       arn,
     }: {
       arn: string,
-    }): Promise<ProtonService>;
+    }): Promise<Service>;
+
+  listServiceInstances({
+      arn,
+    }: {
+      arn: string,
+    }): Promise<ServiceInstanceSummary[]>;
 }

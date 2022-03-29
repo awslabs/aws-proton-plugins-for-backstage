@@ -13,33 +13,63 @@
 
 import { createDevApp } from '@backstage/dev-utils';
 import { Entity } from '@backstage/catalog-model';
-import { ProtonService } from '@internal/aws-proton-common';
 import { AwsProtonApi, awsProtonApiRef } from '../src/api';
 import { awsProtonPlugin, EntityAWSProtonServiceOverviewCard } from '../src/plugin';
 import { EntityProvider } from '@backstage/plugin-catalog-react';
 import { TestApiProvider } from '@backstage/test-utils';
 import React from 'react';
+import { DeploymentStatus, Service, ServiceInstanceSummary } from '@aws-sdk/client-proton';
 
 class MockAwsProtonApi implements AwsProtonApi {
-  /*readonly resources: FetchResponse[];
 
-  constructor(fixtureData: { [resourceType: string]: any[] }) {
-    this.resources = Object.entries(fixtureData).flatMap(
-      ([type, resources]) =>
-        ({ type: type.toLocaleLowerCase('en-US'), resources } as FetchResponse),
-    );
-  }*/
-  async getService({ arn, }: { arn: string; }): Promise<ProtonService> {
+  async getService({ arn, }: { arn: string; }): Promise<Service> {
     return {
+      arn: arn,
       name: 'mock-service',
-      region: 'us-west-2',
-      statusMessage: 'ACTIVE',
-      lastModified: new Date(),
-      status: 'ACTIVE',
       templateName: 'mock-template',
-      templateMajorVersion: '1',
-      templateMinorVersion: '0',
+      createdAt: new Date(),
+      lastModifiedAt: new Date(),
+      status: 'ACTIVE',
+      spec: 'asdasd',
+      pipeline: {
+        arn: 'aasdasd',
+        createdAt: new Date(),
+        lastDeploymentAttemptedAt: new Date(),
+        lastDeploymentSucceededAt: new Date(),
+        deploymentStatus: 'SUCCEEDED',
+        templateName: 'mock-template',
+        templateMajorVersion: '1',
+        templateMinorVersion: '0'
+      }
     }
+  }
+
+  async listServiceInstances({ arn, }: { arn: string; }): Promise<ServiceInstanceSummary[]> {
+    return [{
+      arn: 'dummy1',
+      name: 'mock-instance1',
+      lastDeploymentAttemptedAt: new Date(),
+      lastDeploymentSucceededAt: new Date(),
+      templateName: 'mock-template',
+      createdAt: new Date(),
+      serviceName: 'mock-service',
+      deploymentStatus: DeploymentStatus.SUCCEEDED,
+      environmentName: 'dev',
+      templateMajorVersion: '1',
+      templateMinorVersion: '0'
+    },{
+      arn: 'dummy2',
+      name: 'mock-instance2',
+      lastDeploymentAttemptedAt: new Date(),
+      lastDeploymentSucceededAt: new Date(),
+      templateName: 'mock-template',
+      createdAt: new Date(),
+      serviceName: 'mock-service',
+      deploymentStatus: DeploymentStatus.IN_PROGRESS,
+      environmentName: 'prod',
+      templateMajorVersion: '1',
+      templateMinorVersion: '0'
+    }]
   }
 }
 

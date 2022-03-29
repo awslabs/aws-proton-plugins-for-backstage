@@ -11,13 +11,9 @@
  * limitations under the License.
  */
 
-export type ProtonService = {
-  name: string;
-  region: string;
-  status: string;
-  statusMessage: string | undefined;
-  lastModified: Date;
-  templateName: string;
-  templateMajorVersion: string | undefined;
-  templateMinorVersion: string | undefined;
+import { Service, ServiceInstanceSummary } from "@aws-sdk/client-proton";
+
+ export type ProtonServiceData = {
+  service: Service,
+  serviceInstances: ServiceInstanceSummary[],
 };
