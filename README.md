@@ -1,5 +1,7 @@
 ## AWS Proton Plugins for Backstage
 
+[![CI](https://github.com/awslabs/aws-proton-plugins-for-backstage/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/awslabs/aws-proton-plugins-for-backstage/actions/workflows/ci.yml)
+
 This repository contains a set of Backstage plugins for interacting with the [AWS Proton](https://aws.amazon.com/proton/) service.
 
 This includes:
