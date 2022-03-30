@@ -139,7 +139,7 @@ To add the entity card edit `packages/app/src/components/catalog/EntityPage.tsx`
 import {
   EntityAWSProtonServiceOverviewCard,
   isAWSProtonServiceAvailable,
-} from '@internal/plugin-aws-proton';
+} from '@aws/aws-proton-plugin-for-backstage';
 // ...
 const overviewContent = (
   <Grid container spacing={3} alignItems="stretch">
