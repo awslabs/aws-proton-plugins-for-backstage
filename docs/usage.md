@@ -72,7 +72,7 @@ import { Router } from 'express';
 import type { PluginEnvironment } from '../types';
 import { ScmIntegrations } from '@backstage/integration';
 import { createBuiltinActions } from '@backstage/plugin-scaffolder-backend';
-import { createProtonAction } from '@aws/aws-proton-backend-plugin-for-backstage'; // Import the action
+import { createAwsProtonServiceAction } from '@aws/aws-proton-backend-plugin-for-backstage'; // Import the action
 
 export default async function createPlugin({
   logger,
@@ -95,7 +95,7 @@ export default async function createPlugin({
     reader,
   });
 
-  const actions = [...builtInActions, createProtonAction()]; // Add the action to the built-in actions
+  const actions = [...builtInActions, createAwsProtonServiceAction()]; // Add the action to the built-in actions
 
   return await createRouter({
     containerRunner,

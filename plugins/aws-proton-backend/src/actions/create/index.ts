@@ -11,4 +11,4 @@
  * limitations under the License.
  */
 
-export { createProtonAction } from './proton';
+export { createAwsProtonServiceAction } from './create';

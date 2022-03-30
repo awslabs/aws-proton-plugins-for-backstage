@@ -13,14 +13,32 @@
 
 import { createTemplateAction } from '@backstage/plugin-scaffolder-backend';
 import { CreateServiceCommand, ProtonClient } from '@aws-sdk/client-proton';
-import { readFile } from 'fs/promises';
+import fs from 'fs-extra';
 
-export const createProtonAction = () => {
-  return createTemplateAction<{ serviceName: string; templateName: string; templateMajorVersion: string; repository: any; repositoryConnectionArn: string; branchName: string; serviceSpecPath: string; region: string }>({
-    id: 'aws:create-proton-service',
+export const createAwsProtonServiceAction = () => {
+  return createTemplateAction<{
+      serviceName: string; 
+      templateName: string; 
+      templateMajorVersion: string; 
+      repository: any; 
+      repositoryConnectionArn: string; 
+      branchName: string; 
+      serviceSpecPath: string; 
+      region: string 
+    }>({
+    id: 'aws:proton:create-service',
     schema: {
       input: {
-        required: ['serviceName', 'templateName', 'templateMajorVersion', 'repository', 'repositoryConnectionArn', 'branchName', 'serviceSpecPath', 'region'],
+        required: [
+          'serviceName',
+          'templateName',
+          'templateMajorVersion',
+          'repository',
+          'repositoryConnectionArn',
+          'branchName',
+          'serviceSpecPath',
+          'region'
+        ],
         type: 'object',
         properties: {
           serviceName: {
@@ -76,7 +94,7 @@ export const createProtonAction = () => {
       },
     },
     async handler(ctx) {
-      const spec = await readFile(`${ctx.workspacePath}/${ctx.input.serviceSpecPath}`);
+      const spec = await fs.readFile(`${ctx.workspacePath}/${ctx.input.serviceSpecPath}`);
 
       ctx.logger.info(`Creating AWS Proton service ${ctx.input.serviceName}`)
 

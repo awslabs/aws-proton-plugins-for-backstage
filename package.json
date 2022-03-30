@@ -8,7 +8,7 @@
     "bootstrap": "lerna bootstrap",
     "tsc": "lerna exec yarn tsc",
     "build": "lerna run build",
-    "clean": "lerna run clean",
+    "clean": "lerna run clean && lerna clean",
     "test": "lerna run test --stream",
     "lint": "lerna run lint",
     "start:frontend": "lerna run --scope @internal/plugin-aws-proton start --stream",
