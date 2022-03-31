@@ -1816,7 +1816,7 @@
     "@backstage/types" "^1.0.0"
     lodash "^4.17.21"
 
-"@backstage/core-app-api@^0.5.3", "@backstage/core-app-api@^0.5.4":
+"@backstage/core-app-api@^0.5.4":
   version "0.5.4"
   resolved "https://registry.yarnpkg.com/@backstage/core-app-api/-/core-app-api-0.5.4.tgz#9ee39828fdcba64a4eea20e9fe3da58c56c053d5"
   integrity sha512-qH9XQpY8M3yMKUvu+pcAxOUwrazGaA3L1bbzRzCALjmjmve37k9AY3Wd89toGAzqOqwn6OhBfUg+y3kqj44fOw==
@@ -1841,6 +1841,22 @@
     "@backstage/core-plugin-api" "^0.8.0"
     "@backstage/types" "^0.1.3"
     "@backstage/version-bridge" "^0.1.2"
+    "@types/prop-types" "^15.7.3"
+    prop-types "^15.7.2"
+    react-router-dom "6.0.0-beta.0"
+    react-use "^17.2.4"
+    zen-observable "^0.8.15"
+    zod "^3.11.6"
+
+"@backstage/core-app-api@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@backstage/core-app-api/-/core-app-api-1.0.0.tgz#2dae97b050b2f2e5ec1ea42b3d95c57e8bf434d6"
+  integrity sha512-hmoFMPCxAfHgDPQTHbf6rquiG0SCSycWTUrScpYeLwkH3UOekgX8o8ThKT0t3w7WPx83LwT0NqcbSH6zqI9nag==
+  dependencies:
+    "@backstage/config" "^1.0.0"
+    "@backstage/core-plugin-api" "^1.0.0"
+    "@backstage/types" "^1.0.0"
+    "@backstage/version-bridge" "^1.0.0"
     "@types/prop-types" "^15.7.3"
     prop-types "^15.7.2"
     react-router-dom "6.0.0-beta.0"
