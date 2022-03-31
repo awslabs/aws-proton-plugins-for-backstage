@@ -22,3 +22,4 @@ See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more inform
 
 This project is licensed under the Apache-2.0 License.
 
+N.B.: Although this repository is released under the Apache-2.0 license, its test dependencies include the third party rollup-plugin-dts project. The rollup-plugin-dts project's licensing includes the LGPL-3.0 license.
