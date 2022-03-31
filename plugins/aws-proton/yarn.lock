@@ -1800,7 +1800,7 @@
     yaml "^1.9.2"
     yup "^0.32.9"
 
-"@backstage/config@^0.1.14", "@backstage/config@^0.1.15":
+"@backstage/config@^0.1.15":
   version "0.1.15"
   resolved "https://registry.yarnpkg.com/@backstage/config/-/config-0.1.15.tgz#4bad122ad861be5bd61a60639f92d2494fa245c5"
   integrity sha512-eNJEYYSEu9MkrkBYiMpUBWEc3Bu64YgB9pZZGCMW7/9350tV2wbylEdoBJHslilJlJhiUyTXBckn8Ua7DOH7rw==
@@ -1935,19 +1935,6 @@
     remark-gfm "^3.0.1"
     zen-observable "^0.8.15"
     zod "^3.11.6"
-
-"@backstage/core-plugin-api@^0.6.1":
-  version "0.6.1"
-  resolved "https://registry.yarnpkg.com/@backstage/core-plugin-api/-/core-plugin-api-0.6.1.tgz#a6fb8110f384ab9405990450956b2c81b88e90b2"
-  integrity sha512-DtHY0eG2OQ4QAHVb5y8yDUQXZW9Ot7Fsr4Rpe3BbiLpkXA5hZLXPMThOyz1Y79ZOEC5eiyhUlXL1g6P7ylOKMw==
-  dependencies:
-    "@backstage/config" "^0.1.14"
-    "@backstage/types" "^0.1.2"
-    "@backstage/version-bridge" "^0.1.2"
-    history "^5.0.0"
-    prop-types "^15.7.2"
-    react-router-dom "6.0.0-beta.0"
-    zen-observable "^0.8.15"
 
 "@backstage/core-plugin-api@^0.7.0":
   version "0.7.0"
@@ -2168,7 +2155,7 @@
   dependencies:
     "@material-ui/core" "^4.12.2"
 
-"@backstage/types@^0.1.2", "@backstage/types@^0.1.3":
+"@backstage/types@^0.1.3":
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/@backstage/types/-/types-0.1.3.tgz#6613d8cbdf97d42d31cd1e66a833df533e7ccf14"
   integrity sha512-fJVi4oVrlO+G3PRv1fYSll9/X4pE11HLnkI//Geare9sP6wSfp/2zXpLYfKVsG0e24jOl7Swkc8lwLkQ90zMaQ==
