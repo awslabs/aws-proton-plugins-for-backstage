@@ -32,7 +32,7 @@
     "@aws-sdk/util-arn-parser": "^3.52.0",
     "@backstage/backend-common": "^0.10.8",
     "@backstage/config": "^0.1.15",
-    "@backstage/plugin-scaffolder-backend": "^0.16.1",
+    "@backstage/plugin-scaffolder-backend": "^1.0.0",
     "@types/express": "*",
     "express": "^4.17.1",
     "express-promise-router": "^4.1.0",
