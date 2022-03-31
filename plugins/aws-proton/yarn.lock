@@ -1848,51 +1848,7 @@
     zen-observable "^0.8.15"
     zod "^3.11.6"
 
-"@backstage/core-components@^0.8.9":
-  version "0.8.10"
-  resolved "https://registry.yarnpkg.com/@backstage/core-components/-/core-components-0.8.10.tgz#6f79c46cdf507fc3a0d764848a4a8aa73af7ce93"
-  integrity sha512-gGyCPPSdgvzYHWMKlxe/H4yFmEYDQuAtaoT7Y/3+pilcJSIQi9d3oV104BDLC94bdkyOWDsA1tT+PGZtd0p/8g==
-  dependencies:
-    "@backstage/config" "^0.1.15"
-    "@backstage/core-plugin-api" "^0.7.0"
-    "@backstage/errors" "^0.2.2"
-    "@backstage/theme" "^0.2.15"
-    "@material-table/core" "^3.1.0"
-    "@material-ui/core" "^4.12.2"
-    "@material-ui/icons" "^4.9.1"
-    "@material-ui/lab" "4.0.0-alpha.57"
-    "@react-hookz/web" "^12.3.0"
-    "@types/react-sparklines" "^1.7.0"
-    "@types/react-text-truncate" "^0.14.0"
-    ansi-regex "^6.0.1"
-    classnames "^2.2.6"
-    d3-selection "^3.0.0"
-    d3-shape "^3.0.0"
-    d3-zoom "^3.0.0"
-    dagre "^0.8.5"
-    history "^5.0.0"
-    immer "^9.0.1"
-    lodash "^4.17.21"
-    pluralize "^8.0.0"
-    prop-types "^15.7.2"
-    qs "^6.9.4"
-    rc-progress "3.2.4"
-    react-helmet "6.1.0"
-    react-hook-form "^7.12.2"
-    react-markdown "^8.0.0"
-    react-router "6.0.0-beta.0"
-    react-router-dom "6.0.0-beta.0"
-    react-sparklines "^1.7.0"
-    react-syntax-highlighter "^15.4.5"
-    react-text-truncate "^0.17.0"
-    react-use "^17.3.2"
-    react-virtualized-auto-sizer "^1.0.6"
-    react-window "^1.8.6"
-    remark-gfm "^3.0.1"
-    zen-observable "^0.8.15"
-    zod "^3.11.6"
-
-"@backstage/core-components@^0.9.1":
+"@backstage/core-components@^0.9.1", "@backstage/core-components@^0.9.2":
   version "0.9.2"
   resolved "https://registry.yarnpkg.com/@backstage/core-components/-/core-components-0.9.2.tgz#9a3d79a15039256bbc007e5daa08c983050e0238"
   integrity sha512-kh0FB0FmjC55W+xSEkKrAc7D6hvbYLY7N1UUd6M4VBghYXD61Y8RrJFKmBM3bAfPgYaryQNjYgA0BsoTo53PJA==
@@ -2830,13 +2786,6 @@
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@react-hookz/deep-equal/-/deep-equal-1.0.1.tgz#1e9aad97b964879b54a3909f36f0727befa13e1f"
   integrity sha512-6k/pU2jNlgYvKOy84vpCAZ8MGVwybvAdjzrh4UicCVOCPxz0LSBws1OE6O5TO4sPHaSw+yLfNzNK8RicGFc1Kw==
-
-"@react-hookz/web@^12.3.0":
-  version "12.3.0"
-  resolved "https://registry.yarnpkg.com/@react-hookz/web/-/web-12.3.0.tgz#a9a1311a15171a57d68a3db61492f913d4fd455a"
-  integrity sha512-Uujp2RfX/oDEtAbdkV0W/nhiQ5ZYVH+MEq04T7/8TstyiwoIlvsRbEic6c6gQA6sQ/lw93cZ8NP8R7AYjiqDvg==
-  dependencies:
-    "@react-hookz/deep-equal" "^1.0.1"
 
 "@react-hookz/web@^13.0.0":
   version "13.1.0"
@@ -11116,13 +11065,6 @@ react-syntax-highlighter@^15.4.5:
     lowlight "^1.17.0"
     prismjs "^1.27.0"
     refractor "^3.6.0"
-
-react-text-truncate@^0.17.0:
-  version "0.17.0"
-  resolved "https://registry.yarnpkg.com/react-text-truncate/-/react-text-truncate-0.17.0.tgz#a820bfd9d084caf85d900a011fe2ab4216fc3821"
-  integrity sha512-EUL7s47XApOgbR//t/9X+fXg1feS47RcTywNXEQZAlNL0vrCIYGye1C+mpUgGIIXKTkabweid6z7s16AkTo5sA==
-  dependencies:
-    prop-types "^15.5.7"
 
 react-text-truncate@^0.18.0:
   version "0.18.0"
