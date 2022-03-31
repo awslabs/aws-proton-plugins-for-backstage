@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "@aws-sdk/util-arn-parser": "^3.52.0",
-    "@backstage/cli": "^0.14.0",
+    "@backstage/cli": "^0.16.0",
     "@backstage/core-app-api": "^0.5.3",
     "@backstage/dev-utils": "^0.2.22",
     "@backstage/test-utils": "^0.2.5",
