@@ -1658,7 +1658,7 @@
     "@material-ui/icons" "^4.9.1"
     react-router-dom "6.0.0-beta.0"
 
-"@backstage/backend-common@^0.10.8", "@backstage/backend-common@^0.10.9":
+"@backstage/backend-common@^0.10.9":
   version "0.10.9"
   resolved "https://registry.yarnpkg.com/@backstage/backend-common/-/backend-common-0.10.9.tgz#adebd9e4a3bebedecb3a0ce17ebc4d95d8245460"
   integrity sha512-MNXJz8Eesx7q5+1zuVpjDjGKwusf06TTcIIOaJFYpgYwPKmHbCQHfFZr+iUWfL2uSnddoXoGu+P8VhHvdCb6qA==
