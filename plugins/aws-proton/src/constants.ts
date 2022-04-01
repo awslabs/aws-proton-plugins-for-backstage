@@ -12,4 +12,3 @@
  */
 
 export const AWS_PROTON_SERVICE_ANNOTATION = 'aws.com/proton-service';
-export const AWS_CODEPIPELINE_ANNOTATION = 'aws.com/codepipeline-name';
