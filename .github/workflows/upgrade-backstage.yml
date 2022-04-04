@@ -1,0 +1,36 @@
+name: Upgrade Backstage dependencies
+
+on:
+  schedule:
+    - cron: '0 1 1 * *' # 1 am UTC on 1st day of every month
+  workflow_dispatch: {}
+
+jobs:
+  upgrade:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+
+      - name: Upgrade aws-proton plugin
+        working-directory: plugins/aws-proton
+        run: |
+          yarn install
+          yarn backstage-cli versions:bump
+
+      - name: Upgrade aws-proton-backend plugin
+        working-directory: plugins/aws-proton-backend
+        run: |
+          yarn install
+          yarn backstage-cli versions:bump
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add plugins/aws-proton plugins/aws-proton-backend
+          git commit -m "Upgrade Backstage versions"
+          git push
