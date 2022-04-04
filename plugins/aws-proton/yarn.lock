@@ -72,10 +72,10 @@
     "@aws-sdk/types" "3.55.0"
     tslib "^2.3.1"
 
-"@aws-sdk/client-proton@^3.58.0":
-  version "3.58.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/client-proton/-/client-proton-3.58.0.tgz#42768235ae24b4d6bf75f97cc8e51a25b841fe6d"
-  integrity sha512-5Dt9oHhrsW397OhvYmCRIuqSAae7vaykrJ2Z9CBezZmfSSfnGHuExbnEOvJcOjLxaXQkFsNBSKZPunxXLeJWUw==
+"@aws-sdk/client-proton@^3.63.0":
+  version "3.63.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-proton/-/client-proton-3.63.0.tgz#df12879a6355333ffed2b04b5e740f95c8ddad99"
+  integrity sha512-SeL6CnXtGcQlOQvA2m13TCECiftXMrGlOnQO08g4JbTtYffm9+b4mSGnrw+PPmAs58pObBuIcpfEalLln43t6A==
   dependencies:
     "@aws-crypto/sha256-browser" "2.0.0"
     "@aws-crypto/sha256-js" "2.0.0"
