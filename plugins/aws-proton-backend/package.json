@@ -53,7 +53,7 @@
     "aws-sdk-client-mock": "^0.6.2",
     "mock-fs": "^5.1.2",
     "msw": "^0.39.2",
-    "react": "^17.0.2",
+    "react": "^18.0.0",
     "supertest": "^4.0.2"
   },
   "files": [
