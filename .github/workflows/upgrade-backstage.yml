@@ -1,4 +1,4 @@
-name: Upgrade Backstage dependencies
+name: Upgrade Backstage
 
 on:
   schedule:

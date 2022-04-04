@@ -1,0 +1,72 @@
+name: Release Plugins
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Check for new commits to release
+        run: |
+          CURRENT_VERSION=$(cat lerna.json | jq -r '.version')
+          COMMITS_TO_RELEASE=$(git log --pretty=oneline v$CURRENT_VERSION..HEAD | wc -l)
+
+          echo Current version: v$CURRENT_VERSION
+          echo Commits to release: $COMMITS_TO_RELEASE
+
+          echo "CURRENT_VERSION=${CURRENT_VERSION}" >> $GITHUB_ENV
+          echo "COMMITS_TO_RELEASE=${COMMITS_TO_RELEASE}" >> $GITHUB_ENV
+
+      - name: Check if no release needed
+        if: ${{ env.COMMITS_TO_RELEASE == 0 }}
+        run: |
+          echo No changes to release!
+          echo Current release: $CURRENT_VERSION
+
+      - name: Test latest changes
+        if: ${{ env.COMMITS_TO_RELEASE != 0 }}
+        run: |
+          yarn install
+          yarn bootstrap
+          yarn tsc
+          yarn build
+          yarn test
+        env:
+          CI: true
+
+      - name: Publish new version to GitHub
+        if: ${{ env.COMMITS_TO_RELEASE != 0 }}
+        run: |
+          yarn bump-version
+
+          NEW_VERSION=$(cat lerna.json | jq -r '.version')
+          GIT_COMMIT_ID=$(git rev-parse HEAD)
+
+          echo New version: v$NEW_VERSION
+          echo Commit ID: $GIT_COMMIT_ID
+          echo Previous version: v$CURRENT_VERSION
+          echo Changes released:
+          git log --pretty=oneline v$CURRENT_VERSION..v$NEW_VERSION
+
+          echo "NEW_VERSION=${NEW_VERSION}" >> $GITHUB_ENV
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Publish new version to NPM
+        if: ${{ env.COMMITS_TO_RELEASE != 0 }}
+        run: |
+          echo TODO publish to npm
