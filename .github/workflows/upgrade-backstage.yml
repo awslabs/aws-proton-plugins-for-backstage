@@ -33,4 +33,17 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add plugins/aws-proton plugins/aws-proton-backend
           git commit -m "Upgrade Backstage versions"
+
+      - name: Test changes
+        run: |
+          yarn install
+          yarn bootstrap
+          yarn tsc
+          yarn build
+          yarn test
+        env:
+          CI: true
+
+      - name: Push changes
+        run: |
           git push
