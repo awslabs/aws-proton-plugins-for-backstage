@@ -23,13 +23,13 @@ We do not recommend hard-coding your AWS credentials in your Backstage applicati
 
 ### Backend
 
-Install the backend plugin:
+Install the backend plugin package in your Backstage app:
 
 ```
-cd packages/backend && yarn add @aws/aws-proton-backend-plugin-for-backstage
+yarn add --cwd packages/backend @aws/aws-proton-backend-plugin-for-backstage
 ```
 
-Create `packages/backend/src/plugins/awsProton.ts` with the following file contents:
+Create a new file `packages/backend/src/plugins/awsProton.ts` with the following file contents:
 
 ```typescript
 import { createRouter } from '@aws/aws-proton-backend-plugin-for-backstage';
@@ -42,15 +42,37 @@ export default async function createPlugin(env: PluginEnvironment) {
 }
 ```
 
-Edit `packages/backend/src/index.ts` and add appropriate entries to expose the backend plugin, you can use the following content as a guide:
+Edit `packages/backend/src/index.ts` and add the appropriate entries to expose the backend plugin:
 
-```typescript
-import awsProton from './plugins/awsProton'; // Add import
-// ...
-async function main() { // This is just for guidance, don't add it
-  // ...
-  const awsProtonEnv = useHotMemoize(module, () => createEnv('aws-proton-backend'));      // Add env
-  apiRouter.use('/aws-proton-backend', await awsProton(awsProtonEnv));  // Add router plug
+```diff
+diff --git a/packages/backend/src/index.ts b/packages/backend/src/index.ts
+index 70bc66b..1e624ae 100644
+--- a/packages/backend/src/index.ts
++++ b/packages/backend/src/index.ts
+@@ -28,6 +28,7 @@ import scaffolder from './plugins/scaffolder';
+ import proxy from './plugins/proxy';
+ import techdocs from './plugins/techdocs';
+ import search from './plugins/search';
++import awsProton from './plugins/awsProton';
+ import { PluginEnvironment } from './types';
+ import { ServerPermissionClient } from '@backstage/plugin-permission-node';
+
+@@ -79,6 +80,7 @@ async function main() {
+   const techdocsEnv = useHotMemoize(module, () => createEnv('techdocs'));
+   const searchEnv = useHotMemoize(module, () => createEnv('search'));
+   const appEnv = useHotMemoize(module, () => createEnv('app'));
++  const awsProtonEnv = useHotMemoize(module, () => createEnv('aws-proton-backend'));
+
+   const apiRouter = Router();
+   apiRouter.use('/catalog', await catalog(catalogEnv));
+@@ -87,6 +89,7 @@ async function main() {
+   apiRouter.use('/techdocs', await techdocs(techdocsEnv));
+   apiRouter.use('/proxy', await proxy(proxyEnv));
+   apiRouter.use('/search', await search(searchEnv));
++  apiRouter.use('/aws-proton-backend', await awsProton(awsProtonEnv));
+
+   // Add backends ABOVE this line; this 404 handler is the catch-all fallback
+   apiRouter.use(notFoundHandler());
 ```
 
 ### Frontend
