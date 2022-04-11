@@ -4,11 +4,20 @@ This documentation covers how to use the AWS Proton plugins for Backstage.
 
 ## Prerequisites
 
-These instructions assumes you already have a working Backstage application in which to install the plugins. If this is not the case, please refer to the Backstage [Getting Started](https://backstage.io/docs/getting-started/) documentation.
+These instructions assume you already have a working Backstage application in which to install the plugins. If this is not the case, please refer to the Backstage [Getting Started](https://backstage.io/docs/getting-started/) documentation.
 
-## AWS Authentication
+## AWS Credentials
 
-Currently the plugins inherit AWS IAM credentials from the context in which its run.
+The backend plugin relies on the [default behavior of the AWS SDK for Javascript](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/setting-credentials-node.html) to determine the AWS credentials to use for authenticating to AWS APIs.
+
+The backend plugin will search for credentials in the following order:
+
+1. Environment variables (`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`)
+1. Shared credentials file (`~/.aws/credentials`)
+1. Credentials loaded from the Amazon ECS credentials provider (if running in ECS)
+1. Credentials loaded from the Amazon EC2 instance credentials provider (if running in EC2)
+
+We do not recommend hard-coding your AWS credentials in your Backstage application configuration. Hard-coding credentials poses a risk of exposing your access key ID and secret access key.
 
 ## Installation
 
