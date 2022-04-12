@@ -27,3 +27,5 @@ jobs:
       - run: yarn test
         env:
           CI: true
+      - run: yarn --cwd plugins/aws-proton backstage-cli versions:check
+      - run: yarn --cwd plugins/aws-proton-backend backstage-cli versions:check
