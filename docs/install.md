@@ -148,13 +148,13 @@ index 7ce5fcf..e2f1362 100644
      discoveryApi: env.discovery,
    });
 
-+  const integrations = ScmIntegrations.fromConfig(config);
++  const integrations = ScmIntegrations.fromConfig(env.config);
 +
 +  const builtInActions = createBuiltinActions({
 +    integrations,
 +    catalogClient,
-+    reader,
-+    config,
++    reader: env.reader,
++    config: env.config,
 +  });
 +
 +  const actions = [...builtInActions, createAwsProtonServiceAction()];
