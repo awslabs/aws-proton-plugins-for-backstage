@@ -14,6 +14,10 @@ This includes:
 
 See [usage documentation](./docs/usage.md).
 
+## Install
+
+See [installation documentation](./docs/install.md).
+
 ## Security
 
 See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.

@@ -1,89 +1,24 @@
 # Usage
 
-This documentation covers how to use the AWS Proton plugins for Backstage.
+This documentation covers how to use the AWS Proton plugins for Backstage.  Follow the [installation documentation](install.md) to install the plugins into your Backstage application.
 
-## Prerequisites
+## Catalog Entity Annotation
 
-These instructions assume you already have a working Backstage application in which to install the plugins. If this is not the case, please refer to the Backstage [Getting Started](https://backstage.io/docs/getting-started/) documentation.
+Annotate a component with key `aws.com/proton-service` and a Proton service ARN as the value. Components with this annotation will have a Proton service overview card in their Overview tab.
 
-## AWS Credentials
-
-The backend plugin relies on the [default behavior of the AWS SDK for Javascript](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/setting-credentials-node.html) to determine the AWS credentials to use for authenticating to AWS APIs.
-
-The backend plugin will search for credentials in the following order:
-
-1. Environment variables (`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`)
-1. Shared credentials file (`~/.aws/credentials`)
-1. Credentials loaded from the Amazon ECS credentials provider (if running in ECS)
-1. Credentials loaded from the Amazon EC2 instance credentials provider (if running in EC2)
-
-We do not recommend hard-coding your AWS credentials in your Backstage application configuration. Hard-coding credentials poses a risk of exposing your access key ID and secret access key.
-
-## Installation
-
-### Backend
-
-Install the backend plugin package in your Backstage app:
-
-```
-yarn add --cwd packages/backend @aws/aws-proton-backend-plugin-for-backstage
+```yaml
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: [...]
+  annotations:
+    [...]
+    aws.com/proton-service: arn:aws:proton:us-west-2:1234567890:service/my-proton-service
+spec:
+  [...]
 ```
 
-Create a new file `packages/backend/src/plugins/awsProton.ts` with the following file contents:
-
-```typescript
-import { createRouter } from '@aws/aws-proton-backend-plugin-for-backstage';
-import { PluginEnvironment } from '../types';
-
-export default async function createPlugin(env: PluginEnvironment) {
-  return await createRouter({
-    logger: env.logger,
-  });
-}
-```
-
-Edit `packages/backend/src/index.ts` and add the appropriate entries to expose the backend plugin:
-
-```diff
-diff --git a/packages/backend/src/index.ts b/packages/backend/src/index.ts
-index 70bc66b..1e624ae 100644
---- a/packages/backend/src/index.ts
-+++ b/packages/backend/src/index.ts
-@@ -28,6 +28,7 @@ import scaffolder from './plugins/scaffolder';
- import proxy from './plugins/proxy';
- import techdocs from './plugins/techdocs';
- import search from './plugins/search';
-+import awsProton from './plugins/awsProton';
- import { PluginEnvironment } from './types';
- import { ServerPermissionClient } from '@backstage/plugin-permission-node';
-
-@@ -79,6 +80,7 @@ async function main() {
-   const techdocsEnv = useHotMemoize(module, () => createEnv('techdocs'));
-   const searchEnv = useHotMemoize(module, () => createEnv('search'));
-   const appEnv = useHotMemoize(module, () => createEnv('app'));
-+  const awsProtonEnv = useHotMemoize(module, () => createEnv('aws-proton-backend'));
-
-   const apiRouter = Router();
-   apiRouter.use('/catalog', await catalog(catalogEnv));
-@@ -87,6 +89,7 @@ async function main() {
-   apiRouter.use('/techdocs', await techdocs(techdocsEnv));
-   apiRouter.use('/proxy', await proxy(proxyEnv));
-   apiRouter.use('/search', await search(searchEnv));
-+  apiRouter.use('/aws-proton-backend', await awsProton(awsProtonEnv));
-
-   // Add backends ABOVE this line; this 404 handler is the catch-all fallback
-   apiRouter.use(notFoundHandler());
-```
-
-### Frontend
-
-Install the frontend plugin:
-
-```
-cd packages/app && yarn add @aws/aws-proton-plugin-for-backstage
-```
-
-## AWS Proton Create Service Scaffolder Action
+## AWS Proton Create Service Software Templates Scaffolder Action
 
 The `aws:create-proton-service` scaffolder action allows Backstage templates to create a AWS Proton service for new components.
 
@@ -92,55 +27,7 @@ The action makes the following assumptions:
 - AWS Proton environments have already been created
 - Appropriate AWS Proton repository connections have been configured
 
-To add the scaffolder action edit `packages/backend/src/plugins/scaffolder.ts` so it looks something like this:
-
-```typescript
-import { DockerContainerRunner } from '@backstage/backend-common';
-import { CatalogClient } from '@backstage/catalog-client';
-import { createRouter } from '@backstage/plugin-scaffolder-backend';
-import Docker from 'dockerode';
-import { Router } from 'express';
-import type { PluginEnvironment } from '../types';
-import { ScmIntegrations } from '@backstage/integration';
-import { createBuiltinActions } from '@backstage/plugin-scaffolder-backend';
-import { createAwsProtonServiceAction } from '@aws/aws-proton-backend-plugin-for-backstage'; // Import the action
-
-export default async function createPlugin({
-  logger,
-  config,
-  database,
-  reader,
-  discovery,
-}: PluginEnvironment): Promise<Router> {
-  const dockerClient = new Docker();
-  const containerRunner = new DockerContainerRunner({ dockerClient });
-  const catalogClient = new CatalogClient({ discoveryApi: discovery });
-
-  const integrations = ScmIntegrations.fromConfig(config);
-
-  const builtInActions = createBuiltinActions({
-    containerRunner,
-    integrations,
-    config,
-    catalogClient,
-    reader,
-  });
-
-  const actions = [...builtInActions, createAwsProtonServiceAction()]; // Add the action to the built-in actions
-
-  return await createRouter({
-    containerRunner,
-    logger,
-    config,
-    database,
-    catalogClient,
-    reader,
-    actions,
-  });
-}
-```
-
-To use the custom action in a template you can add a step similar to the following:
+To use the custom action in a template, you can add a step similar to the following:
 
 ```yaml
 spec:
@@ -158,59 +45,4 @@ spec:
         branchName: main
         repositoryConnectionArn: 'arn:aws:codestar-connections:us-west-2:1234567890:connection/4dde5c82-51d6-4ea9-918e-03aed6971ff3'
         serviceSpecPath: service_spec.yml
-```
-
-## AWS Proton Entity Card
-
-The `EntityAWSProtonServiceOverviewCard` component provides an entity card with an overview of an existing AWS Proton service.
-
-To add the entity card edit `packages/app/src/components/catalog/EntityPage.tsx` and add the appropriate entries for where you want the card to be placed in the layout. You can use the following content as a guide for what goes where:
-
-```typescript
-import {
-  EntityAWSProtonServiceOverviewCard,
-  isAWSProtonServiceAvailable,
-} from '@aws/aws-proton-plugin-for-backstage';
-// ...
-const overviewContent = (
-  <Grid container spacing={3} alignItems="stretch">
-    {entityWarningContent}
-    <Grid item md={6}>
-      <EntityAboutCard variant="gridItem" />
-    </Grid>
-    // New entry starts here
-    <EntitySwitch>
-        <EntitySwitch.Case if={e => Boolean(isAWSProtonServiceAvailable(e))}>
-          <Grid item md={6}>
-            <EntityAWSProtonServiceOverviewCard />
-          </Grid>
-        </EntitySwitch.Case>
-    </EntitySwitch>
-    // New entry ends here
-    <Grid item md={6} xs={12}>
-      <EntityCatalogGraphCard variant="gridItem" height={400} />
-    </Grid>
-
-    <Grid item md={4} xs={12}>
-      <EntityLinksCard />
-    </Grid>
-    <Grid item md={8} xs={12}>
-      <EntityHasSubcomponentsCard variant="gridItem" />
-    </Grid>
-  </Grid>
-);
-```
-
-You can now annotate a component like so:
-
-```yaml
-apiVersion: backstage.io/v1alpha1
-kind: Component
-metadata:
-  name: [...]
-  annotations:
-    [...]
-    aws.com/proton-service: arn:aws:proton:us-west-2:1234567890:service/my-proton-service
-spec:
-  [...]
 ```
