@@ -13,7 +13,8 @@
     "lint": "lerna run lint",
     "start:frontend": "lerna run --scope @internal/plugin-aws-proton start --stream",
     "start:backend": "lerna run --scope @internal/plugin-aws-proton-backend start --stream",
-    "bump-version": "lerna version"
+    "bump-version": "lerna version",
+    "link-packages": "yarn --cwd plugins/aws-proton link && yarn --cwd plugins/aws-proton-backend link"
   },
   "devDependencies": {
     "lerna": "^4.0.0"

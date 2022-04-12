@@ -18,16 +18,16 @@ spec:
   [...]
 ```
 
-## AWS Proton Create Service Software Templates Scaffolder Action
+## Software Templates Scaffolder Action: Create AWS Proton Service
 
-The `aws:create-proton-service` scaffolder action allows Backstage templates to create a AWS Proton service for new components.
+The `aws:create-proton-service` scaffolder action allows Backstage software templates to create a AWS Proton service for new components.
 
 The action makes the following assumptions:
 - AWS Proton service templates are maintained separately
 - AWS Proton environments have already been created
 - Appropriate AWS Proton repository connections have been configured
 
-To use the custom action in a template, you can add a step similar to the following:
+To use the custom action in a software template, you can add a step similar to the following:
 
 ```yaml
 spec:
