@@ -33,7 +33,10 @@ export class AwsProtonApi {
 
     const serviceName = segments[1];
 
-    const client = new ProtonClient({ region: region });
+    const client = new ProtonClient({
+      region: region,
+      customUserAgent: 'aws-proton-plugin-for-backstage',
+    });
     const resp = await client
       .send(new GetServiceCommand({
         name: serviceName
@@ -54,7 +57,10 @@ export class AwsProtonApi {
 
     const serviceName = segments[1];
 
-    const client = new ProtonClient({ region: region });
+    const client = new ProtonClient({
+      region: region,
+      customUserAgent: 'aws-proton-plugin-for-backstage',
+    });
     const resp = await client
       .send(new ListServiceInstancesCommand({
         serviceName

@@ -98,7 +98,10 @@ export const createAwsProtonServiceAction = () => {
 
       ctx.logger.info(`Creating AWS Proton service ${ctx.input.serviceName}`)
 
-      const client = new ProtonClient({ region: ctx.input.region });
+      const client = new ProtonClient({
+        region: ctx.input.region,
+        customUserAgent: 'aws-proton-plugin-for-backstage',
+      });
       
       const resp = await client.send(new CreateServiceCommand({
         name: ctx.input.serviceName,
