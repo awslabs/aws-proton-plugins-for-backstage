@@ -4,7 +4,7 @@ This documentation covers how to use the AWS Proton plugins for Backstage.  Foll
 
 ## Catalog Entity Annotation
 
-Annotate a component with key `aws.com/proton-service` and a Proton service ARN as the value. Components with this annotation will have a Proton service overview card in their Overview tab.
+Annotate a component with key `aws.amazon.com/aws-proton-service` and a Proton service ARN as the value. Components with this annotation will have a Proton service overview card in their Overview tab.
 
 ```yaml
 apiVersion: backstage.io/v1alpha1
@@ -13,7 +13,7 @@ metadata:
   name: [...]
   annotations:
     [...]
-    aws.com/proton-service: arn:aws:proton:us-west-2:1234567890:service/my-proton-service
+    aws.amazon.com/aws-proton-service: arn:aws:proton:us-west-2:1234567890:service/my-proton-service
 spec:
   [...]
 ```

@@ -80,7 +80,7 @@ const mockEntity: Entity = {
     name: 'backstage',
     description: 'backstage.io',
     annotations: {
-      'aws.com/proton-service': 'arn:aws:proton:us-west-2:1234567890:service/mock-service',
+      'aws.amazon.com/aws-proton-service': 'arn:aws:proton:us-west-2:1234567890:service/mock-service',
     },
   },
   spec: {
