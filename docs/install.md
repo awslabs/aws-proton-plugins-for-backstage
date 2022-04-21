@@ -73,6 +73,9 @@ index 70bc66b..1e624ae 100644
    apiRouter.use(notFoundHandler());
 ```
 
+Verify that the backend plugin is running in your Backstage app. You should receive `{"status":"ok"}` when accessing this URL:
+`https://<your backstage app>/api/aws-proton-backend/health`.
+
 ## Frontend UI Plugin
 
 Install the AWS Proton frontend UI plugin package in your Backstage app:
@@ -169,3 +172,7 @@ index 7ce5fcf..e2f1362 100644
    });
  }
 ```
+
+Verify that the scaffolder action is successfully registered in your Backstage app.
+You should see `aws:proton:create-service` in the list of installed scaffolder actions on the following page:
+`https://<your backstage app>/create/actions`.

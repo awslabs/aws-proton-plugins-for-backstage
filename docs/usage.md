@@ -46,3 +46,5 @@ spec:
         repositoryConnectionArn: 'arn:aws:codestar-connections:us-west-2:1234567890:connection/4dde5c82-51d6-4ea9-918e-03aed6971ff3'
         serviceSpecPath: service_spec.yml
 ```
+
+For full documentation of the `aws:create-proton-service` scaffolder action inputs, see the following page in your Backstage app: `https://<your backstage app>/create/actions`.
