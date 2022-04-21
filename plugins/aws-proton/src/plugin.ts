@@ -11,9 +11,9 @@
  * limitations under the License.
  */
 
-import { configApiRef, createApiFactory, 
-  createComponentExtension, 
-  createPlugin, 
+import { configApiRef, createApiFactory,
+  createComponentExtension,
+  createPlugin,
   identityApiRef, } from '@backstage/core-plugin-api';
 import { AwsProtonApiClient, awsProtonApiRef } from './api';
 import { AWS_PROTON_SERVICE_ANNOTATION } from './constants';
@@ -26,7 +26,7 @@ export const isAWSProtonServiceAvailable = (entity: Entity) =>
 
 export const awsProtonPlugin = createPlugin({
   id: 'aws-proton',
-  
+
   apis: [
     createApiFactory({
       api: awsProtonApiRef,
@@ -42,7 +42,7 @@ export const awsProtonPlugin = createPlugin({
 
 export const EntityAWSProtonServiceOverviewCard = awsProtonPlugin.provide(
   createComponentExtension({
-    name: 'EntityAWSLambdaOverviewCard',
+    name: 'EntityAWSProtonOverviewCard',
     component: {
       lazy: () =>
         import('./components/AWSProtonServiceOverview/AWSProtonServiceOverview').then(

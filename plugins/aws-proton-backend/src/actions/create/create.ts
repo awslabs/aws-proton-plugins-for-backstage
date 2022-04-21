@@ -44,17 +44,17 @@ export const createAwsProtonServiceAction = () => {
           serviceName: {
             type: 'string',
             title: 'Service name',
-            description: 'The name of the Proton service',
+            description: 'The name of the AWS Proton service',
           },
           templateName: {
             type: 'string',
-            title: 'Template name',
-            description: 'The name of the Proton template',
+            title: 'Service template name',
+            description: 'The name of the AWS Proton service template',
           },
           templateMajorVersion: {
             type: 'string',
-            title: 'Template major version',
-            description: 'The major version of the Proton template',
+            title: 'Service template major version',
+            description: 'The major version of the AWS Proton service template',
           },
           repository: {
             type: 'object',
@@ -64,7 +64,7 @@ export const createAwsProtonServiceAction = () => {
           repositoryConnectionArn: {
             type: 'string',
             title: 'Repository connection ARN',
-            description: 'The CodeStar repository connection ARN',
+            description: 'The AWS CodeStar Connections connection ARN',
           },
           branchName: {
             type: 'string',

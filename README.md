@@ -12,7 +12,7 @@ This includes:
 
 ## Usage
 
-See [usage documentation](./docs/usage.md).
+See [usage documentation](./docs/usage.md) and [tutorial](./docs/tutorial.md).
 
 ## Install
 
