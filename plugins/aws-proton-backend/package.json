@@ -40,7 +40,7 @@
     "moment": "^2.29.2",
     "node-fetch": "^3.2.3",
     "winston": "^3.7.1",
-    "yn": "^5.0.0"
+    "yn": "^4.0.0"
   },
   "devDependencies": {
     "@backstage/cli": "^0.16.0",
