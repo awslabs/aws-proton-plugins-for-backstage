@@ -41,6 +41,7 @@ jobs:
           yarn tsc
           yarn build
           yarn test
+          yarn lint
         env:
           CI: true
 
