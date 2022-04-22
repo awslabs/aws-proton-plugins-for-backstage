@@ -1808,15 +1808,15 @@
     "@backstage/types" "^1.0.0"
     lodash "^4.17.21"
 
-"@backstage/core-app-api@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@backstage/core-app-api/-/core-app-api-1.0.0.tgz#2dae97b050b2f2e5ec1ea42b3d95c57e8bf434d6"
-  integrity sha512-hmoFMPCxAfHgDPQTHbf6rquiG0SCSycWTUrScpYeLwkH3UOekgX8o8ThKT0t3w7WPx83LwT0NqcbSH6zqI9nag==
+"@backstage/core-app-api@^1.0.0", "@backstage/core-app-api@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@backstage/core-app-api/-/core-app-api-1.0.1.tgz#56743fb135588f522e97e7e88a848c9a8f351406"
+  integrity sha512-DLsEOpmvUA+LRbhlHiYWGq360lm/WcD2uk27HXWmhEcOnvY/xUItR/aFkHF9QRuGLsU3DQkJb4/ts6/vPjuvvQ==
   dependencies:
     "@backstage/config" "^1.0.0"
-    "@backstage/core-plugin-api" "^1.0.0"
+    "@backstage/core-plugin-api" "^1.0.1"
     "@backstage/types" "^1.0.0"
-    "@backstage/version-bridge" "^1.0.0"
+    "@backstage/version-bridge" "^1.0.1"
     "@types/prop-types" "^15.7.3"
     prop-types "^15.7.2"
     react-router-dom "6.0.0-beta.0"
@@ -1868,14 +1868,14 @@
     zen-observable "^0.8.15"
     zod "^3.11.6"
 
-"@backstage/core-plugin-api@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@backstage/core-plugin-api/-/core-plugin-api-1.0.0.tgz#2f12a92e93323f66ff722878facf468a95562171"
-  integrity sha512-A1Xz6CcrRyUjoSdrhd0AWKgeATFITRwsjgi4CoVUny+wWgqU7gQ2mo42LtOmcaBRdUJz6AhRQn4IhKN/2T3G/A==
+"@backstage/core-plugin-api@^1.0.0", "@backstage/core-plugin-api@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@backstage/core-plugin-api/-/core-plugin-api-1.0.1.tgz#2ad19da6765c40db353c6ae5bf4255dab1f47be2"
+  integrity sha512-x7xlSDqi7SuVgbq9NSdzciDEThIfytVmtbZasY/TtHH3upLre/5AFb8SiPEFiQJX6QBmPWeKG/I+LW+91cEMig==
   dependencies:
     "@backstage/config" "^1.0.0"
     "@backstage/types" "^1.0.0"
-    "@backstage/version-bridge" "^1.0.0"
+    "@backstage/version-bridge" "^1.0.1"
     history "^5.0.0"
     prop-types "^15.7.2"
     react-router-dom "6.0.0-beta.0"
@@ -1982,6 +1982,17 @@
     uuid "^8.0.0"
     zod "^3.11.6"
 
+"@backstage/plugin-permission-common@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-permission-common/-/plugin-permission-common-0.6.0.tgz#85464aa10d1f271252775e5eb30ecfd88e2af152"
+  integrity sha512-wx5TUDFilRqmMJP8TxjR5GuulFFOPHNwoK6eNMuz5ESzLzPhiJDovqaXjqpxsdCVGNb2VJOUlND3SzbwjQ65aA==
+  dependencies:
+    "@backstage/config" "^1.0.0"
+    "@backstage/errors" "^1.0.0"
+    cross-fetch "^3.1.5"
+    uuid "^8.0.0"
+    zod "^3.11.6"
+
 "@backstage/plugin-permission-react@^0.3.4":
   version "0.3.4"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-permission-react/-/plugin-permission-react-0.3.4.tgz#e769dc1489c35d9c924234c0764a584558891716"
@@ -1995,6 +2006,19 @@
     react-use "^17.2.4"
     swr "^1.1.2"
 
+"@backstage/plugin-permission-react@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-permission-react/-/plugin-permission-react-0.4.0.tgz#3135b8bbd0e303afafeeae7b9a0d4de7d9e1198c"
+  integrity sha512-bqyBWHKQKT7Lsk4Z3Y6m2FkczN/0I7cRHiBAqv8go8etYk+tEsud9Mk7lRMX/e4+RKg3i4bLcUHerWdEeNqagw==
+  dependencies:
+    "@backstage/config" "^1.0.0"
+    "@backstage/core-plugin-api" "^1.0.1"
+    "@backstage/plugin-permission-common" "^0.6.0"
+    cross-fetch "^3.1.5"
+    react-router "6.0.0-beta.0"
+    react-use "^17.2.4"
+    swr "^1.1.2"
+
 "@backstage/release-manifests@^0.0.2":
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/@backstage/release-manifests/-/release-manifests-0.0.2.tgz#42faca60dae0c89cf6bc6fbf1b34e1e8cb2a564b"
@@ -2003,22 +2027,22 @@
     cross-fetch "^3.1.5"
 
 "@backstage/test-utils@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@backstage/test-utils/-/test-utils-1.0.0.tgz#dafac18065591a7dda584811cb00812495292ee8"
-  integrity sha512-dHtIjhoq2b+rpsnwVQnWA/2sDxFMt2HL0OxoyKqG2NRum16A7cTQxgrG3UC3p4dqFYKREg7+aTFIjHBa+Tk/PA==
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@backstage/test-utils/-/test-utils-1.0.1.tgz#ce8c6e75bcd424b527d4f903ee6f276a8d1855b7"
+  integrity sha512-KXG0VXqR+Q/GIJz0Ycasr5ZBOtUxAjA1prbY2L4NovaZNyCC/emIaOw/zqhvhhX6XdHV4pP5sQBbAhg4Ceoc6g==
   dependencies:
     "@backstage/config" "^1.0.0"
-    "@backstage/core-app-api" "^1.0.0"
-    "@backstage/core-plugin-api" "^1.0.0"
-    "@backstage/plugin-permission-common" "^0.5.3"
-    "@backstage/plugin-permission-react" "^0.3.4"
+    "@backstage/core-app-api" "^1.0.1"
+    "@backstage/core-plugin-api" "^1.0.1"
+    "@backstage/plugin-permission-common" "^0.6.0"
+    "@backstage/plugin-permission-react" "^0.4.0"
     "@backstage/theme" "^0.2.15"
     "@backstage/types" "^1.0.0"
     "@material-ui/core" "^4.12.2"
     "@material-ui/icons" "^4.11.2"
     "@testing-library/jest-dom" "^5.10.1"
     "@testing-library/react" "^12.1.3"
-    "@testing-library/user-event" "^13.1.8"
+    "@testing-library/user-event" "^14.0.0"
     cross-fetch "^3.1.5"
     react-router "6.0.0-beta.0"
     react-router-dom "6.0.0-beta.0"
@@ -2040,6 +2064,11 @@
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@backstage/version-bridge/-/version-bridge-1.0.0.tgz#b0e6a7530530e2a531ee8400273f0e89c5bb23b0"
   integrity sha512-ma/5RWZqSKq+h3VfZfZHGilYYnTD1FoJkyRRqZitJuYvamvPZtxA7qinYWvT+YK3Xab63F+Dsn/oroYQRMa3DQ==
+
+"@backstage/version-bridge@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@backstage/version-bridge/-/version-bridge-1.0.1.tgz#719082a88d33e0a35a2bafec648cc63069da20f7"
+  integrity sha512-UZvcmONji6iFHfxUU+hM/Wd1N65K+adFrjifZ7JyfdZnQgo3C2D8YE+j34i/yd0MCjGs/TjaixtF9Jb3viDXow==
 
 "@bcoe/v8-coverage@^0.2.3":
   version "0.2.3"
@@ -2977,10 +3006,10 @@
   dependencies:
     "@babel/runtime" "^7.12.5"
 
-"@testing-library/user-event@^14.0.4":
-  version "14.0.4"
-  resolved "https://registry.yarnpkg.com/@testing-library/user-event/-/user-event-14.0.4.tgz#5b430a9c27f25078bff4471661b755115d0db9d4"
-  integrity sha512-VBZe5lcUsmrQyOwIFvqOxLBoaTw1/Qy4Ek+VgmFYs719bs2SxUp42vbsb7ATlQDkHdj4OIQlucfpwxe5WoG1jA==
+"@testing-library/user-event@^14.0.0", "@testing-library/user-event@^14.0.4":
+  version "14.1.1"
+  resolved "https://registry.yarnpkg.com/@testing-library/user-event/-/user-event-14.1.1.tgz#e1ff6118896e4b22af31e5ea2f9da956adde23d8"
+  integrity sha512-XrjH/iEUqNl9lF2HX9YhPNV7Amntkcnpw0Bo1KkRzowNDcgSN9i0nm4Q8Oi5wupgdfPaJNMAWa61A+voD6Kmwg==
 
 "@tootallnate/once@1":
   version "1.1.2"
