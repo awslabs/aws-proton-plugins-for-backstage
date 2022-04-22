@@ -28,7 +28,7 @@
     "clean": "backstage-cli clean"
   },
   "dependencies": {
-    "@aws-sdk/client-proton": "^3.63.0",
+    "@aws-sdk/client-proton": "^3.76.0",
     "@aws-sdk/util-arn-parser": "^3.52.0",
     "@backstage/backend-common": "^0.13.1",
     "@backstage/config": "^1.0.0",
