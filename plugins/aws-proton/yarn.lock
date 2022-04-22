@@ -1825,12 +1825,12 @@
     zod "^3.11.6"
 
 "@backstage/core-components@^0.9.2":
-  version "0.9.2"
-  resolved "https://registry.yarnpkg.com/@backstage/core-components/-/core-components-0.9.2.tgz#9a3d79a15039256bbc007e5daa08c983050e0238"
-  integrity sha512-kh0FB0FmjC55W+xSEkKrAc7D6hvbYLY7N1UUd6M4VBghYXD61Y8RrJFKmBM3bAfPgYaryQNjYgA0BsoTo53PJA==
+  version "0.9.3"
+  resolved "https://registry.yarnpkg.com/@backstage/core-components/-/core-components-0.9.3.tgz#79d8bcea06281da492730fe8eb14aa18877b27c4"
+  integrity sha512-cZr6pT3Q7whzdKvB/M3P4NH2/J4+GHKLvQsnRNoel+DE6PmenyAPDslSRf62Lu17+n6qZNHPMfySK1rePnf0Kg==
   dependencies:
     "@backstage/config" "^1.0.0"
-    "@backstage/core-plugin-api" "^1.0.0"
+    "@backstage/core-plugin-api" "^1.0.1"
     "@backstage/errors" "^1.0.0"
     "@backstage/theme" "^0.2.15"
     "@material-table/core" "^3.1.0"
@@ -1868,14 +1868,14 @@
     zen-observable "^0.8.15"
     zod "^3.11.6"
 
-"@backstage/core-plugin-api@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@backstage/core-plugin-api/-/core-plugin-api-1.0.0.tgz#2f12a92e93323f66ff722878facf468a95562171"
-  integrity sha512-A1Xz6CcrRyUjoSdrhd0AWKgeATFITRwsjgi4CoVUny+wWgqU7gQ2mo42LtOmcaBRdUJz6AhRQn4IhKN/2T3G/A==
+"@backstage/core-plugin-api@^1.0.0", "@backstage/core-plugin-api@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@backstage/core-plugin-api/-/core-plugin-api-1.0.1.tgz#2ad19da6765c40db353c6ae5bf4255dab1f47be2"
+  integrity sha512-x7xlSDqi7SuVgbq9NSdzciDEThIfytVmtbZasY/TtHH3upLre/5AFb8SiPEFiQJX6QBmPWeKG/I+LW+91cEMig==
   dependencies:
     "@backstage/config" "^1.0.0"
     "@backstage/types" "^1.0.0"
-    "@backstage/version-bridge" "^1.0.0"
+    "@backstage/version-bridge" "^1.0.1"
     history "^5.0.0"
     prop-types "^15.7.2"
     react-router-dom "6.0.0-beta.0"
@@ -2040,6 +2040,11 @@
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@backstage/version-bridge/-/version-bridge-1.0.0.tgz#b0e6a7530530e2a531ee8400273f0e89c5bb23b0"
   integrity sha512-ma/5RWZqSKq+h3VfZfZHGilYYnTD1FoJkyRRqZitJuYvamvPZtxA7qinYWvT+YK3Xab63F+Dsn/oroYQRMa3DQ==
+
+"@backstage/version-bridge@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@backstage/version-bridge/-/version-bridge-1.0.1.tgz#719082a88d33e0a35a2bafec648cc63069da20f7"
+  integrity sha512-UZvcmONji6iFHfxUU+hM/Wd1N65K+adFrjifZ7JyfdZnQgo3C2D8YE+j34i/yd0MCjGs/TjaixtF9Jb3viDXow==
 
 "@bcoe/v8-coverage@^0.2.3":
   version "0.2.3"
