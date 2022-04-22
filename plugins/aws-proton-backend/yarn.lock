@@ -1659,15 +1659,15 @@
     react-router-dom "6.0.0-beta.0"
 
 "@backstage/backend-common@^0.13.1":
-  version "0.13.1"
-  resolved "https://registry.yarnpkg.com/@backstage/backend-common/-/backend-common-0.13.1.tgz#dd0ffd29b375b3d79dcf735c1700b4cd6f90ad35"
-  integrity sha512-bZYj5WVGIsel6chK2EesBsACVmozAgTuODcsGo36eT5uxCl97WlQS7F8yBZyuBi6YunAwlQje28aH6+kHvijdA==
+  version "0.13.2"
+  resolved "https://registry.yarnpkg.com/@backstage/backend-common/-/backend-common-0.13.2.tgz#c3619dee671936f306f49eae9c8bbde436cbc40d"
+  integrity sha512-FblxaHCw29N4ME1uHb+513EXcbn30vA224+6cj8159Wje2Rcv8EdMFtuf2awCNcYgoIdDD/R1wwBPeRmZhtERw==
   dependencies:
     "@backstage/cli-common" "^0.1.8"
     "@backstage/config" "^1.0.0"
-    "@backstage/config-loader" "^1.0.0"
+    "@backstage/config-loader" "^1.1.0"
     "@backstage/errors" "^1.0.0"
-    "@backstage/integration" "^1.0.0"
+    "@backstage/integration" "^1.1.0"
     "@backstage/types" "^1.0.0"
     "@google-cloud/storage" "^5.8.0"
     "@keyv/redis" "^2.2.3"
@@ -1677,6 +1677,7 @@
     "@types/dockerode" "^3.3.0"
     "@types/express" "^4.17.6"
     "@types/luxon" "^2.0.4"
+    "@types/webpack-env" "^1.15.2"
     archiver "^5.0.2"
     aws-sdk "^2.840.0"
     compression "^1.7.4"
@@ -1830,17 +1831,17 @@
     yn "^4.0.0"
     zod "^3.11.6"
 
-"@backstage/config-loader@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@backstage/config-loader/-/config-loader-1.0.0.tgz#cb4ffed427149e787ed9a5d694b5c3c49c8e31bb"
-  integrity sha512-gSC3hE+7oxXwWasuEBUOkX48ka84aZ8tQBUieU4NsP0R/b7YRspiE0bcynxsi9wzhwo2/waGy39iPnCqZRD6bg==
+"@backstage/config-loader@^1.0.0", "@backstage/config-loader@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@backstage/config-loader/-/config-loader-1.1.0.tgz#477127d84705ed9a63451563c31ecb4592e58dbc"
+  integrity sha512-pZJz54pOSfZ5MC8vhDVrq1yM4p/T2O1iQNW5br5iv/e1JjHWpGt00yeZOxsHpsOeAfTl2JRpooUQQxpJQ47uUQ==
   dependencies:
     "@backstage/cli-common" "^0.1.8"
     "@backstage/config" "^1.0.0"
     "@backstage/errors" "^1.0.0"
     "@backstage/types" "^1.0.0"
     "@types/json-schema" "^7.0.6"
-    ajv "^7.0.3"
+    ajv "^8.10.0"
     chokidar "^3.5.2"
     fs-extra "10.0.1"
     json-schema "^0.4.0"
@@ -1981,10 +1982,10 @@
     "@material-ui/lab" "4.0.0-alpha.57"
     react-use "^17.2.4"
 
-"@backstage/integration@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@backstage/integration/-/integration-1.0.0.tgz#e307cfddea014bfb0eb2281a5ae25ea0b742e9cf"
-  integrity sha512-DpEoSCQyurLSNGLAAfZzwb8IGEoxm6po6ZkKq9Gt9I63NbLhixBEnCcoPbm5+ld4MVNwg+FgzIoktsjdBt3JIw==
+"@backstage/integration@^1.0.0", "@backstage/integration@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@backstage/integration/-/integration-1.1.0.tgz#4784fe96cca5af0e9bf6ca98ee357338c43f797d"
+  integrity sha512-2yf1ioFsbivHf/PtQy66WT7pa9Mzazc44OORDO4EFEsJT4noIZHff2NZfHvg/5dFFQPPPY/esyEf83jhsOE7Wg==
   dependencies:
     "@backstage/config" "^1.0.0"
     "@octokit/auth-app" "^3.4.0"
@@ -4373,7 +4374,7 @@ ajv@^7.0.3:
     require-from-string "^2.0.2"
     uri-js "^4.2.2"
 
-ajv@^8.0.0, ajv@^8.8.0:
+ajv@^8.0.0, ajv@^8.10.0, ajv@^8.8.0:
   version "8.11.0"
   resolved "https://registry.yarnpkg.com/ajv/-/ajv-8.11.0.tgz#977e91dd96ca669f54a11e23e378e33b884a565f"
   integrity sha512-wGgprdCvMalC0BztXvitD2hC04YffAvtsUn93JbGXYLAtCUO4xd17mCCZQxUOItiBwZvJScWo8NIvQMQ71rdpg==
