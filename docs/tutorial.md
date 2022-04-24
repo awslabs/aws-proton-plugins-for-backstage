@@ -93,7 +93,7 @@ $ aws proton list-environments
     ]
 }
 
-$ aws codestar-connections list-connections 
+$ aws codestar-connections list-connections
 {
     "Connections": [
         {
@@ -137,6 +137,15 @@ Save your config file changes, and restart your Backstage app.
 In your Backstage app, create a new component that uses your customized software template: `https://<your backstage app>/create`.  Select the `Nginx Fargate Web Service` template
 
 http://localhost:3000/create/
+
+If you later need to re-register this component in your Backstage app, add the following location to the `locations` list (replacing `<your-github-name>` first) in the `catalog` section of your Backstage app config file:
+
+```
+    - type: url
+      target: https://github.com/<your-github-name>/my-backstage-tutorial-website/blob/main/catalog-info.yaml
+      rules:
+        - allow: [Component]
+```
 
 ## Tear down AWS resources
 

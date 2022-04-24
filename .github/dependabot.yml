@@ -14,7 +14,9 @@ updates:
       time: "02:00"
     open-pull-requests-limit: 10
     ignore:
-      - dependency-name: '@backstage/*'
+      - dependency-name: '@backstage*'
+      - dependency-name: 'react*'
+      - dependency-name: '@types/react'
 
   - package-ecosystem: npm
     directory: "/plugins/aws-proton-backend"
@@ -23,5 +25,7 @@ updates:
       time: "02:00"
     open-pull-requests-limit: 10
     ignore:
-      - dependency-name: '@backstage/*'
+      - dependency-name: '@backstage*'
+      - dependency-name: 'react*'
+      - dependency-name: '@types/react'
       - dependency-name: 'yn'
