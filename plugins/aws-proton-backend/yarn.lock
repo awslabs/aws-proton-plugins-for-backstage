@@ -1650,7 +1650,7 @@
     "@material-ui/icons" "^4.9.1"
     react-router-dom "6.0.0-beta.0"
 
-"@backstage/backend-common@^0.13.1", "@backstage/backend-common@^0.13.2":
+"@backstage/backend-common@^0.13.2":
   version "0.13.2"
   resolved "https://registry.yarnpkg.com/@backstage/backend-common/-/backend-common-0.13.2.tgz#c3619dee671936f306f49eae9c8bbde436cbc40d"
   integrity sha512-FblxaHCw29N4ME1uHb+513EXcbn30vA224+6cj8159Wje2Rcv8EdMFtuf2awCNcYgoIdDD/R1wwBPeRmZhtERw==
@@ -1927,7 +1927,7 @@
     react-router-dom "6.0.0-beta.0"
     zen-observable "^0.8.15"
 
-"@backstage/dev-utils@^1.0.0":
+"@backstage/dev-utils@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@backstage/dev-utils/-/dev-utils-1.0.1.tgz#42c8c8cd2521c7908ad4f60769709a56ae173a2c"
   integrity sha512-f3AYmGkqgKLUgWlAX9vKLjl7C86UGQlsJvYACCR4sU35TOfaL9L8uJ/Tr9jxkGT6warpaTWzpa/pyg6FGFgIOw==
@@ -2115,7 +2115,7 @@
     react-use "^17.2.4"
     swr "^1.1.2"
 
-"@backstage/plugin-scaffolder-backend@^1.0.0":
+"@backstage/plugin-scaffolder-backend@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-scaffolder-backend/-/plugin-scaffolder-backend-1.1.0.tgz#6ae9dd3aaa0d3872567217174b80b8e2ed7e24d0"
   integrity sha512-Jt1TthxzxxfxOGh46ZkmHFmdGl48tyObgO5MCqntoITzp5Plbm0/Kx4jwAJ3CFfLonulJ+tA91g63MBOYueugw==

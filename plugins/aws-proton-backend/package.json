@@ -30,9 +30,9 @@
   "dependencies": {
     "@aws-sdk/client-proton": "^3.63.0",
     "@aws-sdk/util-arn-parser": "^3.52.0",
-    "@backstage/backend-common": "^0.13.1",
+    "@backstage/backend-common": "^0.13.2",
     "@backstage/config": "^1.0.0",
-    "@backstage/plugin-scaffolder-backend": "^1.0.0",
+    "@backstage/plugin-scaffolder-backend": "^1.1.0",
     "@types/express": "*",
     "express": "^4.17.1",
     "express-promise-router": "^4.1.0",
@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@backstage/cli": "^0.17.0",
-    "@backstage/dev-utils": "^1.0.0",
+    "@backstage/dev-utils": "^1.0.1",
     "@types/jest": "^27.4.1",
     "@types/supertest": "^2.0.8",
     "@types/fs-extra": "^9.0.13",
