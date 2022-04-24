@@ -39,7 +39,7 @@ export async function createRouter(
     const arn = req.query.arn?.toString();
 
     if(arn === undefined) {
-      res.status(400);
+      res.status(400).send({ error: 'No ARN provided' });
       return;
     }
 
@@ -53,7 +53,7 @@ export async function createRouter(
     const arn = req.query.arn?.toString();
 
     if(arn === undefined) {
-      res.status(400);
+      res.status(400).send({ error: 'No ARN provided' });
       return;
     }
 

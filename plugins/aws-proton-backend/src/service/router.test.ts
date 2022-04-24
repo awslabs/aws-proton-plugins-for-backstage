@@ -39,4 +39,22 @@ describe('createRouter', () => {
       expect(response.body).toEqual({ status: 'ok' });
     });
   });
+
+  describe('GET /service without arn', () => {
+    it('returns error message', async () => {
+      const response = await request(app).get('/service');
+
+      expect(response.status).toEqual(400);
+      expect(response.body).toEqual({ error: 'No ARN provided' });
+    });
+  });
+
+  describe('GET /serviceInstances without arn', () => {
+    it('returns error message', async () => {
+      const response = await request(app).get('/serviceInstances');
+
+      expect(response.status).toEqual(400);
+      expect(response.body).toEqual({ error: 'No ARN provided' });
+    });
+  });
 });

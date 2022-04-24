@@ -37,8 +37,6 @@
     "express": "^4.17.1",
     "express-promise-router": "^4.1.0",
     "fs-extra": "^10.0.1",
-    "moment": "^2.29.2",
-    "node-fetch": "^3.2.3",
     "winston": "^3.7.1",
     "yn": "^4.0.0"
   },
@@ -50,10 +48,12 @@
     "@types/fs-extra": "^9.0.13",
     "@types/glob": "^7.2.0",
     "@types/mock-fs": "^4.13.1",
+    "@types/react": "^17.0.0",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0",
     "aws-sdk-client-mock": "^0.6.2",
     "mock-fs": "^5.1.2",
     "msw": "^0.39.2",
-    "react": "^18.0.0",
     "supertest": "^6.2.2"
   },
   "files": [
