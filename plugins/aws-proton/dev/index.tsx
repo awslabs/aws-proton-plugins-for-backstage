@@ -46,7 +46,7 @@ class MockAwsProtonApi implements AwsProtonApi {
 
   async listServiceInstances({ arn, }: { arn: string; }): Promise<ServiceInstanceSummary[]> {
     return [{
-      arn: 'dummy1',
+      arn: arn,
       name: 'mock-instance1',
       lastDeploymentAttemptedAt: new Date(),
       lastDeploymentSucceededAt: new Date(),
@@ -58,7 +58,7 @@ class MockAwsProtonApi implements AwsProtonApi {
       templateMajorVersion: '1',
       templateMinorVersion: '0'
     },{
-      arn: 'dummy2',
+      arn: arn,
       name: 'mock-instance2',
       lastDeploymentAttemptedAt: new Date(),
       lastDeploymentSucceededAt: new Date(),

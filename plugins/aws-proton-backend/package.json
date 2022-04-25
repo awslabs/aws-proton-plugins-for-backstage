@@ -4,7 +4,6 @@
   "main": "dist/index.cjs.js",
   "types": "dist/index.d.ts",
   "license": "Apache-2.0",
-  "private": true,
   "publishConfig": {
     "access": "public",
     "main": "dist/index.cjs.js",
@@ -17,6 +16,9 @@
   },
   "bugs": {
     "url": "https://github.com/awslabs/aws-proton-plugins-for-backstage/issues"
+  },
+  "backstage": {
+    "role": "backend-plugin"
   },
   "scripts": {
     "start": "backstage-cli backend:dev",
@@ -48,9 +50,6 @@
     "@types/fs-extra": "^9.0.13",
     "@types/glob": "^7.2.0",
     "@types/mock-fs": "^4.13.1",
-    "@types/react": "^17.0.0",
-    "react": "^17.0.0",
-    "react-dom": "^17.0.0",
     "aws-sdk-client-mock": "^0.6.2",
     "mock-fs": "^5.1.2",
     "msw": "^0.39.2",
