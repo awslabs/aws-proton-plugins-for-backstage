@@ -15,14 +15,7 @@ jobs:
         with:
           node-version: 16.x
 
-      - name: Upgrade aws-proton plugin
-        working-directory: plugins/aws-proton
-        run: |
-          yarn install
-          yarn backstage-cli versions:bump
-
-      - name: Upgrade aws-proton-backend plugin
-        working-directory: plugins/aws-proton-backend
+      - name: Upgrade plugins
         run: |
           yarn install
           yarn backstage-cli versions:bump
@@ -31,17 +24,13 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add plugins/aws-proton plugins/aws-proton-backend
+          git add -A
           git commit -m "Upgrade Backstage versions"
 
       - name: Test changes
         run: |
           yarn install
-          yarn bootstrap
-          yarn tsc
-          yarn build
-          yarn test
-          yarn lint
+          yarn ci
         env:
           CI: true
 

@@ -21,12 +21,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: yarn install
-      - run: yarn bootstrap
-      - run: yarn tsc
-      - run: yarn build
-      - run: yarn test
+      - run: yarn ci
         env:
           CI: true
-      - run: yarn lint
-      - run: yarn --cwd plugins/aws-proton backstage-cli versions:check
-      - run: yarn --cwd plugins/aws-proton-backend backstage-cli versions:check
+      - run: yarn backstage-cli versions:check

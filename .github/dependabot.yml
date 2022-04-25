@@ -5,33 +5,12 @@ updates:
     directory: "/"
     schedule:
       interval: monthly
-    open-pull-requests-limit: 10
+    open-pull-requests-limit: 20
     ignore:
+      # Let backstage-cli do these version bumps
       - dependency-name: '@backstage*'
+      # Keep React in sync with the peer dependencies in the Backstage deps
       - dependency-name: 'react*'
       - dependency-name: '@types/react'
-      - dependency-name: 'yn'
-
-  - package-ecosystem: npm
-    directory: "/plugins/aws-proton"
-    schedule:
-      interval: monthly
-      time: "02:00"
-    open-pull-requests-limit: 10
-    ignore:
-      - dependency-name: '@backstage*'
-      - dependency-name: 'react*'
-      - dependency-name: '@types/react'
-      - dependency-name: 'yn'
-
-  - package-ecosystem: npm
-    directory: "/plugins/aws-proton-backend"
-    schedule:
-      interval: monthly
-      time: "02:00"
-    open-pull-requests-limit: 10
-    ignore:
-      - dependency-name: '@backstage*'
-      - dependency-name: 'react*'
-      - dependency-name: '@types/react'
+      # Version 5.0.0 has a breaking change
       - dependency-name: 'yn'

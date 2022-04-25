@@ -41,11 +41,7 @@ jobs:
         if: ${{ env.COMMITS_TO_RELEASE != 0 }}
         run: |
           yarn install
-          yarn bootstrap
-          yarn tsc
-          yarn build
-          yarn test
-          yarn lint
+          yarn ci
         env:
           CI: true
 

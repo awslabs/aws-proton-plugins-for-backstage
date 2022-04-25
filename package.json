@@ -24,6 +24,8 @@
   "devDependencies": {
     "lerna": "^4.0.0",
     "react": "^17.0.0",
-    "react-dom": "^17.0.0"
+    "react-dom": "^17.0.0",
+    "@types/react": "^17.0.0",
+    "@backstage/cli": "^0.17.0"
   }
 }
