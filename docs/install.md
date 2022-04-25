@@ -113,7 +113,6 @@ index 84d0944..34f6f58 100644
      <Grid item md={6}>
        <EntityAboutCard variant="gridItem" />
      </Grid>
-+    // Add the AWS Proton service overview card to the Backstage overview content
 +    <EntitySwitch>
 +        <EntitySwitch.Case if={e => Boolean(isAWSProtonServiceAvailable(e))}>
 +          <Grid item md={6}>

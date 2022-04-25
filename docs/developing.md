@@ -27,7 +27,13 @@ yarn start:frontend
 
 Follow the main [Backstage instructions](https://backstage.io/docs/getting-started/create-an-app) to create and run a Backstage app locally.  It is recommended to create a git repository for your personal Backstage app, so that you can version-control your modifications.  After creating the app, go into the app's root directory and run `git init`.
 
-Next, follow the [Proton plugin installation instructions](install.md) to install the Proton plugins into your local Backstage app.  However, you will need to slightly modify the instructions.  Instead of running `yarn workspace backend add...` or `yarn workspace app add...` from the install instructions, manually add the dependencies to those workspaces' package.json files and point them to your local checkout of the Proton plugins (example below).  Then run `yarn install`.
+Next, follow the [Proton plugin installation instructions](install.md) to install the Proton plugins into your local Backstage app.  However, you will need to slightly modify the instructions.  Do not run `yarn workspace backend add...` or `yarn workspace app add...` from the install instructions.  Instead copy the plugin source code into your Backstage app:
+
+```
+$ cp -rf ./aws-proton-plugins-for-backstage/plugins/* ./my-personal-backstage-app/plugins/
+```
+
+Then, manually add the Proton plugin dependencies to point to this local code:
 
 ```diff
 diff --git a/packages/app/package.json b/packages/app/package.json
@@ -38,7 +44,7 @@ index 5509d17..5bf347a 100644
      "role": "frontend"
    },
    "dependencies": {
-+    "@aws/aws-proton-plugin-for-backstage": "link:../../../aws-proton-plugins-for-backstage/plugins/aws-proton",
++    "@aws/aws-proton-plugin-for-backstage": "link:../../plugins/aws-proton",
      "@backstage/app-defaults": "^1.0.1",
      "@backstage/catalog-model": "^1.0.1",
      "@backstage/cli": "^0.17.0",
@@ -50,7 +56,7 @@ index 8e7730c..de90e48 100644
      "build-image": "docker build ../.. -f Dockerfile --tag backstage"
    },
    "dependencies": {
-+    "@aws/aws-proton-backend-plugin-for-backstage": "link:../../../aws-proton-plugins-for-backstage/plugins/aws-proton-backend",
++    "@aws/aws-proton-backend-plugin-for-backstage": "link:../../plugins/aws-proton-backend",
      "app": "link:../app",
      "@backstage/backend-common": "^0.13.2",
      "@backstage/backend-tasks": "^0.3.0",
