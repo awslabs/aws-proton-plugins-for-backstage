@@ -12,8 +12,8 @@
     "test": "lerna run test --stream",
     "lint": "lerna run lint",
     "ci": "lerna bootstrap && lerna exec yarn tsc && lerna run build && lerna run test --stream && lerna run lint",
-    "start:frontend": "lerna run --scope @internal/plugin-aws-proton start --stream",
-    "start:backend": "lerna run --scope @internal/plugin-aws-proton-backend start --stream",
+    "start:frontend": "lerna run --scope @aws/aws-proton-plugin-for-backstage start --stream",
+    "start:backend": "lerna run --scope @aws/aws-proton-backend-plugin-for-backstage start --stream",
     "bump-version": "lerna version",
     "link-packages": "yarn --cwd plugins/aws-proton link && yarn --cwd plugins/aws-proton-backend link"
   },

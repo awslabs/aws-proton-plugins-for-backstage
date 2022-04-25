@@ -1,5 +1,5 @@
 {
-  "name": "@internal/plugin-aws-proton-backend",
+  "name": "@aws/aws-proton-backend-plugin-for-backstage",
   "version": "0.0.0",
   "main": "dist/index.cjs.js",
   "types": "dist/index.d.ts",

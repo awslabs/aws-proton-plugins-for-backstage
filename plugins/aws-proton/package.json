@@ -1,5 +1,5 @@
 {
-  "name": "@internal/plugin-aws-proton",
+  "name": "@aws/aws-proton-plugin-for-backstage",
   "version": "0.0.0",
   "main": "dist/index.esm.js",
   "types": "dist/index.d.ts",
