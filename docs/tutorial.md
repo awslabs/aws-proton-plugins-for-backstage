@@ -22,7 +22,7 @@ Follow the [installation documentation](install.md) to install the Proton plugin
 
 ## Fork this repository
 
-This repository contains a sample Backstage software template that you will need to customize with your AWS account information and register into your Backstage app.  You can either create a public fork of this repository, or duplicate this repository into a private repository (preferred).  Follow the [GitHub documentation](https://docs.github.com/en/repositories/creating-and-managing-repositories/duplicating-a-repository) for duplicating this repository.
+This repository contains a sample Backstage software template that you will need to customize with your AWS account information and register into your Backstage app.  You can either create a public fork of this repository, or duplicate this repository into a private repository (preferred).  Follow the [GitHub documentation](https://docs.github.com/en/repositories/creating-and-managing-repositories/duplicating-a-repository) for duplicating this repository into a private repo.
 
 ## Create the prerequisite AWS resources
 
@@ -134,9 +134,21 @@ Save your config file changes, and restart your Backstage app.
 
 ## Create a new component using the software template
 
-In your Backstage app, create a new component that uses your customized software template: `https://<your backstage app>/create`.  Select the `Nginx Fargate Web Service` template
+In your Backstage app, create a new component that uses your customized software template.  Go to `https://<your backstage app>/create`, and choose the "Nginx Fargate Web Service" template.  Fill in a component name like `my-tutorial-service`.
 
-http://localhost:3000/create/
+![Tutorial scaffolder page 1](images/tutorial-scaffolder-1.png "Tutorial scaffolder page 1")
+
+In the next step, fill in a name like `my-backstage-tutorial-website` for the private repository that Backstage will create for this new component.
+
+![Tutorial scaffolder page 2](images/tutorial-scaffolder-2.png "Tutorial scaffolder page 2")
+
+When the software template runs, you should see that Backstage successfully fetches the template, publishes initial code to a new GitHub repository, creates the AWS Proton service, and registers the component in the Backstage software catalog.
+
+![Tutorial scaffolder page 3](images/tutorial-scaffolder-3.png "Tutorial scaffolder page 3")
+
+Go to the new component's page: `http://<your backstage app>/catalog/default/component/my-tutorial-service`.  You should see an AWS Proton Service card in the component's Overview tab.
+
+![Component entity card](images/tutorial-service-entity-card.png "Component entity card")
 
 If you later need to re-register this component in your Backstage app, add the following location to the `locations` list (replacing `<your-github-name>` first) in the `catalog` section of your Backstage app config file:
 
@@ -149,7 +161,7 @@ If you later need to re-register this component in your Backstage app, add the f
 
 ## Tear down AWS resources
 
-There is no additional charge for AWS Proton, but you will be charged for the AWS resources like Fargate tasks created by deploying environments and services.  When you are finished with this tutorial, you may wish to delete your Proton environments and services.
+There is no additional charge for AWS Proton, but you will be charged for the AWS resources created by deploying environments and services, such as Fargate tasks.  When you are finished with this tutorial, you may wish to delete your Proton environments and services.
 
 ```
 $ aws proton delete-service --name my-tutorial-service

@@ -27,13 +27,13 @@ yarn start:frontend
 
 Follow the main [Backstage instructions](https://backstage.io/docs/getting-started/create-an-app) to create and run a Backstage app locally.  It is recommended to create a git repository for your personal Backstage app, so that you can version-control your modifications.  After creating the app, go into the app's root directory and run `git init`.
 
-Next, follow the [Proton plugin installation instructions](install.md) to install the Proton plugins into your local Backstage app.  However, you will need to slightly modify the instructions.  Do not run `yarn workspace backend add...` or `yarn workspace app add...` from the install instructions.  Instead copy the plugin source code into your Backstage app:
+Next, follow the [Proton plugin installation instructions](install.md) to install the Proton plugins into your local Backstage app.  However, you will need to slightly modify the instructions.  Do not run `yarn workspace backend add...` or `yarn workspace app add...` from the install instructions.  Instead, copy the plugin source code into your Backstage app:
 
 ```
 $ cp -rf ./aws-proton-plugins-for-backstage/plugins/* ./my-personal-backstage-app/plugins/
 ```
 
-Then, manually add the Proton plugin dependencies to point to this local code:
+Then, manually add the Proton plugin dependencies to the 'app' and 'backend' workspaces to point to the local plugin code:
 
 ```diff
 diff --git a/packages/app/package.json b/packages/app/package.json
@@ -65,3 +65,5 @@ index 8e7730c..de90e48 100644
 After everything is installed in your local Backstage app, verify the following:
 1. You see `aws:proton:create-service` in the list of installed scaffolder actions on http://localhost:7007/create/actions.
 2. The backend plugin is running: http://localhost:7007/api/aws-proton-backend/health. You should receive `{"status":"ok"}`.
+
+Follow the [Proton plugins tutorial](tutorial.md) to walk through using the plugins in your Backstage app.
