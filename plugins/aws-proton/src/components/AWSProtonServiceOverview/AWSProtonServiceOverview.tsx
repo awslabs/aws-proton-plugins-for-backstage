@@ -33,6 +33,7 @@
  import { isAWSProtonServiceAvailable } from '../../plugin';
  import { ProtonServiceData } from '../../types';
  import { DeploymentStatus, ServiceInstanceSummary, ServiceStatus } from '@aws-sdk/client-proton';
+ import { parse } from '@aws-sdk/util-arn-parser';
 
  const deploymentStatusComponent = (state: string | undefined) => {
    switch (state) {
@@ -244,7 +245,8 @@
  };
 
  const OverviewComponent = ({ serviceData }: { serviceData: ProtonServiceData }) => {
-   const href = `#`;
+   const arnParts = parse(serviceData.service.arn!);
+   const protonConsoleUrl = `https://${arnParts.region}.console.aws.amazon.com/proton/home?region=${arnParts.region}#/services/detail/${serviceData.service.name}`;
 
    const service = serviceData.service;
 
@@ -252,7 +254,7 @@
      label: 'View Service',
      disabled: false,
      icon: <ViewServiceIcon />,
-     href: href,
+     href: protonConsoleUrl,
    }]
 
    const classes = useStyles();
