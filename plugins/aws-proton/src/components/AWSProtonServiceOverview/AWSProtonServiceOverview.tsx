@@ -33,7 +33,7 @@
  import { isAWSProtonServiceAvailable } from '../../plugin';
  import { ProtonServiceData } from '../../types';
  import { DeploymentStatus, ServiceInstanceSummary, ServiceStatus } from '@aws-sdk/client-proton';
- 
+
  const deploymentStatusComponent = (state: string | undefined) => {
    switch (state) {
      case DeploymentStatus.SUCCEEDED:
@@ -62,11 +62,25 @@
        );
    }
  };
- 
+
+ const templateVersionComponent = (templateMajorVersion: string | undefined, templateMinorVersion: string | undefined) => {
+   if(templateMajorVersion === undefined) {
+     return '-'
+   }
+   return `v${templateMajorVersion}.${templateMinorVersion}`
+ }
+
+ const deploymentTimeComponent = (deploymentTime: Date | undefined) => {
+   if(deploymentTime === undefined) {
+     return '-'
+   }
+   return moment(deploymentTime).fromNow()
+ }
+
  export const ServiceInstanceTable = ({ serviceData }: { serviceData: ProtonServiceData }) => {
    const columns: TableColumn[] = [
      {
-       title: 'Instance Name',
+       title: 'Service Instance Name',
        field: 'name',
      },
      {
@@ -74,22 +88,22 @@
        field: 'environmentName',
      },
      {
-       title: 'Template Version',
+       title: 'Service Template Version',
        field: 'templateName',
-       render: (row: Partial<ServiceInstanceSummary>) => {
-         if(row.templateMajorVersion === undefined) {
-           return '-'
-         }
-         return `v${row.templateMajorVersion}.${row.templateMinorVersion}`
-        },
+       render: (row: Partial<ServiceInstanceSummary>) => templateVersionComponent(row.templateMajorVersion, row.templateMinorVersion),
      },
      {
        title: 'Deployment Status',
        field: 'deploymentStatus',
        render: (row: Partial<ServiceInstanceSummary>) => deploymentStatusComponent(row.deploymentStatus)
      },
+     {
+       title: 'Last Successful Deployment',
+       field: 'lastDeploymentSucceededAt',
+       render: (row: Partial<ServiceInstanceSummary>) => deploymentTimeComponent(row.lastDeploymentSucceededAt),
+     }
    ];
- 
+
    return (
      <div>
        <Table
@@ -100,7 +114,7 @@
      </div>
    );
  };
- 
+
  const useStyles = makeStyles((theme) => ({
    links: {
      margin: theme.spacing(2, 0),
@@ -128,7 +142,7 @@
      wordBreak: 'break-word',
    },
  }));
- 
+
  const AboutField = ({
    label,
    value,
@@ -141,7 +155,7 @@
    children?: React.ReactNode;
  }) => {
    const classes = useStyles();
- 
+
    // Content is either children or a string prop `value`
    const content = React.Children.count(children) ? (
      children
@@ -159,7 +173,7 @@
      </Grid>
    );
  };
- 
+
  const serviceStatusComponent = (state: string | undefined) => {
    switch (state) {
      case ServiceStatus.CREATE_IN_PROGRESS:
@@ -228,19 +242,19 @@
        );
    }
  };
- 
+
  const OverviewComponent = ({ serviceData }: { serviceData: ProtonServiceData }) => {
    const href = `#`;
- 
+
    const service = serviceData.service;
- 
+
    const links : IconLinkVerticalProps[] = [{
      label: 'View Service',
      disabled: false,
      icon: <ViewServiceIcon />,
      href: href,
    }]
- 
+
    const classes = useStyles();
    return (
      <Card>
@@ -251,7 +265,7 @@
        <Divider />
        <CardContent>
          <Grid container>
-           <AboutField label="Name" 
+           <AboutField label="Service Name"
              gridSizes={{ xs: 12, sm: 6, lg: 4 }}>
              <Typography
                variant="body2"
@@ -261,7 +275,7 @@
                {service.name}
              </Typography>
            </AboutField>
-           <AboutField label="Template" 
+           <AboutField label="Service Template"
              gridSizes={{ xs: 12, sm: 6, lg: 4 }}>
              <Typography
                variant="body2"
@@ -272,24 +286,34 @@
              </Typography>
            </AboutField>
            <AboutField
-             label="Status"
+             label="Service Status"
              gridSizes={{ xs: 12, sm: 6, lg: 4 }}
            >
              {serviceStatusComponent(service.status)}
            </AboutField>
-         {service.pipeline && 
+         {service.pipeline &&
          <React.Fragment>
-           <AboutField label="Pipeline Template Version" 
-           gridSizes={{ xs: 12, sm: 6, lg: 4 }}>
-             <>{service.pipeline?.templateMajorVersion && <Typography
+           <AboutField label="Pipeline Last Updated"
+             gridSizes={{ xs: 12, sm: 6, lg: 4 }}>
+             <Typography
                variant="body2"
                paragraph
                className={classes.description}
              >
-               v{service.pipeline?.templateMajorVersion}.{service.pipeline?.templateMinorVersion}
-             </Typography>}</>
+               {deploymentTimeComponent(service.pipeline?.lastDeploymentSucceededAt)}
+             </Typography>
            </AboutField>
-           <AboutField label="Pipeline Status" 
+           <AboutField label="Pipeline Template Version"
+           gridSizes={{ xs: 12, sm: 6, lg: 4 }}>
+             <Typography
+               variant="body2"
+               paragraph
+               className={classes.description}
+             >
+               {templateVersionComponent(service.pipeline?.templateMajorVersion, service.pipeline?.templateMinorVersion)}
+             </Typography>
+           </AboutField>
+           <AboutField label="Pipeline Provisioning Status"
              gridSizes={{ xs: 12, sm: 6, lg: 4 }}>
              <Typography
                variant="body2"
@@ -297,16 +321,6 @@
                className={classes.description}
              >
                {deploymentStatusComponent(service.pipeline?.deploymentStatus)}
-             </Typography>
-           </AboutField>
-           <AboutField label="Last Deployment" 
-             gridSizes={{ xs: 12, sm: 6, lg: 4 }}>
-             <Typography
-               variant="body2"
-               paragraph
-               className={classes.description}
-             >
-               {moment(service.pipeline?.lastDeploymentAttemptedAt).fromNow()}
              </Typography>
            </AboutField>
          </React.Fragment>
@@ -317,10 +331,10 @@
      </Card>
    );
  };
- 
+
  const AWSProtonServiceOverview = ({ entity }: { entity: Entity }) => {
    const { arn } = useProtonServiceArnFromEntity(entity);
- 
+
    const [serviceData] = useProtonService({
      arn
    });
@@ -342,12 +356,12 @@
      <>{serviceData.service && <OverviewComponent serviceData={serviceData.service} />}</>
    );
  };
- 
+
  type Props = {
    /** @deprecated The entity is now grabbed from context instead */
    entity?: Entity;
  };
- 
+
  export const AWSProtonServiceOverviewWidget = (_props: Props) => {
    const { entity } = useEntity();
    return !isAWSProtonServiceAvailable(entity) ? (

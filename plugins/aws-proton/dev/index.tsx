@@ -18,9 +18,9 @@ import { awsProtonPlugin, EntityAWSProtonServiceOverviewCard } from '../src/plug
 import { EntityProvider } from '@backstage/plugin-catalog-react';
 import { TestApiProvider } from '@backstage/test-utils';
 import React from 'react';
-import { DeploymentStatus, Service, ServiceInstanceSummary } from '@aws-sdk/client-proton';
+import { DeploymentStatus, Service, ServiceInstanceSummary, ServiceStatus } from '@aws-sdk/client-proton';
 
-class MockAwsProtonApi implements AwsProtonApi {
+class MockProtonService implements AwsProtonApi {
 
   async getService({ arn, }: { arn: string; }): Promise<Service> {
     return {
@@ -73,6 +73,230 @@ class MockAwsProtonApi implements AwsProtonApi {
   }
 }
 
+class MockMegaService implements AwsProtonApi {
+
+  async getService({ arn, }: { arn: string; }): Promise<Service> {
+    return {
+      arn: arn,
+      name: 'mock-service',
+      templateName: 'mock-template',
+      createdAt: new Date(),
+      lastModifiedAt: new Date(),
+      status: 'ACTIVE',
+      spec: 'asdasd',
+      pipeline: {
+        arn: 'aasdasd',
+        createdAt: new Date(),
+        lastDeploymentAttemptedAt: new Date(),
+        lastDeploymentSucceededAt: new Date(),
+        deploymentStatus: 'SUCCEEDED',
+        templateName: 'mock-template',
+        templateMajorVersion: '1',
+        templateMinorVersion: '0'
+      }
+    }
+  }
+
+  async listServiceInstances({ arn, }: { arn: string; }): Promise<ServiceInstanceSummary[]> {
+    return Array.from({ length: 50 }, (_, i) => {
+      return {
+        arn: arn,
+        name: `mock-instance-${i+1}`,
+        lastDeploymentAttemptedAt: new Date(),
+        lastDeploymentSucceededAt: new Date(),
+        templateName: 'mock-template',
+        createdAt: new Date(),
+        serviceName: 'mock-service',
+        deploymentStatus: DeploymentStatus.SUCCEEDED,
+        environmentName: 'dev',
+        templateMajorVersion: '1',
+        templateMinorVersion: '0'
+      }
+    })
+  }
+}
+
+class MockProtonServiceCreateInProgress implements AwsProtonApi {
+
+  async getService({ arn, }: { arn: string; }): Promise<Service> {
+    return {
+      arn: arn,
+      name: 'mock-service',
+      templateName: 'mock-template',
+      createdAt: new Date(),
+      lastModifiedAt: new Date(),
+      status: ServiceStatus.CREATE_IN_PROGRESS,
+      spec: 'asdasd',
+      pipeline: {
+        arn: 'aasdasd',
+        createdAt: new Date(),
+        lastDeploymentAttemptedAt: new Date(),
+        lastDeploymentSucceededAt: undefined,
+        deploymentStatus: DeploymentStatus.IN_PROGRESS,
+        templateName: 'mock-template',
+        templateMajorVersion: undefined,
+        templateMinorVersion: undefined
+      }
+    }
+  }
+
+  async listServiceInstances({ arn, }: { arn: string; }): Promise<ServiceInstanceSummary[]> {
+    return [{
+      arn: arn,
+      name: 'mock-instance1',
+      lastDeploymentAttemptedAt: new Date(),
+      lastDeploymentSucceededAt: undefined,
+      templateName: 'mock-template',
+      createdAt: new Date(),
+      serviceName: 'mock-service',
+      deploymentStatus: DeploymentStatus.IN_PROGRESS,
+      environmentName: 'dev',
+      templateMajorVersion: undefined,
+      templateMinorVersion: undefined
+    },{
+      arn: arn,
+      name: 'mock-instance2',
+      lastDeploymentAttemptedAt: new Date(),
+      lastDeploymentSucceededAt: undefined,
+      templateName: 'mock-template',
+      createdAt: new Date(),
+      serviceName: 'mock-service',
+      deploymentStatus: DeploymentStatus.IN_PROGRESS,
+      environmentName: 'prod',
+      templateMajorVersion: undefined,
+      templateMinorVersion: undefined
+    }]
+  }
+}
+
+class MockProtonServiceNoPipeline implements AwsProtonApi {
+
+  async getService({ arn, }: { arn: string; }): Promise<Service> {
+    return {
+      arn: arn,
+      name: 'mock-service',
+      templateName: 'mock-template',
+      createdAt: new Date(),
+      lastModifiedAt: new Date(),
+      status: 'ACTIVE',
+      spec: 'asdasd'
+    }
+  }
+
+  async listServiceInstances({ arn, }: { arn: string; }): Promise<ServiceInstanceSummary[]> {
+    return [{
+      arn: arn,
+      name: 'mock-instance1',
+      lastDeploymentAttemptedAt: new Date(),
+      lastDeploymentSucceededAt: new Date(),
+      templateName: 'mock-template',
+      createdAt: new Date(),
+      serviceName: 'mock-service',
+      deploymentStatus: DeploymentStatus.SUCCEEDED,
+      environmentName: 'dev',
+      templateMajorVersion: '1',
+      templateMinorVersion: '0'
+    },{
+      arn: arn,
+      name: 'mock-instance2',
+      lastDeploymentAttemptedAt: new Date(),
+      lastDeploymentSucceededAt: new Date(),
+      templateName: 'mock-template',
+      createdAt: new Date(),
+      serviceName: 'mock-service',
+      deploymentStatus: DeploymentStatus.IN_PROGRESS,
+      environmentName: 'prod',
+      templateMajorVersion: '1',
+      templateMinorVersion: '0'
+    }]
+  }
+}
+
+class MockGetServiceAPIError implements AwsProtonApi {
+
+  async getService({ arn, }: { arn: string; }): Promise<Service> {
+    throw new Error(`Could not find ${ arn }!`)
+  }
+
+  async listServiceInstances({ arn, }: { arn: string; }): Promise<ServiceInstanceSummary[]> {
+    return [{
+      arn: arn,
+      name: 'mock-instance1',
+      lastDeploymentAttemptedAt: new Date(),
+      lastDeploymentSucceededAt: new Date(),
+      templateName: 'mock-template',
+      createdAt: new Date(),
+      serviceName: 'mock-service',
+      deploymentStatus: DeploymentStatus.SUCCEEDED,
+      environmentName: 'dev',
+      templateMajorVersion: '1',
+      templateMinorVersion: '0'
+    }]
+  }
+}
+
+class MockListServiceInstancesAPIError implements AwsProtonApi {
+
+  async getService({ arn, }: { arn: string; }): Promise<Service> {
+    return {
+      arn: arn,
+      name: 'mock-service',
+      templateName: 'mock-template',
+      createdAt: new Date(),
+      lastModifiedAt: new Date(),
+      status: 'ACTIVE',
+      spec: 'asdasd'
+    }
+  }
+
+  async listServiceInstances({ arn, }: { arn: string; }): Promise<ServiceInstanceSummary[]> {
+    throw new Error(`Access denied to ${ arn }!`)
+  }
+}
+
+class MockSlowLoad implements AwsProtonApi {
+
+  async getService({ arn, }: { arn: string; }): Promise<Service> {
+    return {
+      arn: arn,
+      name: 'mock-service',
+      templateName: 'mock-template',
+      createdAt: new Date(),
+      lastModifiedAt: new Date(),
+      status: 'ACTIVE',
+      spec: 'asdasd',
+      pipeline: {
+        arn: 'aasdasd',
+        createdAt: new Date(),
+        lastDeploymentAttemptedAt: new Date(),
+        lastDeploymentSucceededAt: new Date(),
+        deploymentStatus: 'SUCCEEDED',
+        templateName: 'mock-template',
+        templateMajorVersion: '1',
+        templateMinorVersion: '0'
+      }
+    }
+  }
+
+  async listServiceInstances({ arn, }: { arn: string; }): Promise<ServiceInstanceSummary[]> {
+    await new Promise(f => setTimeout(f, 5000));
+    return [{
+      arn: arn,
+      name: 'mock-instance1',
+      lastDeploymentAttemptedAt: new Date(),
+      lastDeploymentSucceededAt: new Date(),
+      templateName: 'mock-template',
+      createdAt: new Date(),
+      serviceName: 'mock-service',
+      deploymentStatus: DeploymentStatus.SUCCEEDED,
+      environmentName: 'dev',
+      templateMajorVersion: '1',
+      templateMinorVersion: '0'
+    }]
+  }
+}
+
+
 const mockEntity: Entity = {
   apiVersion: 'backstage.io/v1alpha1',
   kind: 'Component',
@@ -90,13 +314,121 @@ const mockEntity: Entity = {
   },
 };
 
+const invalidEntity: Entity = {
+  apiVersion: 'backstage.io/v1alpha1',
+  kind: 'Component',
+  metadata: {
+    name: 'backstage',
+    description: 'backstage.io',
+    annotations: {
+      'aws.amazon.com/aws-proton-service': 'mock-service',
+    },
+  },
+  spec: {
+    lifecycle: 'production',
+    type: 'service',
+    owner: 'user:guest',
+  },
+};
+
 createDevApp()
   .addPage({
-    path: '/fixture-1',
-    title: 'Fixture 1',
+    path: '/fixture-proton-service',
+    title: 'Service',
     element: (
       <TestApiProvider
-        apis={[[awsProtonApiRef, new MockAwsProtonApi()]]}
+        apis={[[awsProtonApiRef, new MockProtonService()]]}
+      >
+        <EntityProvider entity={mockEntity}>
+          <EntityAWSProtonServiceOverviewCard />
+        </EntityProvider>
+      </TestApiProvider>
+    ),
+  })
+  .addPage({
+    path: '/fixture-mega-proton-service',
+    title: 'Mega Service',
+    element: (
+      <TestApiProvider
+        apis={[[awsProtonApiRef, new MockMegaService()]]}
+      >
+        <EntityProvider entity={mockEntity}>
+          <EntityAWSProtonServiceOverviewCard />
+        </EntityProvider>
+      </TestApiProvider>
+    ),
+  })
+  .addPage({
+    path: '/fixture-proton-service-create-in-progress',
+    title: 'Create In Progress',
+    element: (
+      <TestApiProvider
+        apis={[[awsProtonApiRef, new MockProtonServiceCreateInProgress()]]}
+      >
+        <EntityProvider entity={mockEntity}>
+          <EntityAWSProtonServiceOverviewCard />
+        </EntityProvider>
+      </TestApiProvider>
+    ),
+  })
+  .addPage({
+    path: '/fixture-proton-service-no-pipeline',
+    title: 'No Pipeline',
+    element: (
+      <TestApiProvider
+        apis={[[awsProtonApiRef, new MockProtonServiceNoPipeline()]]}
+      >
+        <EntityProvider entity={mockEntity}>
+          <EntityAWSProtonServiceOverviewCard />
+        </EntityProvider>
+      </TestApiProvider>
+    ),
+  })
+  .addPage({
+    path: '/fixture-invalid-annotation',
+    title: 'Bad Annotation',
+    element: (
+      <TestApiProvider
+        apis={[[awsProtonApiRef, new MockProtonService()]]}
+      >
+        <EntityProvider entity={invalidEntity}>
+          <EntityAWSProtonServiceOverviewCard />
+        </EntityProvider>
+      </TestApiProvider>
+    ),
+  })
+  .addPage({
+    path: '/fixture-proton-service-get-service-api-error',
+    title: 'GetService Error',
+    element: (
+      <TestApiProvider
+        apis={[[awsProtonApiRef, new MockGetServiceAPIError()]]}
+      >
+        <EntityProvider entity={mockEntity}>
+          <EntityAWSProtonServiceOverviewCard />
+        </EntityProvider>
+      </TestApiProvider>
+    ),
+  })
+  .addPage({
+    path: '/fixture-proton-service-list-service-instances-api-error',
+    title: 'ListServiceInstances Error',
+    element: (
+      <TestApiProvider
+        apis={[[awsProtonApiRef, new MockListServiceInstancesAPIError()]]}
+      >
+        <EntityProvider entity={mockEntity}>
+          <EntityAWSProtonServiceOverviewCard />
+        </EntityProvider>
+      </TestApiProvider>
+    ),
+  })
+  .addPage({
+    path: '/fixture-slow-load',
+    title: 'Slow Load',
+    element: (
+      <TestApiProvider
+        apis={[[awsProtonApiRef, new MockSlowLoad()]]}
       >
         <EntityProvider entity={mockEntity}>
           <EntityAWSProtonServiceOverviewCard />
