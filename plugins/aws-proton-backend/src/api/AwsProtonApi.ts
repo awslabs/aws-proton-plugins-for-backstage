@@ -12,7 +12,7 @@
  */
 
 import { Logger } from 'winston';
-import { GetServiceCommand, ListServiceInstancesCommand, ProtonClient, Service, ServiceInstanceSummary } from '@aws-sdk/client-proton';
+import { GetServiceCommand, ProtonClient, Service, ServiceInstanceSummary, paginateListServiceInstances } from '@aws-sdk/client-proton';
 import { parse } from '@aws-sdk/util-arn-parser'
 
 export class AwsProtonApi {
@@ -61,10 +61,12 @@ export class AwsProtonApi {
       region: region,
       customUserAgent: 'aws-proton-plugin-for-backstage',
     });
-    const resp = await client
-      .send(new ListServiceInstancesCommand({
-        serviceName
-      }));
-    return resp.serviceInstances || [];
+    const serviceInstances: ServiceInstanceSummary[] = [];
+    for await (const page of paginateListServiceInstances({ client }, { serviceName })) {
+      if (page.serviceInstances) {
+        serviceInstances.push(...page.serviceInstances);
+      }
+    }
+    return serviceInstances;
   }
 }
