@@ -2,6 +2,15 @@
 
 This documentation covers how to install the AWS Proton plugins for Backstage into your Backstage application.
 
+<!-- toc -->
+1. [Prerequisites](#prerequisites)
+1. [AWS Credentials](#aws-credentials)
+1. [IAM Permissions](#iam-permissions)
+1. [Install the Backend Plugin](#install-the-backend-plugin)
+1. [Install the Frontend UI Plugin](#install-the-frontend-ui-plugin)
+1. [Install the Software Templates Scaffolder Action](#install-the-software-templates-scaffolder-action)
+<!-- tocstop -->
+
 ## Prerequisites
 
 These instructions assume you already have a working Backstage application in which to install the plugins. If this is not the case, please refer to the Backstage [Getting Started](https://backstage.io/docs/getting-started/) documentation.
@@ -19,7 +28,82 @@ The Proton backend plugin running in your Backstage app will search for credenti
 
 We do not recommend hard-coding your AWS credentials in your Backstage application configuration. Hard-coding credentials poses a risk of exposing your access key ID and secret access key.
 
-## Backend Plugin
+## IAM Permissions
+
+The Proton backend plugin requires the following IAM permissions for populating the Proton entity card:
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "proton:GetService",
+                "proton:ListServiceInstances"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+```
+
+The Proton scaffolder action requires the following IAM permissions to create Proton services:
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "proton:CreateService",
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "codestar-connections:PassConnection",
+            "Resource": "arn:aws:codestar-connections:*:*:connection/*",
+            "Condition": {
+                "StringEquals": {
+                    "codestar-connections:PassedToService": "proton.amazonaws.com"
+                }
+            }
+        }
+    ]
+}
+```
+
+Depending on how you configure the Proton scaffolder action in your Backstage software templates, the Proton scaffolder action permissions can also be further limited to specific Proton service templates and CodeStar Connections connections:
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "proton:CreateService",
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "proton:ServiceTemplate": "arn:aws:proton:us-east-1:123456789012:service-template/my-service-template"
+                }
+            }
+        },
+        {
+            "Effect": "Allow",
+            "Action": "codestar-connections:PassConnection",
+            "Resource": "arn:aws:codestar-connections:us-east-1:123456789012:connection/c176b204-5bb1-48f1-b977-5aff4fa2df9d",
+            "Condition": {
+                "StringEquals": {
+                    "codestar-connections:PassedToService": "proton.amazonaws.com"
+                }
+            }
+        }
+    ]
+}
+```
+
+## Install the Backend Plugin
 
 Install the AWS Proton backend plugin package in your Backstage app:
 
@@ -76,7 +160,7 @@ index 70bc66b..1e624ae 100644
 Verify that the backend plugin is running in your Backstage app. You should receive `{"status":"ok"}` when accessing this URL:
 `https://<your backstage app>/api/aws-proton-backend/health`.
 
-## Frontend UI Plugin
+## Install the Frontend UI Plugin
 
 Install the AWS Proton frontend UI plugin package in your Backstage app:
 
@@ -127,7 +211,7 @@ index 84d0944..34f6f58 100644
      <Grid item md={4} xs={12}>
 ```
 
-## Software Templates Scaffolder Action
+## Install the Software Templates Scaffolder Action
 
 Edit `packages/backend/src/plugins/scaffolder.ts` to register the AWS Proton Create Service scaffolder action:
 
