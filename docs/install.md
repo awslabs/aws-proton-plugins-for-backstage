@@ -17,16 +17,19 @@ These instructions assume you already have a working Backstage application in wh
 
 ## AWS Credentials
 
-The Proton backend plugin relies on the [default behavior of the AWS SDK for Javascript](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/setting-credentials-node.html) to determine the AWS credentials to use for authenticating to AWS APIs.
+The Proton backend plugin relies on the [default behavior of the AWS SDK for Javascript](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/modules/_aws_sdk_credential_provider_node.html) to determine the AWS credentials to use for authenticating to AWS APIs.
 
 The Proton backend plugin running in your Backstage app will search for credentials in the following order:
 
 1. Environment variables (`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`)
-1. Shared credentials file (`~/.aws/credentials`)
-1. Credentials loaded from the Amazon ECS credentials provider (if running in ECS)
-1. Credentials loaded from the Amazon EC2 instance credentials provider (if running in EC2)
+1. SSO credentials from token cache
+1. Web identity token credentials (including running in an Amazon EKS cluster using IAM roles for service accounts)
+1. Shared credentials and config ini files (`~/.aws/credentials`, `~/.aws/config`)
+1. Amazon ECS task metadata service
+1. Amazon EC2 instance metadata service
 
-We do not recommend hard-coding your AWS credentials in your Backstage application configuration. Hard-coding credentials poses a risk of exposing your access key ID and secret access key.
+We do not recommend hard-coding long-lived AWS credentials in your production Backstage application configuration. Hard-coding credentials poses a risk of exposing your access key ID and secret access key.
+Instead, we recommend using short-lived AWS credentials for your production Backstage application by deploying it to ECS, EKS, or EC2.  See [the Backstage documentation](https://backstage.io/docs/deployment/) for guides on deploying Backstage to EKS using a Helm chart or to ECS on AWS Fargate using the AWS Cloud Development Kit (CDK).
 
 ## IAM Permissions
 

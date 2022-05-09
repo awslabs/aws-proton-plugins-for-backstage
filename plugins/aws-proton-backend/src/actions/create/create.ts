@@ -13,18 +13,20 @@
 
 import { createTemplateAction } from '@backstage/plugin-scaffolder-backend';
 import { CreateServiceCommand, ProtonClient } from '@aws-sdk/client-proton';
+import { getDefaultRoleAssumerWithWebIdentity } from '@aws-sdk/client-sts';
+import { defaultProvider } from '@aws-sdk/credential-provider-node';
 import fs from 'fs-extra';
 
 export const createAwsProtonServiceAction = () => {
   return createTemplateAction<{
-      serviceName: string; 
-      templateName: string; 
-      templateMajorVersion: string; 
-      repository: any; 
-      repositoryConnectionArn: string; 
-      branchName: string; 
-      serviceSpecPath: string; 
-      region: string 
+      serviceName: string;
+      templateName: string;
+      templateMajorVersion: string;
+      repository: any;
+      repositoryConnectionArn: string;
+      branchName: string;
+      serviceSpecPath: string;
+      region: string
     }>({
     id: 'aws:proton:create-service',
     schema: {
@@ -101,8 +103,11 @@ export const createAwsProtonServiceAction = () => {
       const client = new ProtonClient({
         region: ctx.input.region,
         customUserAgent: 'aws-proton-plugin-for-backstage',
+        credentialDefaultProvider: () => defaultProvider({
+          roleAssumerWithWebIdentity: getDefaultRoleAssumerWithWebIdentity(),
+        }),
       });
-      
+
       const resp = await client.send(new CreateServiceCommand({
         name: ctx.input.serviceName,
         templateName: ctx.input.templateName,

@@ -13,6 +13,8 @@
 
 import { Logger } from 'winston';
 import { GetServiceCommand, ProtonClient, Service, ServiceInstanceSummary, paginateListServiceInstances } from '@aws-sdk/client-proton';
+import { getDefaultRoleAssumerWithWebIdentity } from '@aws-sdk/client-sts';
+import { defaultProvider } from '@aws-sdk/credential-provider-node';
 import { parse } from '@aws-sdk/util-arn-parser'
 
 export class AwsProtonApi {
@@ -36,6 +38,9 @@ export class AwsProtonApi {
     const client = new ProtonClient({
       region: region,
       customUserAgent: 'aws-proton-plugin-for-backstage',
+      credentialDefaultProvider: () => defaultProvider({
+        roleAssumerWithWebIdentity: getDefaultRoleAssumerWithWebIdentity(),
+      }),
     });
     const resp = await client
       .send(new GetServiceCommand({
@@ -60,6 +65,9 @@ export class AwsProtonApi {
     const client = new ProtonClient({
       region: region,
       customUserAgent: 'aws-proton-plugin-for-backstage',
+      credentialDefaultProvider: () => defaultProvider({
+        roleAssumerWithWebIdentity: getDefaultRoleAssumerWithWebIdentity(),
+      }),
     });
     const serviceInstances: ServiceInstanceSummary[] = [];
     for await (const page of paginateListServiceInstances({ client }, { serviceName })) {
