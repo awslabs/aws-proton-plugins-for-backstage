@@ -68,7 +68,6 @@ jobs:
         shell: bash
         run: |
           echo "//registry.npmjs.org/:_authToken=${{secrets.NPM_AUTH_TOKEN}}" >> .npmrc
-          echo "_auth = ${{ secrets.NPM_CONFIG_AUTH }}" >> .npmrc
           echo "always-auth = true" >> .npmrc
 
       - name: Publish new version to NPM registry
