@@ -1,9 +1,14 @@
 {
   "name": "@aws/aws-proton-plugin-for-backstage",
+  "description": "AWS Proton Plugin for Backstage",
   "version": "0.0.0",
   "main": "dist/index.esm.js",
   "types": "dist/index.d.ts",
   "license": "Apache-2.0",
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "http://aws.amazon.com"
+  },
   "publishConfig": {
     "access": "public",
     "main": "dist/index.esm.js",

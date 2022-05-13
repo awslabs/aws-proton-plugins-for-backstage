@@ -1,8 +1,16 @@
 {
   "name": "aws-proton-plugins-for-backstage",
+  "description": "AWS Proton Plugins for Backstage",
   "version": "0.0.0",
-  "repository": "https://github.com/awslabs/aws-proton-plugins-for-backstage.git",
+  "repository": {
+    "type": "git",
+    "url": "github:awslabs/aws-proton-plugins-for-backstage"
+  },
   "license": "Apache-2.0",
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "http://aws.amazon.com"
+  },
   "private": true,
   "workspaces": {
     "packages": [
@@ -19,7 +27,8 @@
     "ci": "lerna bootstrap && tsc && lerna run build && lerna run test --stream && lerna run lint",
     "start:frontend": "yarn workspace @aws/aws-proton-plugin-for-backstage start",
     "start:backend": "yarn workspace @aws/aws-proton-backend-plugin-for-backstage start",
-    "bump-version": "lerna version"
+    "bump-version": "lerna version",
+    "publish-version": "lerna publish from-package --yes --no-verify-access"
   },
   "devDependencies": {
     "lerna": "^4.0.0",

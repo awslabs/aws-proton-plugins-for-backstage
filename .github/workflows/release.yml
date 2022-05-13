@@ -63,7 +63,15 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
 
-      - name: Publish new version to NPM
+      - name: 'Login to NPM registry'
+        if: ${{ env.COMMITS_TO_RELEASE != 0 }}
+        shell: bash
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{secrets.NPM_AUTH_TOKEN}}" >> .npmrc
+          echo "_auth = ${{ secrets.NPM_CONFIG_AUTH }}" >> .npmrc
+          echo "always-auth = true" >> .npmrc
+
+      - name: Publish new version to NPM registry
         if: ${{ env.COMMITS_TO_RELEASE != 0 }}
         run: |
-          echo TODO publish to npm
+          yarn publish-version
