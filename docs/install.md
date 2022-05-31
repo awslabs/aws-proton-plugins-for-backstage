@@ -35,7 +35,7 @@ Instead, we recommend using short-lived AWS credentials for your production Back
 
 The Proton backend plugin requires the following IAM permissions for populating the Proton entity card:
 
-```
+```json
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -53,7 +53,7 @@ The Proton backend plugin requires the following IAM permissions for populating 
 
 The Proton scaffolder action requires the following IAM permissions to create Proton services:
 
-```
+```json
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -78,7 +78,7 @@ The Proton scaffolder action requires the following IAM permissions to create Pr
 
 Depending on how you configure the Proton scaffolder action in your Backstage software templates, the Proton scaffolder action permissions can also be further limited to specific Proton service templates and CodeStar Connections connections:
 
-```
+```json
 {
     "Version": "2012-10-17",
     "Statement": [
