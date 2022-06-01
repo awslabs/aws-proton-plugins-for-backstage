@@ -59,7 +59,7 @@
     "@types/mock-fs": "^4.13.1",
     "aws-sdk-client-mock": "^0.6.2",
     "mock-fs": "^5.1.2",
-    "msw": "^0.39.2",
+    "msw": "^0.42.0",
     "supertest": "^6.2.2"
   },
   "files": [
