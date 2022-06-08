@@ -1,38 +1,39 @@
-# Tutorial
+# Tutorial: using the AWS Proton plugins for Backstage
 
-This tutorial walks through an example of how to use the AWS Proton plugins for Backstage.
+This tutorial walks you through an example of using the AWS Proton plugins for Backstage.
 
 <!-- toc -->
-1. [Setup your Backstage app](#setup-your-backstage-app)
-1. [Fork this repository](#fork-this-repository)
-1. [Create the prerequisite AWS resources](#create-the-prerequisite-aws-resources)
-1. [Customize the sample software template](#customize-the-sample-software-template)
-1. [Register the software template in your Backstage app](#register-the-software-template-in-your-backstage-app)
-1. [Create a new component using the software template](#create-a-new-component-using-the-software-template)
-1. [Tear down AWS resources](#tear-down-aws-resources)
+- [Tutorial: using the AWS Proton plugins for Backstage](#tutorial-using-the-aws-proton-plugins-for-backstage)
+  - [Set up your Backstage app](#set-up-your-backstage-app)
+  - [Fork this repository](#fork-this-repository)
+  - [Create prerequisite AWS resources](#create-prerequisite-aws-resources)
+  - [Customize the sample software template](#customize-the-sample-software-template)
+  - [Register the software template in your Backstage app](#register-the-software-template-in-your-backstage-app)
+  - [Create a new component using the software template](#create-a-new-component-using-the-software-template)
+  - [Tear down AWS resources](#tear-down-aws-resources)
 <!-- tocstop -->
 
-## Setup your Backstage app
+## Set up your Backstage app
 
-This tutorial assumes that you have a working Backstage application.  To follow this tutorial with a local Backstage app, follow the main [Backstage instructions](https://backstage.io/docs/getting-started/create-an-app) to create and run a Backstage app locally.
+This tutorial assumes that you have a working Backstage application.  To use this tutorial with a local Backstage app, follow the main [Backstage instructions](https://backstage.io/docs/getting-started/create-an-app) to create and run a Backstage app locally.
 
-This tutorial also assumes that your Backstage app is connected to GitHub.  Ensure that you have a GitHub [Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) for Backstage, and set a `GITHUB_TOKEN` environment variable with that token in the environment where your Backstage app running.  The token needs the `repo` scope.  See the [Backstage documentation](https://backstage.io/docs/integrations/github/locations) for more information on connecting your Backstage app to GitHub.
+This tutorial also assumes that your Backstage app is connected to GitHub.  Ensure that you have a GitHub [personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) for Backstage, and set a `GITHUB_TOKEN` environment variable with that token in the environment where your Backstage app is running.  The token needs the `repo` scope.  For more information on connecting your Backstage app to GitHub, see [GitHub Locations](https://backstage.io/docs/integrations/github/locations) in the Backstage documentation.
 
-Follow the [installation documentation](install.md) to install the Proton plugins into your Backstage application.
+Follow the [AWS Proton plugins for Backstage installation guide](install.md) to install the Proton plugins into your Backstage application.
 
 ## Fork this repository
 
-This repository contains a sample Backstage software template that you will need to customize with your AWS account information and register into your Backstage app.  You can either create a public fork of this repository, or duplicate this repository into a private repository (preferred).  Follow the [GitHub documentation](https://docs.github.com/en/repositories/creating-and-managing-repositories/duplicating-a-repository) for duplicating this repository into a private repo.
+This repository contains a sample Backstage software template. You use it to configure your AWS account information and register the plugins into your Backstage app.  You can create a public fork of this repository. Alternatively, duplicate this repository into a private repository (preferred).  For more information, see [Duplicating a repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/duplicating-a-repository) in the GitHub documentation.
 
-## Create the prerequisite AWS resources
+## Create prerequisite AWS resources
 
-The following AWS resources need to be created in your AWS account for this tutorial.
-* A Proton environment template
-* A Proton service template
-* A Proton environment
-* A CodeStar Connections repository connection
+Create the following AWS resources in your AWS account for this tutorial:
+* An AWS CodeStar Connections repository connection
+* An AWS Proton environment template
+* An AWS Proton service template
+* An AWS Proton environment
 
-To create these resources, follow the "Proton setup" section of the Getting Started guide in the AWS Proton console:
+To create these resources, follow the **AWS Proton setup** section of the **Getting Started** guide in the AWS Proton console:
 
 https://us-east-1.console.aws.amazon.com/proton/home?region=us-east-1#/getting-started
 
