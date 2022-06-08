@@ -1,39 +1,40 @@
-# Installation
+# AWS Proton plugins for Backstage installation guide
 
-This documentation covers how to install the AWS Proton plugins for Backstage into your Backstage application.
+This document covers the installation of the AWS Proton plugins for Backstage into your Backstage application.
 
 <!-- toc -->
 1. [Prerequisites](#prerequisites)
-1. [AWS Credentials](#aws-credentials)
-1. [IAM Permissions](#iam-permissions)
-1. [Install the Backend Plugin](#install-the-backend-plugin)
-1. [Install the Frontend UI Plugin](#install-the-frontend-ui-plugin)
-1. [Install the Software Templates Scaffolder Action](#install-the-software-templates-scaffolder-action)
+1. [AWS credentials](#aws-credentials)
+1. [IAM permissions](#iam-permissions)
+1. [Install the backend plugin](#install-the-backend-plugin)
+1. [Install the frontend UI plugin](#install-the-frontend-ui-plugin)
+1. [Install the software templates scaffolder action](#install-the-software-templates-scaffolder-action)
 <!-- tocstop -->
 
 ## Prerequisites
 
-These instructions assume you already have a working Backstage application in which to install the plugins. If this is not the case, please refer to the Backstage [Getting Started](https://backstage.io/docs/getting-started/) documentation.
+These instructions assume you already have a working Backstage application that you can install the plugins in. If this isn't the case, refer to the Backstage [Getting Started](https://backstage.io/docs/getting-started/) documentation.
 
-## AWS Credentials
+## AWS credentials
 
-The Proton backend plugin relies on the [default behavior of the AWS SDK for Javascript](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/modules/_aws_sdk_credential_provider_node.html) to determine the AWS credentials to use for authenticating to AWS APIs.
+The AWS Proton backend plugin relies on the [default behavior of the AWS SDK for Javascript](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/modules/_aws_sdk_credential_provider_node.html) to determine the AWS credentials that it uses to authenticate an identity to use with AWS APIs.
 
-The Proton backend plugin running in your Backstage app will search for credentials in the following order:
+The AWS Proton backend plugin that runs in your Backstage app searches for credentials in the following order:
 
 1. Environment variables (`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`)
-1. SSO credentials from token cache
+1. SSO credentials from the token cache
 1. Web identity token credentials (including running in an Amazon EKS cluster using IAM roles for service accounts)
 1. Shared credentials and config ini files (`~/.aws/credentials`, `~/.aws/config`)
-1. Amazon ECS task metadata service
-1. Amazon EC2 instance metadata service
+1. Amazon Elastic Container Service (Amazon ECS) task metadata service
+1. Amazon Elastic Compute Cloud (Amazon EC2) instance metadata service
 
-We do not recommend hard-coding long-lived AWS credentials in your production Backstage application configuration. Hard-coding credentials poses a risk of exposing your access key ID and secret access key.
-Instead, we recommend using short-lived AWS credentials for your production Backstage application by deploying it to ECS, EKS, or EC2.  See [the Backstage documentation](https://backstage.io/docs/deployment/) for guides on deploying Backstage to EKS using a Helm chart or to ECS on AWS Fargate using the AWS Cloud Development Kit (CDK).
+We recommend that you don't hard-code long lived AWS credentials in your production Backstage application configuration. Hard-coding credentials is risky and might expose your access key ID and secret access key.
 
-## IAM Permissions
+Instead, we recommend that you use short lived AWS credentials for your production Backstage application by deploying it to Amazon ECS, Amazon Kubernetes Services (Amazon EKS), or Amazon EC2. For more information about deploying Backstage to Amazon EKS using a Helm chart or to Amazon ECS on AWS Fargate using the AWS Cloud Development Kit (CDK), see [Deploying Backstage](https://backstage.io/docs/deployment/) in the Backstage documentation.
 
-The Proton backend plugin requires the following IAM permissions for populating the Proton entity card:
+## IAM permissions
+
+The AWS Proton backend plugin requires the AWS identity that it uses to have the following IAM permissions for populating the Proton entity card:
 
 ```json
 {
@@ -51,7 +52,7 @@ The Proton backend plugin requires the following IAM permissions for populating 
 }
 ```
 
-The Proton scaffolder action requires the following IAM permissions to create Proton services:
+The AWS Proton scaffolder action requires the AWS identity that it uses to have the following IAM permissions to create AWS Proton services:
 
 ```json
 {
@@ -76,7 +77,7 @@ The Proton scaffolder action requires the following IAM permissions to create Pr
 }
 ```
 
-Depending on how you configure the Proton scaffolder action in your Backstage software templates, the Proton scaffolder action permissions can also be further limited to specific Proton service templates and CodeStar Connections connections:
+Depending on how you configure the AWS Proton scaffolder action in your Backstage software templates, the AWS Proton scaffolder action permissions can also be further limited to specific AWS Proton service templates and CodeStar Connections connections:
 
 ```json
 {
@@ -106,15 +107,15 @@ Depending on how you configure the Proton scaffolder action in your Backstage so
 }
 ```
 
-## Install the Backend Plugin
+## Install the backend plugin
 
 Install the AWS Proton backend plugin package in your Backstage app:
 
-```
+```shell
 yarn workspace backend add @aws/aws-proton-backend-plugin-for-backstage
 ```
 
-Create a new file `packages/backend/src/plugins/awsProton.ts` with the following file contents:
+Create a file `packages/backend/src/plugins/awsProton.ts` with the following content:
 
 ```typescript
 import { createRouter } from '@aws/aws-proton-backend-plugin-for-backstage';
@@ -163,16 +164,16 @@ index 70bc66b..1e624ae 100644
 Verify that the backend plugin is running in your Backstage app. You should receive `{"status":"ok"}` when accessing this URL:
 `https://<your backstage app>/api/aws-proton-backend/health`.
 
-## Install the Frontend UI Plugin
+## Install the frontend UI plugin
 
 Install the AWS Proton frontend UI plugin package in your Backstage app:
 
-```
+```shell
 yarn workspace app add @aws/aws-proton-plugin-for-backstage
 ```
 
 Edit `packages/app/src/components/catalog/EntityPage.tsx` to add the AWS Proton service overview entity card in the entity page layout.
-For example, these changes would add the Proton entity card to the Overview tab for an entity:
+For example, the following changes add the Proton entity card to the **Overview** tab for an entity:
 
 ```diff
 diff --git a/packages/app/src/components/catalog/EntityPage.tsx b/packages/app/src/components/catalog/EntityPage.tsx
@@ -214,9 +215,9 @@ index 84d0944..34f6f58 100644
      <Grid item md={4} xs={12}>
 ```
 
-## Install the Software Templates Scaffolder Action
+## Install the software templates scaffolder action
 
-Edit `packages/backend/src/plugins/scaffolder.ts` to register the AWS Proton Create Service scaffolder action:
+Edit `packages/backend/src/plugins/scaffolder.ts` to register the AWS Proton **Create Service** scaffolder action:
 
 ```diff
 diff --git a/packages/backend/src/plugins/scaffolder.ts b/packages/backend/src/plugins/scaffolder.ts

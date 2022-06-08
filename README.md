@@ -1,4 +1,4 @@
-## AWS Proton Plugins for Backstage
+## AWS Proton plugins for Backstage
 
 [![CI](https://github.com/awslabs/aws-proton-plugins-for-backstage/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/awslabs/aws-proton-plugins-for-backstage/actions/workflows/ci.yml)
 
