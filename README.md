@@ -10,19 +10,23 @@ The plugins are:
 
 ![AWS Proton Service entity card](/docs/images/proton-entity-card.png "AWS Proton Service entity card")
 
-## Usage
-
-See the following documents:
-- [AWS Proton plugins for Backstage reference](./docs/reference.md)
-- [Tutorial: using the AWS Proton plugins for Backstage](./docs/tutorial.md).
-
-## Install
+## Installation
 
 See [AWS Proton plugins for Backstage installation guide](./docs/install.md).
 
+## Usage
+
+For information about using the Proton plugins, see the following documents:
+- [AWS Proton plugins for Backstage reference](./docs/reference.md)
+- [Tutorial: using the AWS Proton plugins for Backstage](./docs/tutorial.md).
+
+## Development
+
+For information about developing locally with the Proton plugins, see [Developing with the AWS Proton plugins for Backstage](./docs/developing.md)
+
 ## Security
 
-See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
+For information about contributing and reporting security issues, see [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications).
 
 ## License
 
