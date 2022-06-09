@@ -12,11 +12,13 @@ The plugins are:
 
 ## Usage
 
-See [usage documentation](./docs/usage.md) and [tutorial](./docs/tutorial.md).
+See the following documents:
+- [AWS Proton plugins for Backstage reference](./docs/reference.md)
+- [Tutorial: using the AWS Proton plugins for Backstage](./docs/tutorial.md).
 
 ## Install
 
-See [installation documentation](./docs/install.md).
+See [AWS Proton plugins for Backstage installation guide](./docs/install.md).
 
 ## Security
 
