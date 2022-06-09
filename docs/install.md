@@ -8,7 +8,7 @@ This document covers the installation of the AWS Proton plugins for Backstage in
 1. [IAM permissions](#iam-permissions)
 1. [Install the backend plugin](#install-the-backend-plugin)
 1. [Install the frontend UI plugin](#install-the-frontend-ui-plugin)
-1. [Install the software templates scaffolder action](#install-the-software-templates-scaffolder-action)
+1. [Install the Software Templates scaffolder action](#install-the-software-templates-scaffolder-action)
 <!-- tocstop -->
 
 ## Prerequisites
@@ -30,7 +30,7 @@ The AWS Proton backend plugin that runs in your Backstage app searches for crede
 
 We recommend that you don't hard-code long lived AWS credentials in your production Backstage application configuration. Hard-coding credentials is risky and might expose your access key ID and secret access key.
 
-Instead, we recommend that you use short lived AWS credentials for your production Backstage application by deploying it to Amazon ECS, Amazon Kubernetes Services (Amazon EKS), or Amazon EC2. For more information about deploying Backstage to Amazon EKS using a Helm chart or to Amazon ECS on AWS Fargate using the AWS Cloud Development Kit (CDK), see [Deploying Backstage](https://backstage.io/docs/deployment/) in the Backstage documentation.
+Instead, we recommend that you use short lived AWS credentials for your production Backstage application by deploying it to Amazon ECS, Amazon Elastic Kubernetes Services (Amazon EKS), or Amazon EC2. For more information about deploying Backstage to Amazon EKS using a Helm chart or to Amazon ECS on AWS Fargate using the AWS Cloud Development Kit (CDK), see [Deploying Backstage](https://backstage.io/docs/deployment/) in the Backstage documentation.
 
 ## IAM permissions
 
@@ -77,7 +77,7 @@ The AWS Proton scaffolder action requires the AWS identity that it uses to have 
 }
 ```
 
-Depending on how you configure the AWS Proton scaffolder action in your Backstage software templates, the AWS Proton scaffolder action permissions can also be further limited to specific AWS Proton service templates and CodeStar Connections connections:
+Depending on how you configure the AWS Proton scaffolder action in your Backstage Software Templates, the AWS Proton scaffolder action permissions can also be further limited to specific AWS Proton service templates and CodeStar Connections connections:
 
 ```json
 {
@@ -215,7 +215,7 @@ index 84d0944..34f6f58 100644
      <Grid item md={4} xs={12}>
 ```
 
-## Install the software templates scaffolder action
+## Install the Software Templates scaffolder action
 
 Edit `packages/backend/src/plugins/scaffolder.ts` to register the AWS Proton **Create Service** scaffolder action:
 

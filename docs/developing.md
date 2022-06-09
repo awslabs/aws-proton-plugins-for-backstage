@@ -1,6 +1,6 @@
-# Developing with the AWS Proton plugins for Backstage
+# Developing the AWS Proton plugins for Backstage
 
-Learn how to develop locally with the AWS Proton plugins for Backstage.
+Learn how to develop the AWS Proton plugins for Backstage locally.
 
 To initialize the AWS Proton plugin packages:
 
