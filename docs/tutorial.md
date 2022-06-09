@@ -9,7 +9,7 @@ This tutorial walks you through an example of using the AWS Proton plugins for B
   - [Create prerequisite AWS resources](#create-prerequisite-aws-resources)
   - [Customize the sample software template](#customize-the-sample-software-template)
   - [Register the software template in your Backstage app](#register-the-software-template-in-your-backstage-app)
-  - [Create a new component using the software template](#create-a-new-component-using-the-software-template)
+  - [Create a Backstage component using the software template](#create-a-backstage-component-using-the-software-template)
   - [Tear down AWS resources](#tear-down-aws-resources)
 <!-- tocstop -->
 
@@ -29,6 +29,7 @@ This repository contains a sample Backstage software template. You use it to con
 
 Create the following AWS resources in your AWS account for this tutorial:
 * An AWS CodeStar Connections repository connection
+* An AWS Proton registered repository
 * An AWS Proton environment template
 * An AWS Proton service template
 * An AWS Proton environment
@@ -37,14 +38,39 @@ To create these resources, follow the **AWS Proton setup** section of the **Gett
 
 https://us-east-1.console.aws.amazon.com/proton/home?region=us-east-1#/getting-started
 
-Notes:
-* For the environment template, pick the sample template bundle "Environment for deploying web services that run on Fargate".
-* For the service template, pick the sample template bundle "A web service on Fargate".
-* Ensure that both your environment and service templates have been "published" in Proton. See the "Publish v1.0" button on each template's page in the Proton console.
+While you're following the **Getting Started** guide:
+* Fork the [AWS Proton Sample CloudFormation Templates](https://github.com/aws-samples/aws-proton-cloudformation-sample-templates/) repository into your GitHub account. Then, register the forked repository with AWS Proton. For more information, see [Create and register a link to your repository](https://docs.aws.amazon.com/proton/latest/adminguide/ag-create-repo.html) in the *AWS Proton Administrator Guide*.
+* To create the environment template, choose **Sync a template bundle with Git** and use the `environment-templates/fargate-env` example in the forked repository.
+* To create the service template, choose **Sync a template bundle with Git** and use the `service-templates/load-balanced-fargate-svc` example in the forked repository.
+* Proton creates each new template with a template version 1.0 that you need to publish. Select the template version, choose **Publish**, and wait for the template version to go into the **Published** status.
 
-At the end of the Getting Started guide, you should have at least one of each of the resources listed above:
+At the end of the **Getting started** guide, you should have at least one of each of the resources listed above. You can verify using the following commands:
 
 ```
+$ aws codestar-connections list-connections
+{
+    "Connections": [
+        {
+            "ConnectionName": "my-github-account",
+            "ConnectionArn": "arn:aws:codestar-connections:us-east-1:111111111111:connection/c176b204-5bb1-48f1-b977-5aff4fa2df9d",
+            "ProviderType": "GitHub",
+            "OwnerAccountId": "111111111111",
+            "ConnectionStatus": "AVAILABLE"
+        }
+    ]
+}
+
+$ aws proton list-repositories
+{
+    "repositories": [
+        {
+            "arn": "arn:aws:proton:us-east-1:111111111111:repository/github:<your-github-name>/aws-proton-cloudformation-sample-templates",
+            "name": "<your-github-name>/aws-proton-cloudformation-sample-templates",
+            "provider": "GITHUB"
+        }
+    ]
+}
+
 $ aws proton list-environment-templates
 {
     "templates": [
@@ -93,26 +119,15 @@ $ aws proton list-environments
         }
     ]
 }
-
-$ aws codestar-connections list-connections
-{
-    "Connections": [
-        {
-            "ConnectionName": "my-github-account",
-            "ConnectionArn": "arn:aws:codestar-connections:us-east-1:111111111111:connection/c176b204-5bb1-48f1-b977-5aff4fa2df9d",
-            "ProviderType": "GitHub",
-            "OwnerAccountId": "111111111111",
-            "ConnectionStatus": "AVAILABLE"
-        }
-    ]
-}
 ```
 
 ## Customize the sample software template
 
-The sample software template needs to be updated with the AWS resources you created in your account in the previous step.  Clone your fork of this repository, and make the following changes to the file `docs/tutorial-assets/fargate-nginx-template/template.yaml`.
+You need to update the sample software template with the AWS resources you created in your account in the previous step.  Clone your fork of this repository, and make the following changes to the file `docs/tutorial-assets/fargate-nginx-template/template.yaml`.
 
 1. Find the `template` step.  Update the `aws_proton_dev_environment_name`, `aws_proton_prod_environment_name`, `aws_account_id`, and `aws_region` fields to match the resources in your AWS account.
+   
+   Note: The template is set up to create a service with instances in two environments, dev and prod. For the purpose of this tutorial, we use a single example environment, `backstage-proton-plugins-tutorial-env`, for both the dev and prod environments.
 2. Find the `create-proton-service` step.  Update the `region`, `templateName`, `templateMajorVersion`, and `repositoryConnectionArn` fields to match the resources in your AWS account.
 
 Commit and push these changes to your fork of this repository.
@@ -121,9 +136,9 @@ Commit and push these changes to your fork of this repository.
 
 Edit your Backstage app configuration file to register your customized software template in your Backstage app.  For example, the file may be named `app-config.yaml`.
 
-In the `catalog` section of the config file, add the following location to the `locations` list (replacing `<your-github-name>` first):
+In the `catalog` section of the config file, add the following location to the `locations` list. Replace `<your-github-name>` with your GitHub account name.
 
-```
+```yaml
     # AWS Proton Plugins for Backstage tutorial template
     - type: url
       target: https://github.com/<your-github-name>/aws-proton-plugins-for-backstage/blob/main/docs/tutorial-assets/fargate-nginx-template/template.yaml
@@ -131,11 +146,15 @@ In the `catalog` section of the config file, add the following location to the `
         - allow: [Template]
 ```
 
-Save your config file changes, and restart your Backstage app.
+Save your config file changes and restart your Backstage app.
 
-## Create a new component using the software template
+## Create a Backstage component using the software template
 
-In your Backstage app, create a new component that uses your customized software template.  Go to `https://<your backstage app>/create`, and choose the "Nginx Fargate Web Service" template.  Fill in a component name like `my-tutorial-service`.
+In your Backstage app, create a Backstage component that uses your customized software template.  Go to `https://<your backstage app>/create`, and choose the "Nginx Fargate Web Service" template.  Fill in a component name like `my-tutorial-service`.
+
+> Note:
+>
+> *Backstage components* are different than [Proton components](https://docs.aws.amazon.com/proton/latest/adminguide/ag-components.html), which are service extensions that allow developers to augment Proton services with additional provisioned resources.
 
 ![Tutorial scaffolder page 1](images/tutorial-scaffolder-1.png "Tutorial scaffolder page 1")
 
@@ -147,11 +166,11 @@ When the software template runs, you should see that Backstage successfully fetc
 
 ![Tutorial scaffolder page 3](images/tutorial-scaffolder-3.png "Tutorial scaffolder page 3")
 
-Go to the new component's page: `http://<your backstage app>/catalog/default/component/my-tutorial-service`.  You should see an AWS Proton Service card in the component's Overview tab.
+Go to the new component's page: `http://<your backstage app>/catalog/default/component/my-tutorial-service`.  You should see an **AWS Proton Service** card in the component's **Overview** tab. The service has two service instances, one in each of the two environments, **dev** and **prod**.
 
 ![Component entity card](images/tutorial-service-entity-card.png "Component entity card")
 
-If you later need to re-register this component in your Backstage app, add the following location to the `locations` list (replacing `<your-github-name>` first) in the `catalog` section of your Backstage app config file:
+If you later need to re-register this component in your Backstage app, add the following location to the `locations` list in the `catalog` section of your Backstage app config file. Replace `<your-github-name>` with your GitHub account name.
 
 ```
     - type: url
@@ -162,7 +181,7 @@ If you later need to re-register this component in your Backstage app, add the f
 
 ## Tear down AWS resources
 
-There is no additional charge for AWS Proton, but you will be charged for the AWS resources created by deploying environments and services, such as Fargate tasks.  When you are finished with this tutorial, you may wish to delete your Proton environments and services.
+You don't get charged for using AWS Proton or for creating templates. However, when you provision other AWS resources, like Fargate tasks, by deploying environments and services, you are charged for these resources.  When you are finished with this tutorial, you may want to delete your Proton environments and services by running the following commands.
 
 ```
 $ aws proton delete-service --name my-tutorial-service
