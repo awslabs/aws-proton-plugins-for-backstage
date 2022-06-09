@@ -1,6 +1,6 @@
 # aws-proton
 
-Welcome to the `aws-proton` plugin! For full usage instructions please see the [appropriate documentation](../../docs/usage.md).
+Welcome to the `aws-proton` plugin! For full usage instructions, see [AWS Proton plugins for Backstage reference](../../docs/reference.md).
 
 ## Getting started
 
