@@ -2,15 +2,16 @@
 
 This tutorial walks you through an example of using the AWS Proton plugins for Backstage.
 
+Tutorial steps:
+
 <!-- toc -->
-- [Tutorial: using the AWS Proton plugins for Backstage](#tutorial-using-the-aws-proton-plugins-for-backstage)
-  - [Set up your Backstage app](#set-up-your-backstage-app)
-  - [Fork this repository](#fork-this-repository)
-  - [Create prerequisite AWS resources](#create-prerequisite-aws-resources)
-  - [Customize the sample software template](#customize-the-sample-software-template)
-  - [Register the software template in your Backstage app](#register-the-software-template-in-your-backstage-app)
-  - [Create a Backstage component using the software template](#create-a-backstage-component-using-the-software-template)
-  - [Tear down AWS resources](#tear-down-aws-resources)
+1. [Set up your Backstage app](#set-up-your-backstage-app)
+1. [Fork this repository](#fork-this-repository)
+1. [Create prerequisite AWS resources](#create-prerequisite-aws-resources)
+1. [Customize the sample software template](#customize-the-sample-software-template)
+1. [Register the software template in your Backstage app](#register-the-software-template-in-your-backstage-app)
+1. [Create a Backstage component using the software template](#create-a-backstage-component-using-the-software-template)
+1. [Tear down AWS resources](#tear-down-aws-resources)
 <!-- tocstop -->
 
 ## Set up your Backstage app
