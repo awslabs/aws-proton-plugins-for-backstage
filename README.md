@@ -4,7 +4,7 @@
 
 This repository contains a set of Backstage plugins for interacting with the [AWS Proton](https://aws.amazon.com/proton/) service.
 
-The plugins are:
+The plugins provide:
 - An entity card to display the status of an AWS Proton service.
 - A scaffolder action to create an AWS Proton service.
 
@@ -22,7 +22,7 @@ For information about using the Proton plugins, see the following documents:
 
 ## Development
 
-For information about developing locally with the Proton plugins, see [Developing with the AWS Proton plugins for Backstage](./docs/developing.md)
+For information about developing the Proton plugins locally, see [Developing the AWS Proton plugins for Backstage](./docs/developing.md)
 
 ## Security
 

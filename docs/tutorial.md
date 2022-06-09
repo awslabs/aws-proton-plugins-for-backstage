@@ -8,9 +8,9 @@ Tutorial steps:
 1. [Set up your Backstage app](#set-up-your-backstage-app)
 1. [Fork this repository](#fork-this-repository)
 1. [Create prerequisite AWS resources](#create-prerequisite-aws-resources)
-1. [Customize the sample software template](#customize-the-sample-software-template)
-1. [Register the software template in your Backstage app](#register-the-software-template-in-your-backstage-app)
-1. [Create a Backstage component using the software template](#create-a-backstage-component-using-the-software-template)
+1. [Customize the sample Software Template](#customize-the-sample-software-template)
+1. [Register the Software Template in your Backstage app](#register-the-software-template-in-your-backstage-app)
+1. [Create a Backstage component using the Software Template](#create-a-backstage-component-using-the-software-template)
 1. [Tear down AWS resources](#tear-down-aws-resources)
 <!-- tocstop -->
 
@@ -24,7 +24,7 @@ Follow the [AWS Proton plugins for Backstage installation guide](install.md) to 
 
 ## Fork this repository
 
-This repository contains a sample Backstage software template. You use it to configure your AWS account information and register the plugins into your Backstage app.  You can create a public fork of this repository. Alternatively, duplicate this repository into a private repository (preferred).  For more information, see [Duplicating a repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/duplicating-a-repository) in the GitHub documentation.
+This repository contains a sample Backstage Software Template. You need to customize the Software Template with your AWS account information, and then register it into your Backstage app.  You can create a public fork of this repository. Alternatively, duplicate this repository into a private repository (preferred).  For more information, see [Duplicating a repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/duplicating-a-repository) in the GitHub documentation.
 
 ## Create prerequisite AWS resources
 
@@ -122,9 +122,9 @@ $ aws proton list-environments
 }
 ```
 
-## Customize the sample software template
+## Customize the sample Software Template
 
-You need to update the sample software template with the AWS resources you created in your account in the previous step.  Clone your fork of this repository, and make the following changes to the file `docs/tutorial-assets/fargate-nginx-template/template.yaml`.
+You need to update the sample Software Template with the AWS resources you created in your account in the previous step.  Clone your fork of this repository, and make the following changes to the file `docs/tutorial-assets/fargate-nginx-template/template.yaml`.
 
 1. Find the `template` step.  Update the `aws_proton_dev_environment_name`, `aws_proton_prod_environment_name`, `aws_account_id`, and `aws_region` fields to match the resources in your AWS account.
    
@@ -133,9 +133,9 @@ You need to update the sample software template with the AWS resources you creat
 
 Commit and push these changes to your fork of this repository.
 
-## Register the software template in your Backstage app
+## Register the Software Template in your Backstage app
 
-Edit your Backstage app configuration file to register your customized software template in your Backstage app.  For example, the file may be named `app-config.yaml`.
+Edit your Backstage app configuration file to register your customized Software Template in your Backstage app.  For example, the file may be named `app-config.yaml`.
 
 In the `catalog` section of the config file, add the following location to the `locations` list. Replace `<your-github-name>` with your GitHub account name.
 
@@ -149,9 +149,9 @@ In the `catalog` section of the config file, add the following location to the `
 
 Save your config file changes and restart your Backstage app.
 
-## Create a Backstage component using the software template
+## Create a Backstage component using the Software Template
 
-In your Backstage app, create a Backstage component that uses your customized software template.  Go to `https://<your backstage app>/create`, and choose the "Nginx Fargate Web Service" template.  Fill in a component name like `my-tutorial-service`.
+In your Backstage app, create a Backstage component that uses your customized Software Template.  Go to `https://<your backstage app>/create`, and choose the "Nginx Fargate Web Service" template.  Fill in a component name like `my-tutorial-service`.
 
 > Note:
 >
@@ -163,11 +163,11 @@ In the next step, fill in a name like `my-backstage-tutorial-website` for the pr
 
 ![Tutorial scaffolder page 2](images/tutorial-scaffolder-2.png "Tutorial scaffolder page 2")
 
-When the software template runs, you should see that Backstage successfully fetches the template, publishes initial code to a new GitHub repository, creates the AWS Proton service, and registers the component in the Backstage software catalog.
+When the Software Template runs, you should see that Backstage successfully fetches the template, publishes initial code to a new GitHub repository, creates the AWS Proton service, and registers the component in the Backstage software catalog.
 
 ![Tutorial scaffolder page 3](images/tutorial-scaffolder-3.png "Tutorial scaffolder page 3")
 
-Go to the new component's page: `http://<your backstage app>/catalog/default/component/my-tutorial-service`.  You should see an **AWS Proton Service** card in the component's **Overview** tab. The service has two service instances, one in each of the two environments, **dev** and **prod**.
+Go to the new component's page: `http://<your backstage app>/catalog/default/component/my-tutorial-service`.  You should see an **AWS Proton Service** card in the component's **Overview** tab. The service has two service instances, **dev** and **prod**, deployed to the environment.
 
 ![Component entity card](images/tutorial-service-entity-card.png "Component entity card")
 
