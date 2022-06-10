@@ -11,7 +11,7 @@ yarn ci
 
 ## Test standalone
 
-The easiest way you can develop and test with the AWS Proton plugins in your local environment is to run the plugins in standalone mode.
+The easiest way you can develop and test the AWS Proton plugins in your local environment is to run the plugins in standalone mode.
 
 You can run the backend plugin this way:
 
@@ -27,7 +27,7 @@ yarn start:frontend
 
 ## Test in a local Backstage app
 
-To develop and test with the AWS Proton plugins in a local Backstage app:
+To develop and test the AWS Proton plugins in a local Backstage app:
 
 1. Initialize the packages like in the standalone case by running `yarn install` and `yarn ci`.  Then, follow the main [Backstage instructions](https://backstage.io/docs/getting-started/create-an-app) to create and run a Backstage app locally.  We recommend that you create a git repository for your personal Backstage app, so that you can use version control for your modifications.  After you create the app, go into the app's root directory and run `git init`.
 
