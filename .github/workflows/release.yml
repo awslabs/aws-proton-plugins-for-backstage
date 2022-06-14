@@ -1,13 +1,32 @@
 name: Release Plugins
 
 on:
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      deploymentApproval:
+        description: "Are the team pipelines' time windows and alarm blockers open?"
+        type: boolean
+        required: true
+      manualTestsCompleted:
+        description: "Have you manually tested the latest plugin code in a local Backstage app by following the tutorial?"
+        type: boolean
+        required: true
 
 jobs:
   release:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Confirm deployment is approved
+        if: ${{ !inputs.deploymentApproval }}
+        run: |
+          echo Please confirm that time windows and alarm blockers are open before releasing!
+          exit 1
+      - name: Confirm manual tests are completed
+        if: ${{ !inputs.manualTestsCompleted }}
+        run: |
+          echo Please complete manual tests before releasing!
+          exit 1
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
