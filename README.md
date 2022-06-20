@@ -10,6 +10,10 @@ The plugins provide:
 
 ![AWS Proton Service entity card](/docs/images/proton-entity-card.png "AWS Proton Service entity card")
 
+## Demo
+
+![AWS Proton plugins for Backstage demo](/docs/images/proton-backstage-demo.gif "AWS Proton plugins for Backstage demo")
+
 ## Installation
 
 See [AWS Proton plugins for Backstage installation guide](./docs/install.md).
