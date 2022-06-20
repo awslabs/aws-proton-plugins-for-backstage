@@ -1,7 +1,7 @@
 {
   "name": "@aws/aws-proton-backend-plugin-for-backstage",
   "description": "AWS Proton Backend Plugin for Backstage",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "main": "dist/index.cjs.js",
   "types": "dist/index.d.ts",
   "license": "Apache-2.0",
@@ -52,11 +52,11 @@
   "devDependencies": {
     "@backstage/cli": "^0.17.0",
     "@backstage/dev-utils": "^1.0.1",
-    "@types/jest": "^27.4.1",
-    "@types/supertest": "^2.0.8",
     "@types/fs-extra": "^9.0.13",
     "@types/glob": "^7.2.0",
+    "@types/jest": "^27.4.1",
     "@types/mock-fs": "^4.13.1",
+    "@types/supertest": "^2.0.8",
     "aws-sdk-client-mock": "^0.6.2",
     "mock-fs": "^5.1.2",
     "msw": "^0.42.1",
