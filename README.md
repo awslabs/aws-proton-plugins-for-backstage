@@ -1,8 +1,8 @@
-## AWS Proton plugins for Backstage
+# AWS Proton plugins for Backstage
 
 [![CI](https://github.com/awslabs/aws-proton-plugins-for-backstage/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/awslabs/aws-proton-plugins-for-backstage/actions/workflows/ci.yml)
 
-This repository contains a set of Backstage plugins for interacting with the [AWS Proton](https://aws.amazon.com/proton/) service.
+This repository contains a set of Backstage plugins for interacting with [AWS Proton](https://aws.amazon.com/proton/).
 
 The plugins provide:
 - An entity card to display the status of an AWS Proton service.
@@ -22,11 +22,11 @@ See [AWS Proton plugins for Backstage installation guide](./docs/install.md).
 
 For information about using the Proton plugins, see the following documents:
 - [AWS Proton plugins for Backstage reference](./docs/reference.md)
-- [Tutorial: using the AWS Proton plugins for Backstage](./docs/tutorial.md).
+- [Tutorial: using the AWS Proton plugins for Backstage](./docs/tutorial.md)
 
 ## Development
 
-For information about developing the Proton plugins locally, see [Developing the AWS Proton plugins for Backstage](./docs/developing.md)
+For information about developing the Proton plugins locally, see [Developing the AWS Proton plugins for Backstage](./docs/developing.md).
 
 ## Security
 
