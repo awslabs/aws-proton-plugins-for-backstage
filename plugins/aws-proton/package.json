@@ -1,7 +1,7 @@
 {
   "name": "@aws/aws-proton-plugin-for-backstage",
   "description": "AWS Proton Plugin for Backstage",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "dist/index.esm.js",
   "types": "dist/index.d.ts",
   "license": "Apache-2.0",
