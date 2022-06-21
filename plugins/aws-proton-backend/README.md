@@ -4,7 +4,7 @@ This backend plugin for Backstage adds functionality to interact with [AWS Proto
 - Backend APIs to retrieve the status of an AWS Proton service.
 - A scaffolder action to create an AWS Proton service.
 
-![AWS Proton Service entity card](/docs/images/proton-entity-card.png "AWS Proton Service entity card")
+![AWS Proton Service entity card](../../docs/images/proton-entity-card.png "AWS Proton Service entity card")
 
 ## Installation
 

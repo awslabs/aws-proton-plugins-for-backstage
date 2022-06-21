@@ -2,7 +2,7 @@
 
 This frontend UI plugin for Backstage provides an entity card to display the status of an [AWS Proton](https://aws.amazon.com/proton/) service.
 
-![AWS Proton Service entity card](/docs/images/proton-entity-card.png "AWS Proton Service entity card")
+![AWS Proton Service entity card](../../docs/images/proton-entity-card.png "AWS Proton Service entity card")
 
 ## Installation
 
