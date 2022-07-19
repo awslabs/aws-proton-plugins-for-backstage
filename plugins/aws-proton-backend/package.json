@@ -26,13 +26,13 @@
     "role": "backend-plugin"
   },
   "scripts": {
-    "start": "backstage-cli backend:dev",
-    "build": "backstage-cli backend:build",
-    "lint": "backstage-cli lint",
-    "test": "backstage-cli test --watch false",
-    "prepack": "backstage-cli prepack",
-    "postpack": "backstage-cli postpack",
-    "clean": "backstage-cli clean"
+    "start": "backstage-cli package start",
+    "build": "backstage-cli package build",
+    "lint": "backstage-cli package lint",
+    "test": "backstage-cli package test --watch false",
+    "prepack": "backstage-cli package prepack",
+    "postpack": "backstage-cli package postpack",
+    "clean": "backstage-cli package clean"
   },
   "dependencies": {
     "@aws-sdk/client-proton": "^3.63.0",
