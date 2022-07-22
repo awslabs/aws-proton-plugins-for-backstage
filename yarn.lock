@@ -1768,7 +1768,7 @@
     "@backstage/errors" "^1.1.0"
     cross-fetch "^3.1.5"
 
-"@backstage/catalog-model@^1.0.1", "@backstage/catalog-model@^1.1.0":
+"@backstage/catalog-model@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@backstage/catalog-model/-/catalog-model-1.1.0.tgz#84958a4e1915377cebf1a872edcfc55b60a50a06"
   integrity sha512-GG+nuK3Pwz061dge72guO13xwmQ2LRh8V56DJAzQLV+ZqDWAdycedG3VbEqWrDR4zlz3pL+3SfAP2ZH3vC3v8w==
@@ -1914,7 +1914,7 @@
     "@backstage/types" "^1.0.0"
     lodash "^4.17.21"
 
-"@backstage/core-app-api@^1.0.1", "@backstage/core-app-api@^1.0.4":
+"@backstage/core-app-api@^1.0.4":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@backstage/core-app-api/-/core-app-api-1.0.4.tgz#3d667292de33e5de2c3e7ba256d4ae3bf85e46ad"
   integrity sha512-mUF5EL74nes3fdQbfUMce/7wkgtQe6XRyDYhyP2eFdsaYFFhcexqBgJNBv6DZLRCjqc1iw5t0ZXCvMeO30l4Xw==
@@ -1975,7 +1975,7 @@
     zen-observable "^0.8.15"
     zod "^3.11.6"
 
-"@backstage/core-plugin-api@^1.0.1", "@backstage/core-plugin-api@^1.0.4":
+"@backstage/core-plugin-api@^1.0.4":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@backstage/core-plugin-api/-/core-plugin-api-1.0.4.tgz#0dbe80be1d298273df0299ef69baa18522d9a808"
   integrity sha512-fMMpjqW2RjwclnHUJsSyPCTguplflQYEWv7wsk7IoanEkWx39pensi8OsdIBawXrOixXEnI47dgxtVMOQUxOKA==
@@ -1988,7 +1988,7 @@
     react-router-dom "6.0.0-beta.0"
     zen-observable "^0.8.15"
 
-"@backstage/dev-utils@^1.0.1":
+"@backstage/dev-utils@^1.0.4":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@backstage/dev-utils/-/dev-utils-1.0.4.tgz#401d092b9e6529cce2b56085a2b771db40ac8175"
   integrity sha512-FT2I9eXS2zAsWPMkioa7PjnfzcY+mLv/PlXwOv94B2iSKXn2mz3iRDlek2uYBawiK0u4R5EmqGi8m1mEP/Zhxg==
@@ -2121,7 +2121,7 @@
     "@backstage/errors" "1.1.0"
     "@backstage/types" "^1.0.0"
 
-"@backstage/plugin-catalog-react@^1.0.1", "@backstage/plugin-catalog-react@^1.1.2":
+"@backstage/plugin-catalog-react@^1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-catalog-react/-/plugin-catalog-react-1.1.2.tgz#253a99d9ced5d751f9d1fb3d278511d754aaed4e"
   integrity sha512-4O9TotC4aWuLA8gFcgvq/HeKXA80LUZ98WTdIqSA6iFjzh1BZbD/nvaG7Hw7X8m5C/Z7Ck4PM+ocB4XxxlVAZw==
@@ -2260,7 +2260,7 @@
   dependencies:
     cross-fetch "^3.1.5"
 
-"@backstage/test-utils@^1.0.1", "@backstage/test-utils@^1.1.2":
+"@backstage/test-utils@^1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@backstage/test-utils/-/test-utils-1.1.2.tgz#60fda2d218511341f384fcdc9bf454db2fa8e762"
   integrity sha512-nPQAKa5rcR/WDVDOSMVy1tHjKpr+P1VQt+SxkjxIy/AoKw0Acp2ioGetcbX9UWai/UxKrmQ/i5/GX8sfBFSPzw==
@@ -2282,7 +2282,7 @@
     react-router-dom "6.0.0-beta.0"
     zen-observable "^0.8.15"
 
-"@backstage/theme@^0.2.15", "@backstage/theme@^0.2.16":
+"@backstage/theme@^0.2.16":
   version "0.2.16"
   resolved "https://registry.yarnpkg.com/@backstage/theme/-/theme-0.2.16.tgz#463abce6f55e160a3a61e6654603f20b4f259a9e"
   integrity sha512-UDVqQhPunL3uDrhhKP72HlvEoG3rv2dspPxCEGqAAICBjXdLGh7CZ2qGlwdBxDjvCZ/tJcg9GNfpa6SOzdMJmA==
