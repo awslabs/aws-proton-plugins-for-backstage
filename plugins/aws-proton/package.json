@@ -38,7 +38,7 @@
     "@aws-sdk/client-proton": "^3.63.0",
     "@aws-sdk/util-arn-parser": "^3.52.0",
     "@backstage/catalog-model": "^1.1.0",
-    "@backstage/core-components": "^0.10.0",
+    "@backstage/core-components": "^0.11.0",
     "@backstage/core-plugin-api": "^1.0.4",
     "@backstage/errors": "^1.0.0",
     "@backstage/plugin-catalog-react": "^1.1.2",
