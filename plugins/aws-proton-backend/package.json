@@ -54,7 +54,7 @@
     "@backstage/dev-utils": "^1.0.4",
     "@types/fs-extra": "^9.0.13",
     "@types/glob": "^8.0.0",
-    "@types/jest": "^28.1.4",
+    "@types/jest": "^29.0.0",
     "@types/mock-fs": "^4.13.1",
     "@types/supertest": "^2.0.8",
     "aws-sdk-client-mock": "^2.0.0",
