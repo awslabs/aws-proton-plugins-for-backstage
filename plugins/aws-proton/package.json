@@ -64,7 +64,7 @@
     "@types/jest": "^29.0.0",
     "@types/node": "^18.0.0",
     "cross-fetch": "^3.1.5",
-    "msw": "^0.46.0"
+    "msw": "^0.47.3"
   },
   "files": [
     "dist"
