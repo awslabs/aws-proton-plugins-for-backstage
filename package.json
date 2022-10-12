@@ -31,10 +31,13 @@
     "publish-version": "lerna publish from-package --yes --no-verify-access"
   },
   "devDependencies": {
+    "@backstage/cli": "^0.18.0",
+    "@types/react": "^17.0.0",
     "lerna": "^5.0.0",
     "react": "^17.0.0",
-    "react-dom": "^17.0.0",
-    "@types/react": "^17.0.0",
-    "@backstage/cli": "^0.18.0"
+    "react-dom": "^17.0.0"
+  },
+  "dependencies": {
+    "parse-url": "8.1.0"
   }
 }
