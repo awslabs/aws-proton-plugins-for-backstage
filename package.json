@@ -38,6 +38,7 @@
     "react-dom": "^17.0.0"
   },
   "resolutions": {
+    "@xmldom/xmldom": "0.8.3",
     "parse-url": "8.1.0"
   },
   "dependencies": {
