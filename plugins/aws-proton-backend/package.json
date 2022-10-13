@@ -39,9 +39,9 @@
     "@aws-sdk/client-sts": "^3.63.0",
     "@aws-sdk/credential-provider-node": "^3.63.0",
     "@aws-sdk/util-arn-parser": "^3.52.0",
-    "@backstage/backend-common": "^0.15.0",
-    "@backstage/config": "^1.0.0",
-    "@backstage/plugin-scaffolder-backend": "^1.1.0",
+    "@backstage/backend-common": "^0.15.1",
+    "@backstage/config": "^1.0.2",
+    "@backstage/plugin-scaffolder-backend": "^1.6.0",
     "@types/express": "*",
     "express": "^4.17.1",
     "express-promise-router": "^4.1.0",
@@ -50,7 +50,7 @@
     "yn": "^4.0.0"
   },
   "devDependencies": {
-    "@backstage/cli": "^0.18.0",
+    "@backstage/cli": "^0.19.0",
     "@backstage/dev-utils": "^1.0.4",
     "@types/fs-extra": "^9.0.13",
     "@types/glob": "^8.0.0",
