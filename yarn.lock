@@ -523,9 +523,9 @@
     tslib "^2.3.1"
 
 "@aws-sdk/util-arn-parser@^3.52.0":
-  version "3.186.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/util-arn-parser/-/util-arn-parser-3.186.0.tgz#fba484cc1e42bb4e1770391e73efb49e577758b6"
-  integrity sha512-hhTziyXeiNylZfZ6yXmaAhOUSmS3xQiofXRm1CcxMttHWmTOI6OrepKa2kOkNZsZe28vfuy4I7vbWPi2LcwSqA==
+  version "3.188.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/util-arn-parser/-/util-arn-parser-3.188.0.tgz#4df0144c00dce3490666da7d55e6e13c9a3f21b2"
+  integrity sha512-q4nZzt/g3sRY9a3sj1PaNFwql5bXfKSW4fRy0zLdbZHcYdgq2oQfVsJTIlL9lUNjifkXiIsmk61Q16JExtrLyw==
   dependencies:
     tslib "^2.3.1"
 
@@ -5082,9 +5082,9 @@
   integrity sha512-iiUgKzV9AuaEkZqkOLDIvlQiL6ltuZd9tGcW3gwpnX8JbuiuhFlEGmmFXEXkN50Cvq7Os88IY2v0dkDqXYWVgA==
 
 "@types/node@*", "@types/node@^18.0.0":
-  version "18.8.5"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.8.5.tgz#6a31f820c1077c3f8ce44f9e203e68a176e8f59e"
-  integrity sha512-Bq7G3AErwe5A/Zki5fdD3O6+0zDChhg671NfPjtIcbtzDNZTv4NPKMRFr7gtYPG7y+B8uTiNK4Ngd9T0FTar6Q==
+  version "18.11.9"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.11.9.tgz#02d013de7058cea16d36168ef2fc653464cfbad4"
+  integrity sha512-CRpX21/kGdzjOpFsZSkcrXMGIBWMGNIHXXBVFSH+ggkftxg+XYP20TESbh+zFvFj3EQOl5byk0HTRn1IL6hbqg==
 
 "@types/node@^12.7.1":
   version "12.20.55"
@@ -12791,9 +12791,9 @@ mkdirp@^1.0.3, mkdirp@^1.0.4:
   integrity sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==
 
 mock-fs@^5.1.2:
-  version "5.1.4"
-  resolved "https://registry.yarnpkg.com/mock-fs/-/mock-fs-5.1.4.tgz#d64dc37b2793613ca7148b510b1167b5b8afb6b8"
-  integrity sha512-sudhLjCjX37qWIcAlIv1OnAxB2wI4EmXByVuUjILh1rKGNGpGU8GNnzw+EAbrhdpBe0TL/KONbK1y3RXZk8SxQ==
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/mock-fs/-/mock-fs-5.2.0.tgz#3502a9499c84c0a1218ee4bf92ae5bf2ea9b2b5e"
+  integrity sha512-2dF2R6YMSZbpip1V1WHKGLNjr/k48uQClqMVb5H3MOvwc9qhYis3/IWbj02qIg/Y8MDXKFF4c5v0rxx2o6xTZw==
 
 modify-values@^1.0.0:
   version "1.0.1"
