@@ -523,9 +523,9 @@
     tslib "^2.3.1"
 
 "@aws-sdk/util-arn-parser@^3.52.0":
-  version "3.186.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/util-arn-parser/-/util-arn-parser-3.186.0.tgz#fba484cc1e42bb4e1770391e73efb49e577758b6"
-  integrity sha512-hhTziyXeiNylZfZ6yXmaAhOUSmS3xQiofXRm1CcxMttHWmTOI6OrepKa2kOkNZsZe28vfuy4I7vbWPi2LcwSqA==
+  version "3.188.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/util-arn-parser/-/util-arn-parser-3.188.0.tgz#4df0144c00dce3490666da7d55e6e13c9a3f21b2"
+  integrity sha512-q4nZzt/g3sRY9a3sj1PaNFwql5bXfKSW4fRy0zLdbZHcYdgq2oQfVsJTIlL9lUNjifkXiIsmk61Q16JExtrLyw==
   dependencies:
     tslib "^2.3.1"
 
