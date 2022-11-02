@@ -19,15 +19,15 @@ import fs from 'fs-extra';
 
 export const createAwsProtonServiceAction = () => {
   return createTemplateAction<{
-      serviceName: string;
-      templateName: string;
-      templateMajorVersion: string;
-      repository: any;
-      repositoryConnectionArn: string;
-      branchName: string;
-      serviceSpecPath: string;
-      region: string
-    }>({
+    serviceName: string;
+    templateName: string;
+    templateMajorVersion: string;
+    repository?: any;
+    repositoryConnectionArn?: string;
+    branchName?: string;
+    serviceSpecPath: string;
+    region: string;
+  }>({
     id: 'aws:proton:create-service',
     schema: {
       input: {
@@ -35,11 +35,8 @@ export const createAwsProtonServiceAction = () => {
           'serviceName',
           'templateName',
           'templateMajorVersion',
-          'repository',
-          'repositoryConnectionArn',
-          'branchName',
           'serviceSpecPath',
-          'region'
+          'region',
         ],
         type: 'object',
         properties: {
@@ -76,7 +73,8 @@ export const createAwsProtonServiceAction = () => {
           serviceSpecPath: {
             type: 'string',
             title: 'Service specification',
-            description: 'The filesystem path to the AWS Proton service specification',
+            description:
+              'The filesystem path to the AWS Proton service specification',
           },
           region: {
             type: 'string',
@@ -96,30 +94,38 @@ export const createAwsProtonServiceAction = () => {
       },
     },
     async handler(ctx) {
-      const spec = await fs.readFile(`${ctx.workspacePath}/${ctx.input.serviceSpecPath}`);
+      const spec = await fs.readFile(
+        `${ctx.workspacePath}/${ctx.input.serviceSpecPath}`
+      );
 
-      ctx.logger.info(`Creating AWS Proton service ${ctx.input.serviceName}`)
+      ctx.logger.info(`Creating AWS Proton service ${ctx.input.serviceName}`);
 
       const client = new ProtonClient({
         region: ctx.input.region,
         customUserAgent: 'aws-proton-plugin-for-backstage',
-        credentialDefaultProvider: () => defaultProvider({
-          roleAssumerWithWebIdentity: getDefaultRoleAssumerWithWebIdentity(),
-        }),
+        credentialDefaultProvider: () =>
+          defaultProvider({
+            roleAssumerWithWebIdentity: getDefaultRoleAssumerWithWebIdentity(),
+          }),
       });
 
-      const resp = await client.send(new CreateServiceCommand({
-        name: ctx.input.serviceName,
-        templateName: ctx.input.templateName,
-        templateMajorVersion: ctx.input.templateMajorVersion,
-        repositoryId: `${ctx.input.repository.owner}/${ctx.input.repository.repo}`,
-        repositoryConnectionArn: ctx.input.repositoryConnectionArn,
-        branchName: ctx.input.branchName,
-        spec: spec.toString(),
-      }));
+      const resp = await client.send(
+        new CreateServiceCommand({
+          name: ctx.input.serviceName,
+          templateName: ctx.input.templateName,
+          templateMajorVersion: ctx.input.templateMajorVersion,
+          repositoryId:
+            ctx.input.repository !== undefined
+              ? `${ctx.input.repository.owner}/${ctx.input.repository.repo}`
+              : undefined,
+          repositoryConnectionArn: ctx.input.repositoryConnectionArn,
+          branchName: ctx.input.branchName,
+          spec: spec.toString(),
+        })
+      );
 
-      if(resp.service !== undefined) {
-        ctx.logger.info(`Successfully created service ${resp.service.arn}`)
+      if (resp.service !== undefined) {
+        ctx.logger.info(`Successfully created service ${resp.service.arn}`);
         ctx.output('arn', `${resp.service.arn}`);
       }
     },
