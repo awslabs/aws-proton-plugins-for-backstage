@@ -1,8 +1,8 @@
 name: Upgrade Backstage
 
 on:
-  schedule:
-    - cron: '0 1 1 * *' # 1 am UTC on 1st day of every month
+#  schedule:
+#    - cron: '0 1 1 * *' # 1 am UTC on 1st day of every month
   workflow_dispatch: {}
 
 jobs:
