@@ -5,7 +5,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [0.1.4](https://github.com/awslabs/aws-proton-plugins-for-backstage/compare/v0.1.3...v0.1.4) (2022-11-09)
 
-**Note:** Version bump only for package aws-proton-plugins-for-backstage
+
+### Bug Fixes
+
+* Support scaffolding pipeline-less services ([9655f82](https://github.com/awslabs/aws-proton-plugins-for-backstage/commit/9655f822182a6184712ff76e7f2075a0b46bc559))
 
 
 
