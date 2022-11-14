@@ -71,6 +71,11 @@ jobs:
 
           NEW_VERSION=$(cat lerna.json | jq -r '.version')
           GIT_COMMIT_ID=$(git rev-parse HEAD)
+          BACKSTAGE_VERSION=$(cat backstage.json | jq -r '.version')
+
+          gh release view v$NEW_VERSION --json body -q ".body" > release-notes.txt
+          echo -e "### Backstage Version\n\nThis release was built on Backstage version $BACKSTAGE_VERSION." >> release-notes.txt
+          gh release edit v$NEW_VERSION --notes-file release-notes.txt
 
           echo New version: v$NEW_VERSION
           echo Commit ID: $GIT_COMMIT_ID
