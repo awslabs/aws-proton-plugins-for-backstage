@@ -15,32 +15,28 @@ import { IdentityApi } from '@backstage/core-plugin-api';
 
 import { ConfigApi } from '@backstage/core-plugin-api';
 import { ResponseError } from '@backstage/errors';
-import { Service, ServiceInstanceSummary } from '@aws-sdk/client-proton'
+import { Service, ServiceInstanceSummary } from '@aws-sdk/client-proton';
 import { AwsProtonApi } from '.';
 
 export class AwsProtonApiClient implements AwsProtonApi {
-  private readonly configApi : ConfigApi;
-  private readonly identityApi : IdentityApi;
+  private readonly configApi: ConfigApi;
+  private readonly identityApi: IdentityApi;
 
   public constructor(options: {
-    configApi: ConfigApi,
-    identityApi : IdentityApi,
+    configApi: ConfigApi;
+    identityApi: IdentityApi;
   }) {
     this.configApi = options.configApi;
     this.identityApi = options.identityApi;
   }
 
-  async getService({
-    arn,
-  }: {
-    arn: string,
-  }): Promise<Service> {
+  async getService({ arn }: { arn: string }): Promise<Service> {
     const queryString = new URLSearchParams();
     queryString.append('arn', arn);
 
-    const urlSegment = `service?${queryString}`
+    const urlSegment = `service?${queryString}`;
 
-    const service = await this.get<Service>(urlSegment)
+    const service = await this.get<Service>(urlSegment);
 
     return service;
   }
@@ -48,30 +44,32 @@ export class AwsProtonApiClient implements AwsProtonApi {
   async listServiceInstances({
     arn,
   }: {
-    arn: string,
+    arn: string;
   }): Promise<ServiceInstanceSummary[]> {
     const queryString = new URLSearchParams();
     queryString.append('arn', arn);
 
-    const urlSegment = `serviceInstances?${queryString}`
+    const urlSegment = `serviceInstances?${queryString}`;
 
-    const service = await this.get<ServiceInstanceSummary[]>(urlSegment)
+    const service = await this.get<ServiceInstanceSummary[]>(urlSegment);
 
     return service;
   }
 
   private async get<T>(path: string): Promise<T> {
-    const baseUrl = `${await this.configApi.getString('backend.baseUrl')}/api/aws-proton-backend/}`
+    const baseUrl = `${await this.configApi.getString(
+      'backend.baseUrl',
+    )}/api/aws-proton-backend/}`;
 
-    const url = new URL(path, baseUrl)
+    const url = new URL(path, baseUrl);
 
-    const  { token: idToken } = await this.identityApi.getCredentials();
+    const { token: idToken } = await this.identityApi.getCredentials();
 
     const response = await fetch(url.toString(), {
-      headers: idToken ? { Authorization: `Bearer ${idToken}`} : {}
+      headers: idToken ? { Authorization: `Bearer ${idToken}` } : {},
     });
 
-    if(!response.ok) {
+    if (!response.ok) {
       throw await ResponseError.fromResponse(response);
     }
 

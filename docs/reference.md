@@ -1,6 +1,6 @@
 # AWS Proton plugins for Backstage reference
 
-This document covers the configuration options for the AWS Proton plugins for Backstage.  To install the Proton plugins into your Backstage application, see the [AWS Proton plugins for Backstage installation guide](install.md).  For a detailed walkthrough of using the Proton plugins in your Backstage app, see [Tutorial: using the AWS Proton plugins for Backstage](tutorial.md).
+This document covers the configuration options for the AWS Proton plugins for Backstage. To install the Proton plugins into your Backstage application, see the [AWS Proton plugins for Backstage installation guide](install.md). For a detailed walkthrough of using the Proton plugins in your Backstage app, see [Tutorial: using the AWS Proton plugins for Backstage](tutorial.md).
 
 ## Catalog entity annotation
 
@@ -23,9 +23,10 @@ spec:
 The `aws:proton:create-service` scaffolder action allows Backstage Software Templates to create an AWS Proton service for new components.
 
 This action assumes that the following AWS resources are already created in your AWS account, prior to creating a Backstage Software Template:
-* [Proton service templates](https://docs.aws.amazon.com/proton/latest/adminguide/ag-templates.html)
-* [Proton environments](https://docs.aws.amazon.com/proton/latest/adminguide/ag-environments.html)
-* [CodeStar Connections connections](https://docs.aws.amazon.com/dtconsole/latest/userguide/welcome-connections.html)
+
+- [Proton service templates](https://docs.aws.amazon.com/proton/latest/adminguide/ag-templates.html)
+- [Proton environments](https://docs.aws.amazon.com/proton/latest/adminguide/ag-environments.html)
+- [CodeStar Connections connections](https://docs.aws.amazon.com/dtconsole/latest/userguide/welcome-connections.html)
 
 To use this action in a Software Template, add a step similar to the following:
 

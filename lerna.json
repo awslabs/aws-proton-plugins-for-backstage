@@ -1,8 +1,6 @@
 {
   "version": "0.1.5",
-  "packages": [
-    "plugins/*"
-  ],
+  "packages": ["plugins/*"],
   "command": {
     "version": {
       "allowBranch": "main",

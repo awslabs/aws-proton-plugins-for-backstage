@@ -18,7 +18,8 @@ import { AWS_PROTON_SERVICE_ANNOTATION } from '../constants';
 export function useProtonServiceArnFromEntity(entity: Entity): {
   arn: string;
 } {
-  const arn = entity.metadata.annotations?.[AWS_PROTON_SERVICE_ANNOTATION] ?? ''
+  const arn =
+    entity.metadata.annotations?.[AWS_PROTON_SERVICE_ANNOTATION] ?? '';
 
   if (!validate(arn)) {
     throw new Error(

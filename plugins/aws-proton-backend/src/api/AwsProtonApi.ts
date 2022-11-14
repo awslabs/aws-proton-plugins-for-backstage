@@ -12,65 +12,69 @@
  */
 
 import { Logger } from 'winston';
-import { GetServiceCommand, ProtonClient, Service, ServiceInstanceSummary, paginateListServiceInstances } from '@aws-sdk/client-proton';
+import {
+  GetServiceCommand,
+  ProtonClient,
+  Service,
+  ServiceInstanceSummary,
+  paginateListServiceInstances,
+} from '@aws-sdk/client-proton';
 import { getDefaultRoleAssumerWithWebIdentity } from '@aws-sdk/client-sts';
 import { defaultProvider } from '@aws-sdk/credential-provider-node';
-import { parse } from '@aws-sdk/util-arn-parser'
+import { parse } from '@aws-sdk/util-arn-parser';
 
 export class AwsProtonApi {
-  public constructor(
-    private readonly logger: Logger,
-  ) {}
+  public constructor(private readonly logger: Logger) {}
 
-  public async getProtonService(
-    arn: string,
-  ): Promise<Service> {
-    this.logger?.debug(
-      `Fetch Proton Service ${arn}`,
-    );
+  public async getProtonService(arn: string): Promise<Service> {
+    this.logger?.debug(`Fetch Proton Service ${arn}`);
 
-    const {region, resource} = parse(arn);
-    const segments = resource.split("/");
-    if (segments.length < 2) throw new Error("Malformed Proton Service ARN");
+    const { region, resource } = parse(arn);
+    const segments = resource.split('/');
+    if (segments.length < 2) throw new Error('Malformed Proton Service ARN');
 
     const serviceName = segments[1];
 
     const client = new ProtonClient({
       region: region,
       customUserAgent: 'aws-proton-plugin-for-backstage',
-      credentialDefaultProvider: () => defaultProvider({
-        roleAssumerWithWebIdentity: getDefaultRoleAssumerWithWebIdentity(),
-      }),
+      credentialDefaultProvider: () =>
+        defaultProvider({
+          roleAssumerWithWebIdentity: getDefaultRoleAssumerWithWebIdentity(),
+        }),
     });
-    const resp = await client
-      .send(new GetServiceCommand({
-        name: serviceName
-      }));
+    const resp = await client.send(
+      new GetServiceCommand({
+        name: serviceName,
+      }),
+    );
     return resp.service!;
   }
 
   public async listProtonServiceInstances(
     arn: string,
   ): Promise<ServiceInstanceSummary[]> {
-    this.logger?.debug(
-      `Fetch Proton Service ${arn}`,
-    );
+    this.logger?.debug(`Fetch Proton Service ${arn}`);
 
-    const {region, resource} = parse(arn);
-    const segments = resource.split("/");
-    if (segments.length < 2) throw new Error("Malformed Proton Service ARN");
+    const { region, resource } = parse(arn);
+    const segments = resource.split('/');
+    if (segments.length < 2) throw new Error('Malformed Proton Service ARN');
 
     const serviceName = segments[1];
 
     const client = new ProtonClient({
       region: region,
       customUserAgent: 'aws-proton-plugin-for-backstage',
-      credentialDefaultProvider: () => defaultProvider({
-        roleAssumerWithWebIdentity: getDefaultRoleAssumerWithWebIdentity(),
-      }),
+      credentialDefaultProvider: () =>
+        defaultProvider({
+          roleAssumerWithWebIdentity: getDefaultRoleAssumerWithWebIdentity(),
+        }),
     });
     const serviceInstances: ServiceInstanceSummary[] = [];
-    for await (const page of paginateListServiceInstances({ client }, { serviceName })) {
+    for await (const page of paginateListServiceInstances(
+      { client },
+      { serviceName },
+    )) {
       if (page.serviceInstances) {
         serviceInstances.push(...page.serviceInstances);
       }

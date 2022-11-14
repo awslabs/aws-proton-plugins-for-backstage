@@ -4326,6 +4326,11 @@
   resolved "https://registry.yarnpkg.com/@spotify/eslint-config-typescript/-/eslint-config-typescript-14.1.0.tgz#7df72a3d4431e37099779486400509fa3755774b"
   integrity sha512-jSNNbPy6mlCqGFs2w2blUyfHfIgQr5YcO6/xlGgdtipfl8R3hHOIjFHBvx/6Mi6VcHqY9vw82Fw4WSZxt2YHGA==
 
+"@spotify/prettier-config@^14.0.0":
+  version "14.1.0"
+  resolved "https://registry.yarnpkg.com/@spotify/prettier-config/-/prettier-config-14.1.0.tgz#ec557d588357f8fd871a1c0e1ccc382cd7da6fb1"
+  integrity sha512-Y55xPgtoESS18zBrQWkvlH7G6LAyPQkhwFM6tVZN19tDXNWFmXCHFsAAEhVeMx205Sye/y3AFbO7g9O7CIljNQ==
+
 "@sucrase/jest-plugin@^2.1.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@sucrase/jest-plugin/-/jest-plugin-2.2.1.tgz#659d31f34412fc9c50e6e0622298baaf27b75366"
@@ -14159,6 +14164,11 @@ prelude-ls@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.1.2.tgz#21932a549f5e52ffd9a827f570e04be62a97da54"
   integrity sha512-ESF23V4SKG6lVSGZgYNpbsiaAkdab6ZgOxe52p7+Kid3W3u3bxR4Vfd/o21dmN7jSt0IwgZ4v5MUd26FEtXE9w==
+
+prettier@^2.2.1:
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.7.1.tgz#e235806850d057f97bb08368a4f7d899f7760c64"
+  integrity sha512-ujppO+MkdPqoVINuDFDRLClm7D78qbDt0/NR+wp5FqEZOoTNAjPHWj17QRhu7geIHJfcNhRk1XVQmF8Bp3ye+g==
 
 pretty-error@^4.0.0:
   version "4.0.0"

@@ -19,15 +19,11 @@ export const awsProtonApiRef = createApiRef<AwsProtonApi>({
 });
 
 export interface AwsProtonApi {
-  getService({
-      arn,
-    }: {
-      arn: string,
-    }): Promise<Service>;
+  getService({ arn }: { arn: string }): Promise<Service>;
 
   listServiceInstances({
-      arn,
-    }: {
-      arn: string,
-    }): Promise<ServiceInstanceSummary[]>;
+    arn,
+  }: {
+    arn: string;
+  }): Promise<ServiceInstanceSummary[]>;
 }

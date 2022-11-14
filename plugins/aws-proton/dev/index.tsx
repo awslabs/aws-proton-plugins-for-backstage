@@ -13,20 +13,23 @@
 
 import { createDevApp } from '@backstage/dev-utils';
 import { awsProtonApiRef } from '../src/api';
-import { awsProtonPlugin, EntityAWSProtonServiceOverviewCard } from '../src/plugin';
+import {
+  awsProtonPlugin,
+  EntityAWSProtonServiceOverviewCard,
+} from '../src/plugin';
 import { EntityProvider } from '@backstage/plugin-catalog-react';
 import { TestApiProvider } from '@backstage/test-utils';
 import React from 'react';
-import { 
+import {
   invalidEntity,
-  mockEntity, 
-  MockGetServiceAPIError, 
-  MockListServiceInstancesAPIError, 
-  MockMegaService, 
-  MockProtonService, 
-  MockProtonServiceCreateInProgress, 
+  mockEntity,
+  MockGetServiceAPIError,
+  MockListServiceInstancesAPIError,
+  MockMegaService,
+  MockProtonService,
+  MockProtonServiceCreateInProgress,
   MockProtonServiceNoPipeline,
-  MockSlowLoad
+  MockSlowLoad,
 } from '../src/mocks';
 
 createDevApp()
@@ -34,9 +37,7 @@ createDevApp()
     path: '/fixture-proton-service',
     title: 'Service',
     element: (
-      <TestApiProvider
-        apis={[[awsProtonApiRef, new MockProtonService()]]}
-      >
+      <TestApiProvider apis={[[awsProtonApiRef, new MockProtonService()]]}>
         <EntityProvider entity={mockEntity}>
           <EntityAWSProtonServiceOverviewCard />
         </EntityProvider>
@@ -47,9 +48,7 @@ createDevApp()
     path: '/fixture-mega-proton-service',
     title: 'Mega Service',
     element: (
-      <TestApiProvider
-        apis={[[awsProtonApiRef, new MockMegaService()]]}
-      >
+      <TestApiProvider apis={[[awsProtonApiRef, new MockMegaService()]]}>
         <EntityProvider entity={mockEntity}>
           <EntityAWSProtonServiceOverviewCard />
         </EntityProvider>
@@ -86,9 +85,7 @@ createDevApp()
     path: '/fixture-invalid-annotation',
     title: 'Bad Annotation',
     element: (
-      <TestApiProvider
-        apis={[[awsProtonApiRef, new MockProtonService()]]}
-      >
+      <TestApiProvider apis={[[awsProtonApiRef, new MockProtonService()]]}>
         <EntityProvider entity={invalidEntity}>
           <EntityAWSProtonServiceOverviewCard />
         </EntityProvider>
@@ -99,9 +96,7 @@ createDevApp()
     path: '/fixture-proton-service-get-service-api-error',
     title: 'GetService Error',
     element: (
-      <TestApiProvider
-        apis={[[awsProtonApiRef, new MockGetServiceAPIError()]]}
-      >
+      <TestApiProvider apis={[[awsProtonApiRef, new MockGetServiceAPIError()]]}>
         <EntityProvider entity={mockEntity}>
           <EntityAWSProtonServiceOverviewCard />
         </EntityProvider>
@@ -125,9 +120,7 @@ createDevApp()
     path: '/fixture-slow-load',
     title: 'Slow Load',
     element: (
-      <TestApiProvider
-        apis={[[awsProtonApiRef, new MockSlowLoad()]]}
-      >
+      <TestApiProvider apis={[[awsProtonApiRef, new MockSlowLoad()]]}>
         <EntityProvider entity={mockEntity}>
           <EntityAWSProtonServiceOverviewCard />
         </EntityProvider>

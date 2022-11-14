@@ -38,28 +38,24 @@ export async function createRouter(
   router.get('/service', async (req, res) => {
     const arn = req.query.arn?.toString();
 
-    if(arn === undefined) {
+    if (arn === undefined) {
       res.status(400).send({ error: 'No ARN provided' });
       return;
     }
 
-    const service = await awsProtonApi.getProtonService(
-      arn,
-    );
+    const service = await awsProtonApi.getProtonService(arn);
     res.status(200).json(service);
   });
 
   router.get('/serviceInstances', async (req, res) => {
     const arn = req.query.arn?.toString();
 
-    if(arn === undefined) {
+    if (arn === undefined) {
       res.status(400).send({ error: 'No ARN provided' });
       return;
     }
 
-    const service = await awsProtonApi.listProtonServiceInstances(
-      arn,
-    );
+    const service = await awsProtonApi.listProtonServiceInstances(arn);
     res.status(200).json(service);
   });
 

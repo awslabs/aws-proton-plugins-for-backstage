@@ -11,13 +11,17 @@
  * limitations under the License.
  */
 
-import { DeploymentStatus, Service, ServiceInstanceSummary, ServiceStatus } from "@aws-sdk/client-proton";
-import { Entity } from "@backstage/catalog-model";
-import { AwsProtonApi } from "../api";
+import {
+  DeploymentStatus,
+  Service,
+  ServiceInstanceSummary,
+  ServiceStatus,
+} from '@aws-sdk/client-proton';
+import { Entity } from '@backstage/catalog-model';
+import { AwsProtonApi } from '../api';
 
 export class MockProtonService implements AwsProtonApi {
-
-  async getService({ arn, }: { arn: string; }): Promise<Service> {
+  async getService({ arn }: { arn: string }): Promise<Service> {
     return {
       arn: arn,
       name: 'mock-service',
@@ -34,69 +38,20 @@ export class MockProtonService implements AwsProtonApi {
         deploymentStatus: 'SUCCEEDED',
         templateName: 'mock-template',
         templateMajorVersion: '1',
-        templateMinorVersion: '0'
-      }
-    }
+        templateMinorVersion: '0',
+      },
+    };
   }
 
-  async listServiceInstances({ arn, }: { arn: string; }): Promise<ServiceInstanceSummary[]> {
-    return [{
-      arn: arn,
-      name: 'mock-instance1',
-      lastDeploymentAttemptedAt: new Date(),
-      lastDeploymentSucceededAt: new Date(),
-      templateName: 'mock-template',
-      createdAt: new Date(),
-      serviceName: 'mock-service',
-      deploymentStatus: DeploymentStatus.SUCCEEDED,
-      environmentName: 'dev',
-      templateMajorVersion: '1',
-      templateMinorVersion: '0'
-    },{
-      arn: arn,
-      name: 'mock-instance2',
-      lastDeploymentAttemptedAt: new Date(),
-      lastDeploymentSucceededAt: new Date(),
-      templateName: 'mock-template',
-      createdAt: new Date(),
-      serviceName: 'mock-service',
-      deploymentStatus: DeploymentStatus.IN_PROGRESS,
-      environmentName: 'prod',
-      templateMajorVersion: '1',
-      templateMinorVersion: '0'
-    }]
-  }
-}
-
-export class MockMegaService implements AwsProtonApi {
-
-  async getService({ arn, }: { arn: string; }): Promise<Service> {
-    return {
-      arn: arn,
-      name: 'mock-service',
-      templateName: 'mock-template',
-      createdAt: new Date(),
-      lastModifiedAt: new Date(),
-      status: 'ACTIVE',
-      spec: 'asdasd',
-      pipeline: {
-        arn: 'aasdasd',
-        createdAt: new Date(),
-        lastDeploymentAttemptedAt: new Date(),
-        lastDeploymentSucceededAt: new Date(),
-        deploymentStatus: 'SUCCEEDED',
-        templateName: 'mock-template',
-        templateMajorVersion: '1',
-        templateMinorVersion: '0'
-      }
-    }
-  }
-
-  async listServiceInstances({ arn, }: { arn: string; }): Promise<ServiceInstanceSummary[]> {
-    return Array.from({ length: 50 }, (_, i) => {
-      return {
+  async listServiceInstances({
+    arn,
+  }: {
+    arn: string;
+  }): Promise<ServiceInstanceSummary[]> {
+    return [
+      {
         arn: arn,
-        name: `mock-instance-${i+1}`,
+        name: 'mock-instance1',
         lastDeploymentAttemptedAt: new Date(),
         lastDeploymentSucceededAt: new Date(),
         templateName: 'mock-template',
@@ -105,15 +60,73 @@ export class MockMegaService implements AwsProtonApi {
         deploymentStatus: DeploymentStatus.SUCCEEDED,
         environmentName: 'dev',
         templateMajorVersion: '1',
-        templateMinorVersion: '0'
-      }
-    })
+        templateMinorVersion: '0',
+      },
+      {
+        arn: arn,
+        name: 'mock-instance2',
+        lastDeploymentAttemptedAt: new Date(),
+        lastDeploymentSucceededAt: new Date(),
+        templateName: 'mock-template',
+        createdAt: new Date(),
+        serviceName: 'mock-service',
+        deploymentStatus: DeploymentStatus.IN_PROGRESS,
+        environmentName: 'prod',
+        templateMajorVersion: '1',
+        templateMinorVersion: '0',
+      },
+    ];
+  }
+}
+
+export class MockMegaService implements AwsProtonApi {
+  async getService({ arn }: { arn: string }): Promise<Service> {
+    return {
+      arn: arn,
+      name: 'mock-service',
+      templateName: 'mock-template',
+      createdAt: new Date(),
+      lastModifiedAt: new Date(),
+      status: 'ACTIVE',
+      spec: 'asdasd',
+      pipeline: {
+        arn: 'aasdasd',
+        createdAt: new Date(),
+        lastDeploymentAttemptedAt: new Date(),
+        lastDeploymentSucceededAt: new Date(),
+        deploymentStatus: 'SUCCEEDED',
+        templateName: 'mock-template',
+        templateMajorVersion: '1',
+        templateMinorVersion: '0',
+      },
+    };
+  }
+
+  async listServiceInstances({
+    arn,
+  }: {
+    arn: string;
+  }): Promise<ServiceInstanceSummary[]> {
+    return Array.from({ length: 50 }, (_, i) => {
+      return {
+        arn: arn,
+        name: `mock-instance-${i + 1}`,
+        lastDeploymentAttemptedAt: new Date(),
+        lastDeploymentSucceededAt: new Date(),
+        templateName: 'mock-template',
+        createdAt: new Date(),
+        serviceName: 'mock-service',
+        deploymentStatus: DeploymentStatus.SUCCEEDED,
+        environmentName: 'dev',
+        templateMajorVersion: '1',
+        templateMinorVersion: '0',
+      };
+    });
   }
 }
 
 export class MockProtonServiceCreateInProgress implements AwsProtonApi {
-
-  async getService({ arn, }: { arn: string; }): Promise<Service> {
+  async getService({ arn }: { arn: string }): Promise<Service> {
     return {
       arn: arn,
       name: 'mock-service',
@@ -130,43 +143,49 @@ export class MockProtonServiceCreateInProgress implements AwsProtonApi {
         deploymentStatus: DeploymentStatus.IN_PROGRESS,
         templateName: 'mock-template',
         templateMajorVersion: undefined,
-        templateMinorVersion: undefined
-      }
-    }
+        templateMinorVersion: undefined,
+      },
+    };
   }
 
-  async listServiceInstances({ arn, }: { arn: string; }): Promise<ServiceInstanceSummary[]> {
-    return [{
-      arn: arn,
-      name: 'mock-instance1',
-      lastDeploymentAttemptedAt: new Date(),
-      lastDeploymentSucceededAt: undefined,
-      templateName: 'mock-template',
-      createdAt: new Date(),
-      serviceName: 'mock-service',
-      deploymentStatus: DeploymentStatus.IN_PROGRESS,
-      environmentName: 'dev',
-      templateMajorVersion: undefined,
-      templateMinorVersion: undefined
-    },{
-      arn: arn,
-      name: 'mock-instance2',
-      lastDeploymentAttemptedAt: new Date(),
-      lastDeploymentSucceededAt: undefined,
-      templateName: 'mock-template',
-      createdAt: new Date(),
-      serviceName: 'mock-service',
-      deploymentStatus: DeploymentStatus.IN_PROGRESS,
-      environmentName: 'prod',
-      templateMajorVersion: undefined,
-      templateMinorVersion: undefined
-    }]
+  async listServiceInstances({
+    arn,
+  }: {
+    arn: string;
+  }): Promise<ServiceInstanceSummary[]> {
+    return [
+      {
+        arn: arn,
+        name: 'mock-instance1',
+        lastDeploymentAttemptedAt: new Date(),
+        lastDeploymentSucceededAt: undefined,
+        templateName: 'mock-template',
+        createdAt: new Date(),
+        serviceName: 'mock-service',
+        deploymentStatus: DeploymentStatus.IN_PROGRESS,
+        environmentName: 'dev',
+        templateMajorVersion: undefined,
+        templateMinorVersion: undefined,
+      },
+      {
+        arn: arn,
+        name: 'mock-instance2',
+        lastDeploymentAttemptedAt: new Date(),
+        lastDeploymentSucceededAt: undefined,
+        templateName: 'mock-template',
+        createdAt: new Date(),
+        serviceName: 'mock-service',
+        deploymentStatus: DeploymentStatus.IN_PROGRESS,
+        environmentName: 'prod',
+        templateMajorVersion: undefined,
+        templateMinorVersion: undefined,
+      },
+    ];
   }
 }
 
 export class MockProtonServiceNoPipeline implements AwsProtonApi {
-
-  async getService({ arn, }: { arn: string; }): Promise<Service> {
+  async getService({ arn }: { arn: string }): Promise<Service> {
     return {
       arn: arn,
       name: 'mock-service',
@@ -174,65 +193,76 @@ export class MockProtonServiceNoPipeline implements AwsProtonApi {
       createdAt: new Date(),
       lastModifiedAt: new Date(),
       status: 'ACTIVE',
-      spec: 'asdasd'
-    }
+      spec: 'asdasd',
+    };
   }
 
-  async listServiceInstances({ arn, }: { arn: string; }): Promise<ServiceInstanceSummary[]> {
-    return [{
-      arn: arn,
-      name: 'mock-instance1',
-      lastDeploymentAttemptedAt: new Date(),
-      lastDeploymentSucceededAt: new Date(),
-      templateName: 'mock-template',
-      createdAt: new Date(),
-      serviceName: 'mock-service',
-      deploymentStatus: DeploymentStatus.SUCCEEDED,
-      environmentName: 'dev',
-      templateMajorVersion: '1',
-      templateMinorVersion: '0'
-    },{
-      arn: arn,
-      name: 'mock-instance2',
-      lastDeploymentAttemptedAt: new Date(),
-      lastDeploymentSucceededAt: new Date(),
-      templateName: 'mock-template',
-      createdAt: new Date(),
-      serviceName: 'mock-service',
-      deploymentStatus: DeploymentStatus.IN_PROGRESS,
-      environmentName: 'prod',
-      templateMajorVersion: '1',
-      templateMinorVersion: '0'
-    }]
+  async listServiceInstances({
+    arn,
+  }: {
+    arn: string;
+  }): Promise<ServiceInstanceSummary[]> {
+    return [
+      {
+        arn: arn,
+        name: 'mock-instance1',
+        lastDeploymentAttemptedAt: new Date(),
+        lastDeploymentSucceededAt: new Date(),
+        templateName: 'mock-template',
+        createdAt: new Date(),
+        serviceName: 'mock-service',
+        deploymentStatus: DeploymentStatus.SUCCEEDED,
+        environmentName: 'dev',
+        templateMajorVersion: '1',
+        templateMinorVersion: '0',
+      },
+      {
+        arn: arn,
+        name: 'mock-instance2',
+        lastDeploymentAttemptedAt: new Date(),
+        lastDeploymentSucceededAt: new Date(),
+        templateName: 'mock-template',
+        createdAt: new Date(),
+        serviceName: 'mock-service',
+        deploymentStatus: DeploymentStatus.IN_PROGRESS,
+        environmentName: 'prod',
+        templateMajorVersion: '1',
+        templateMinorVersion: '0',
+      },
+    ];
   }
 }
 
 export class MockGetServiceAPIError implements AwsProtonApi {
-
-  async getService({ arn, }: { arn: string; }): Promise<Service> {
-    throw new Error(`Could not find ${ arn }!`)
+  async getService({ arn }: { arn: string }): Promise<Service> {
+    throw new Error(`Could not find ${arn}!`);
   }
 
-  async listServiceInstances({ arn, }: { arn: string; }): Promise<ServiceInstanceSummary[]> {
-    return [{
-      arn: arn,
-      name: 'mock-instance1',
-      lastDeploymentAttemptedAt: new Date(),
-      lastDeploymentSucceededAt: new Date(),
-      templateName: 'mock-template',
-      createdAt: new Date(),
-      serviceName: 'mock-service',
-      deploymentStatus: DeploymentStatus.SUCCEEDED,
-      environmentName: 'dev',
-      templateMajorVersion: '1',
-      templateMinorVersion: '0'
-    }]
+  async listServiceInstances({
+    arn,
+  }: {
+    arn: string;
+  }): Promise<ServiceInstanceSummary[]> {
+    return [
+      {
+        arn: arn,
+        name: 'mock-instance1',
+        lastDeploymentAttemptedAt: new Date(),
+        lastDeploymentSucceededAt: new Date(),
+        templateName: 'mock-template',
+        createdAt: new Date(),
+        serviceName: 'mock-service',
+        deploymentStatus: DeploymentStatus.SUCCEEDED,
+        environmentName: 'dev',
+        templateMajorVersion: '1',
+        templateMinorVersion: '0',
+      },
+    ];
   }
 }
 
 export class MockListServiceInstancesAPIError implements AwsProtonApi {
-
-  async getService({ arn, }: { arn: string; }): Promise<Service> {
+  async getService({ arn }: { arn: string }): Promise<Service> {
     return {
       arn: arn,
       name: 'mock-service',
@@ -240,18 +270,21 @@ export class MockListServiceInstancesAPIError implements AwsProtonApi {
       createdAt: new Date(),
       lastModifiedAt: new Date(),
       status: 'ACTIVE',
-      spec: 'asdasd'
-    }
+      spec: 'asdasd',
+    };
   }
 
-  async listServiceInstances({ arn, }: { arn: string; }): Promise<ServiceInstanceSummary[]> {
-    throw new Error(`Access denied to ${ arn }!`)
+  async listServiceInstances({
+    arn,
+  }: {
+    arn: string;
+  }): Promise<ServiceInstanceSummary[]> {
+    throw new Error(`Access denied to ${arn}!`);
   }
 }
 
 export class MockSlowLoad implements AwsProtonApi {
-
-  async getService({ arn, }: { arn: string; }): Promise<Service> {
+  async getService({ arn }: { arn: string }): Promise<Service> {
     return {
       arn: arn,
       name: 'mock-service',
@@ -268,29 +301,34 @@ export class MockSlowLoad implements AwsProtonApi {
         deploymentStatus: 'SUCCEEDED',
         templateName: 'mock-template',
         templateMajorVersion: '1',
-        templateMinorVersion: '0'
-      }
-    }
+        templateMinorVersion: '0',
+      },
+    };
   }
 
-  async listServiceInstances({ arn, }: { arn: string; }): Promise<ServiceInstanceSummary[]> {
+  async listServiceInstances({
+    arn,
+  }: {
+    arn: string;
+  }): Promise<ServiceInstanceSummary[]> {
     await new Promise(f => setTimeout(f, 5000));
-    return [{
-      arn: arn,
-      name: 'mock-instance1',
-      lastDeploymentAttemptedAt: new Date(),
-      lastDeploymentSucceededAt: new Date(),
-      templateName: 'mock-template',
-      createdAt: new Date(),
-      serviceName: 'mock-service',
-      deploymentStatus: DeploymentStatus.SUCCEEDED,
-      environmentName: 'dev',
-      templateMajorVersion: '1',
-      templateMinorVersion: '0'
-    }]
+    return [
+      {
+        arn: arn,
+        name: 'mock-instance1',
+        lastDeploymentAttemptedAt: new Date(),
+        lastDeploymentSucceededAt: new Date(),
+        templateName: 'mock-template',
+        createdAt: new Date(),
+        serviceName: 'mock-service',
+        deploymentStatus: DeploymentStatus.SUCCEEDED,
+        environmentName: 'dev',
+        templateMajorVersion: '1',
+        templateMinorVersion: '0',
+      },
+    ];
   }
 }
-
 
 export const mockEntity: Entity = {
   apiVersion: 'backstage.io/v1alpha1',
@@ -299,7 +337,8 @@ export const mockEntity: Entity = {
     name: 'backstage',
     description: 'backstage.io',
     annotations: {
-      'aws.amazon.com/aws-proton-service': 'arn:aws:proton:us-west-2:1234567890:service/mock-service',
+      'aws.amazon.com/aws-proton-service':
+        'arn:aws:proton:us-west-2:1234567890:service/mock-service',
     },
   },
   spec: {

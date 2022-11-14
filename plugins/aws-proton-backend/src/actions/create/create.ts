@@ -95,7 +95,7 @@ export const createAwsProtonServiceAction = () => {
     },
     async handler(ctx) {
       const spec = await fs.readFile(
-        `${ctx.workspacePath}/${ctx.input.serviceSpecPath}`
+        `${ctx.workspacePath}/${ctx.input.serviceSpecPath}`,
       );
 
       ctx.logger.info(`Creating AWS Proton service ${ctx.input.serviceName}`);
@@ -121,7 +121,7 @@ export const createAwsProtonServiceAction = () => {
           repositoryConnectionArn: ctx.input.repositoryConnectionArn,
           branchName: ctx.input.branchName,
           spec: spec.toString(),
-        })
+        }),
       );
 
       if (resp.service !== undefined) {

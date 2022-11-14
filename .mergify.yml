@@ -9,7 +9,7 @@ pull_request_rules:
   - name: Automatically merge on CI success and review approval
     conditions:
       - base=main
-      - "#approved-reviews-by>=1"
+      - '#approved-reviews-by>=1'
       - approved-reviews-by=@awslabs/aws-proton
       - -approved-reviews-by~=author
       - status-success=Run Unit Tests

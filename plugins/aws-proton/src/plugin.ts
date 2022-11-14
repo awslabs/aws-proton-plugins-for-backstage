@@ -11,10 +11,13 @@
  * limitations under the License.
  */
 
-import { configApiRef, createApiFactory,
+import {
+  configApiRef,
+  createApiFactory,
   createComponentExtension,
   createPlugin,
-  identityApiRef, } from '@backstage/core-plugin-api';
+  identityApiRef,
+} from '@backstage/core-plugin-api';
 import { AwsProtonApiClient, awsProtonApiRef } from './api';
 import { AWS_PROTON_SERVICE_ANNOTATION } from './constants';
 import { Entity } from '@backstage/catalog-model';
@@ -45,9 +48,9 @@ export const EntityAWSProtonServiceOverviewCard = awsProtonPlugin.provide(
     name: 'EntityAWSProtonOverviewCard',
     component: {
       lazy: () =>
-        import('./components/AWSProtonServiceOverview/AWSProtonServiceOverview').then(
-          m => m.AWSProtonServiceOverviewWidget,
-        ),
+        import(
+          './components/AWSProtonServiceOverview/AWSProtonServiceOverview'
+        ).then(m => m.AWSProtonServiceOverviewWidget),
     },
   }),
 );

@@ -24,7 +24,9 @@
     "clean": "backstage-cli repo clean",
     "test": "backstage-cli test --watchAll=false",
     "lint": "backstage-cli repo lint",
-    "ci": "lerna bootstrap && tsc && backstage-cli repo build --all && backstage-cli test --watchAll=false && backstage-cli repo lint",
+    "prettier:check": "prettier --check .",
+    "prettier:fix": "prettier --write .",
+    "ci": "lerna bootstrap && tsc && backstage-cli repo build --all && backstage-cli test --watchAll=false && backstage-cli repo lint && prettier --check .",
     "start:frontend": "yarn workspace @aws/aws-proton-plugin-for-backstage start",
     "start:backend": "yarn workspace @aws/aws-proton-backend-plugin-for-backstage start",
     "bump-version": "lerna version",
@@ -32,11 +34,14 @@
   },
   "devDependencies": {
     "@backstage/cli": "^0.20.0",
+    "@spotify/prettier-config": "^14.0.0",
     "@types/react": "^17.0.0",
     "lerna": "^6.0.1",
+    "prettier": "^2.2.1",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "react-router": "^6.3.0",
     "react-router-dom": "^6.3.0"
-  }
+  },
+  "prettier": "@spotify/prettier-config"
 }

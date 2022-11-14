@@ -18,7 +18,7 @@ import os from 'os';
 import { getVoidLogger } from '@backstage/backend-common';
 import { createAwsProtonServiceAction } from '.';
 import { CreateServiceCommand, ProtonClient } from '@aws-sdk/client-proton';
-import { mockClient } from "aws-sdk-client-mock";
+import { mockClient } from 'aws-sdk-client-mock';
 import { resolve as resolvePath } from 'path';
 
 const protonMock = mockClient(ProtonClient);
@@ -49,8 +49,8 @@ describe('aws:proton:create-service', () => {
         createdAt: new Date(),
         lastModifiedAt: new Date(),
         status: 'ACTIVE',
-        spec: 'asdasd'
-      }
+        spec: 'asdasd',
+      },
     });
 
     mockFs({
@@ -65,7 +65,6 @@ describe('aws:proton:create-service', () => {
   });
 
   it('should call AWS Proton API', async () => {
-
     await action.handler({
       ...mockContext,
       input: {
@@ -81,12 +80,13 @@ describe('aws:proton:create-service', () => {
     });
 
     expect(protonMock.send.getCall(0).args[0].input).toMatchObject({
-      name: 'serviceName', 
-      spec: 'dummy'
+      name: 'serviceName',
+      spec: 'dummy',
     });
 
-    expect(
-      mockContext.output,
-    ).toHaveBeenCalledWith("arn", "arn:aws:proton:us-west-2:1234567890:service/test");
+    expect(mockContext.output).toHaveBeenCalledWith(
+      'arn',
+      'arn:aws:proton:us-west-2:1234567890:service/test',
+    );
   });
 });

@@ -12,18 +12,12 @@
  */
 
 import { useAsyncRetry } from 'react-use';
-import {
-  useApi,
-} from '@backstage/core-plugin-api';
+import { useApi } from '@backstage/core-plugin-api';
 import { awsProtonApiRef } from '../api';
 import { useCallback } from 'react';
 import { ProtonServiceData } from '../types';
 
-export function useProtonService({
-  arn,
-}: {
-  arn: string;
-}) {
+export function useProtonService({ arn }: { arn: string }) {
   const protonServiceApi = useApi(awsProtonApiRef);
 
   const getService = useCallback(
@@ -39,7 +33,7 @@ export function useProtonService({
       return {
         service,
         serviceInstances,
-      }
+      };
     },
     [arn], // eslint-disable-line react-hooks/exhaustive-deps
   );

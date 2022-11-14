@@ -13,13 +13,15 @@
 
 import React from 'react';
 import { render, waitFor } from '@testing-library/react';
-import {
-  wrapInTestApp,
-  TestApiProvider,
-} from '@backstage/test-utils';
+import { wrapInTestApp, TestApiProvider } from '@backstage/test-utils';
 import { EntityProvider } from '@backstage/plugin-catalog-react';
 import { awsProtonApiRef } from '../../api';
-import { mockEntity, MockGetServiceAPIError, MockProtonService, MockProtonServiceNoPipeline } from '../../mocks'
+import {
+  mockEntity,
+  MockGetServiceAPIError,
+  MockProtonService,
+  MockProtonServiceNoPipeline,
+} from '../../mocks';
 import { EntityAWSProtonServiceOverviewCard } from '../../plugin';
 
 describe('AWSProtonServiceOverview', () => {
@@ -34,16 +36,20 @@ describe('AWSProtonServiceOverview', () => {
       ),
     );
 
-    await (waitFor(() => rendered.getByText('AWS Proton Service'),{timeout:3000}));
+    await waitFor(() => rendered.getByText('AWS Proton Service'), {
+      timeout: 3000,
+    });
 
-    expect(await rendered.findByText('mock-service'),).toBeInTheDocument();
-    expect(await rendered.findByText('mock-instance1'),).toBeInTheDocument();
+    expect(await rendered.findByText('mock-service')).toBeInTheDocument();
+    expect(await rendered.findByText('mock-instance1')).toBeInTheDocument();
   });
 
   it('should report error', async () => {
     const rendered = render(
       wrapInTestApp(
-        <TestApiProvider apis={[[awsProtonApiRef, new MockGetServiceAPIError()]]}>
+        <TestApiProvider
+          apis={[[awsProtonApiRef, new MockGetServiceAPIError()]]}
+        >
           <EntityProvider entity={mockEntity}>
             <EntityAWSProtonServiceOverviewCard />
           </EntityProvider>
@@ -51,15 +57,23 @@ describe('AWSProtonServiceOverview', () => {
       ),
     );
 
-    await (waitFor(() => rendered.getByText('AWS Proton Service'),{timeout:3000}));
+    await waitFor(() => rendered.getByText('AWS Proton Service'), {
+      timeout: 3000,
+    });
 
-    expect(await rendered.findByText('Error: Could not find arn:aws:proton:us-west-2:1234567890:service/mock-service!'),).toBeInTheDocument();
+    expect(
+      await rendered.findByText(
+        'Error: Could not find arn:aws:proton:us-west-2:1234567890:service/mock-service!',
+      ),
+    ).toBeInTheDocument();
   });
 
   it('should render service without pipeline', async () => {
     const rendered = render(
       wrapInTestApp(
-        <TestApiProvider apis={[[awsProtonApiRef, new MockProtonServiceNoPipeline()]]}>
+        <TestApiProvider
+          apis={[[awsProtonApiRef, new MockProtonServiceNoPipeline()]]}
+        >
           <EntityProvider entity={mockEntity}>
             <EntityAWSProtonServiceOverviewCard />
           </EntityProvider>
@@ -67,7 +81,9 @@ describe('AWSProtonServiceOverview', () => {
       ),
     );
 
-    await (waitFor(() => rendered.getByText('AWS Proton Service'),{timeout:3000}));
+    await waitFor(() => rendered.getByText('AWS Proton Service'), {
+      timeout: 3000,
+    });
 
     expect(await rendered.queryByText('Pipeline Template Version')).toBeNull();
   });

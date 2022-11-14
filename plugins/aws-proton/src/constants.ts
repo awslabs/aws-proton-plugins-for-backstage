@@ -11,4 +11,5 @@
  * limitations under the License.
  */
 
-export const AWS_PROTON_SERVICE_ANNOTATION = 'aws.amazon.com/aws-proton-service';
+export const AWS_PROTON_SERVICE_ANNOTATION =
+  'aws.amazon.com/aws-proton-service';

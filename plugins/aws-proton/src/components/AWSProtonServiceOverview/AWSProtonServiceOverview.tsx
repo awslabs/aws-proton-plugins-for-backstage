@@ -11,364 +11,424 @@
  * limitations under the License.
  */
 
- import React from 'react';
- import {
-   Typography,
-   Grid,
-   Card,
-   CardHeader,
-   Divider,
-   CardContent,
-   makeStyles,
-   LinearProgress,
- } from '@material-ui/core';
- import { Entity } from '@backstage/catalog-model';
- import moment from 'moment';
- import { MissingAnnotationEmptyState, IconLinkVerticalProps, HeaderIconLinkRow, TableColumn, Table, InfoCard, ResponseErrorPanel, StatusOK, StatusError, StatusWarning, StatusAborted, StatusRunning, StatusPending } from '@backstage/core-components';
- import { useEntity } from "@backstage/plugin-catalog-react";
- import ViewServiceIcon from '@material-ui/icons/Visibility';
- import { AWS_PROTON_SERVICE_ANNOTATION } from '../../constants';
- import { useProtonServiceArnFromEntity } from '../../hooks/useProtonServiceArnFromEntity';
- import { useProtonService } from '../../hooks/useProtonService';
- import { isAWSProtonServiceAvailable } from '../../plugin';
- import { ProtonServiceData } from '../../types';
- import { DeploymentStatus, ServiceInstanceSummary, ServiceStatus } from '@aws-sdk/client-proton';
- import { parse } from '@aws-sdk/util-arn-parser';
+import React from 'react';
+import {
+  Typography,
+  Grid,
+  Card,
+  CardHeader,
+  Divider,
+  CardContent,
+  makeStyles,
+  LinearProgress,
+} from '@material-ui/core';
+import { Entity } from '@backstage/catalog-model';
+import moment from 'moment';
+import {
+  MissingAnnotationEmptyState,
+  IconLinkVerticalProps,
+  HeaderIconLinkRow,
+  TableColumn,
+  Table,
+  InfoCard,
+  ResponseErrorPanel,
+  StatusOK,
+  StatusError,
+  StatusWarning,
+  StatusAborted,
+  StatusRunning,
+  StatusPending,
+} from '@backstage/core-components';
+import { useEntity } from '@backstage/plugin-catalog-react';
+import ViewServiceIcon from '@material-ui/icons/Visibility';
+import { AWS_PROTON_SERVICE_ANNOTATION } from '../../constants';
+import { useProtonServiceArnFromEntity } from '../../hooks/useProtonServiceArnFromEntity';
+import { useProtonService } from '../../hooks/useProtonService';
+import { isAWSProtonServiceAvailable } from '../../plugin';
+import { ProtonServiceData } from '../../types';
+import {
+  DeploymentStatus,
+  ServiceInstanceSummary,
+  ServiceStatus,
+} from '@aws-sdk/client-proton';
+import { parse } from '@aws-sdk/util-arn-parser';
 
- const deploymentStatusComponent = (state: string | undefined) => {
-   switch (state) {
-     case DeploymentStatus.SUCCEEDED:
-       return (
-         <span>
-           <StatusOK /> Succeeded
-         </span>
-       );
-     case DeploymentStatus.IN_PROGRESS:
-       return (
-         <span>
-           <StatusRunning /> In progress
-         </span>
-       );
-     case DeploymentStatus.FAILED:
-       return (
-         <span>
-           <StatusError /> Failed
-         </span>
-       );
-     default:
-       return (
-         <span>
-           <StatusAborted /> Unknown
-         </span>
-       );
-   }
- };
+const deploymentStatusComponent = (state: string | undefined) => {
+  switch (state) {
+    case DeploymentStatus.SUCCEEDED:
+      return (
+        <span>
+          <StatusOK /> Succeeded
+        </span>
+      );
+    case DeploymentStatus.IN_PROGRESS:
+      return (
+        <span>
+          <StatusRunning /> In progress
+        </span>
+      );
+    case DeploymentStatus.FAILED:
+      return (
+        <span>
+          <StatusError /> Failed
+        </span>
+      );
+    default:
+      return (
+        <span>
+          <StatusAborted /> Unknown
+        </span>
+      );
+  }
+};
 
- const templateVersionComponent = (templateMajorVersion: string | undefined, templateMinorVersion: string | undefined) => {
-   if(templateMajorVersion === undefined) {
-     return '-'
-   }
-   return `v${templateMajorVersion}.${templateMinorVersion}`
- }
+const templateVersionComponent = (
+  templateMajorVersion: string | undefined,
+  templateMinorVersion: string | undefined,
+) => {
+  if (templateMajorVersion === undefined) {
+    return '-';
+  }
+  return `v${templateMajorVersion}.${templateMinorVersion}`;
+};
 
- const deploymentTimeComponent = (deploymentTime: Date | undefined) => {
-   if(deploymentTime === undefined) {
-     return '-'
-   }
-   return moment(deploymentTime).fromNow()
- }
+const deploymentTimeComponent = (deploymentTime: Date | undefined) => {
+  if (deploymentTime === undefined) {
+    return '-';
+  }
+  return moment(deploymentTime).fromNow();
+};
 
- export const ServiceInstanceTable = ({ serviceData }: { serviceData: ProtonServiceData }) => {
-   const columns: TableColumn[] = [
-     {
-       title: 'Service Instance Name',
-       field: 'name',
-     },
-     {
-       title: 'Environment',
-       field: 'environmentName',
-     },
-     {
-       title: 'Service Template Version',
-       field: 'templateName',
-       render: (row: Partial<ServiceInstanceSummary>) => templateVersionComponent(row.templateMajorVersion, row.templateMinorVersion),
-     },
-     {
-       title: 'Deployment Status',
-       field: 'deploymentStatus',
-       render: (row: Partial<ServiceInstanceSummary>) => deploymentStatusComponent(row.deploymentStatus)
-     },
-     {
-       title: 'Last Successful Deployment',
-       field: 'lastDeploymentSucceededAt',
-       render: (row: Partial<ServiceInstanceSummary>) => deploymentTimeComponent(row.lastDeploymentSucceededAt),
-     }
-   ];
+export const ServiceInstanceTable = ({
+  serviceData,
+}: {
+  serviceData: ProtonServiceData;
+}) => {
+  const columns: TableColumn[] = [
+    {
+      title: 'Service Instance Name',
+      field: 'name',
+    },
+    {
+      title: 'Environment',
+      field: 'environmentName',
+    },
+    {
+      title: 'Service Template Version',
+      field: 'templateName',
+      render: (row: Partial<ServiceInstanceSummary>) =>
+        templateVersionComponent(
+          row.templateMajorVersion,
+          row.templateMinorVersion,
+        ),
+    },
+    {
+      title: 'Deployment Status',
+      field: 'deploymentStatus',
+      render: (row: Partial<ServiceInstanceSummary>) =>
+        deploymentStatusComponent(row.deploymentStatus),
+    },
+    {
+      title: 'Last Successful Deployment',
+      field: 'lastDeploymentSucceededAt',
+      render: (row: Partial<ServiceInstanceSummary>) =>
+        deploymentTimeComponent(row.lastDeploymentSucceededAt),
+    },
+  ];
 
-   return (
-     <div>
-       <Table
-         options={{ paging: false, search: false, toolbar: false, padding: 'dense' }}
-         data={serviceData.serviceInstances}
-         columns={columns}
-       />
-     </div>
-   );
- };
+  return (
+    <div>
+      <Table
+        options={{
+          paging: false,
+          search: false,
+          toolbar: false,
+          padding: 'dense',
+        }}
+        data={serviceData.serviceInstances}
+        columns={columns}
+      />
+    </div>
+  );
+};
 
- const useStyles = makeStyles((theme) => ({
-   links: {
-     margin: theme.spacing(2, 0),
-     display: 'grid',
-     gridAutoFlow: 'column',
-     gridAutoColumns: 'min-content',
-     gridGap: theme.spacing(3),
-   },
-   label: {
-     color: theme.palette.text.secondary,
-     textTransform: 'uppercase',
-     fontSize: '10px',
-     fontWeight: 'bold',
-     letterSpacing: 0.5,
-     overflow: 'hidden',
-     whiteSpace: 'nowrap',
-   },
-   value: {
-     fontWeight: 'bold',
-     overflow: 'hidden',
-     lineHeight: '24px',
-     wordBreak: 'break-word',
-   },
-   description: {
-     wordBreak: 'break-word',
-   },
- }));
+const useStyles = makeStyles(theme => ({
+  links: {
+    margin: theme.spacing(2, 0),
+    display: 'grid',
+    gridAutoFlow: 'column',
+    gridAutoColumns: 'min-content',
+    gridGap: theme.spacing(3),
+  },
+  label: {
+    color: theme.palette.text.secondary,
+    textTransform: 'uppercase',
+    fontSize: '10px',
+    fontWeight: 'bold',
+    letterSpacing: 0.5,
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+  },
+  value: {
+    fontWeight: 'bold',
+    overflow: 'hidden',
+    lineHeight: '24px',
+    wordBreak: 'break-word',
+  },
+  description: {
+    wordBreak: 'break-word',
+  },
+}));
 
- const AboutField = ({
-   label,
-   value,
-   gridSizes,
-   children,
- }: {
-   label: string;
-   value?: string | JSX.Element;
-   gridSizes?: Record<string, number>;
-   children?: React.ReactNode;
- }) => {
-   const classes = useStyles();
+const AboutField = ({
+  label,
+  value,
+  gridSizes,
+  children,
+}: {
+  label: string;
+  value?: string | JSX.Element;
+  gridSizes?: Record<string, number>;
+  children?: React.ReactNode;
+}) => {
+  const classes = useStyles();
 
-   // Content is either children or a string prop `value`
-   const content = React.Children.count(children) ? (
-     children
-   ) : (
-     <Typography variant="body2" className={classes.value}>
-       {value || `unknown`}
-     </Typography>
-   );
-   return (
-     <Grid item {...gridSizes}>
-       <Typography variant="subtitle2" className={classes.label}>
-         {label}
-       </Typography>
-       {content}
-     </Grid>
-   );
- };
+  // Content is either children or a string prop `value`
+  const content = React.Children.count(children) ? (
+    children
+  ) : (
+    <Typography variant="body2" className={classes.value}>
+      {value || `unknown`}
+    </Typography>
+  );
+  return (
+    <Grid item {...gridSizes}>
+      <Typography variant="subtitle2" className={classes.label}>
+        {label}
+      </Typography>
+      {content}
+    </Grid>
+  );
+};
 
- const serviceStatusComponent = (state: string | undefined) => {
-   switch (state) {
-     case ServiceStatus.CREATE_IN_PROGRESS:
-       return (
-         <span>
-           <StatusRunning /> Create in progress
-         </span>
-       );
-     case ServiceStatus.CREATE_FAILED_CLEANUP_IN_PROGRESS:
-       return (
-         <span>
-           <StatusPending /> Create failed (Cleanup in progress)
-         </span>
-       );
-     case ServiceStatus.CREATE_FAILED_CLEANUP_COMPLETE:
-     case ServiceStatus.CREATE_FAILED_CLEANUP_FAILED:
-     case ServiceStatus.CREATE_FAILED:
-       return (
-         <span>
-           <StatusError /> Create failed
-         </span>
-       );
-     case ServiceStatus.DELETE_FAILED:
-       return (
-         <span>
-           <StatusError /> Delete failed
-         </span>
-       );
-     case ServiceStatus.DELETE_IN_PROGRESS:
-       return (
-         <span>
-           <StatusRunning /> Delete in progress
-         </span>
-       );
-     case ServiceStatus.UPDATE_IN_PROGRESS:
-       return (
-         <span>
-           <StatusRunning /> Update in progress
-         </span>
-       );
-     case ServiceStatus.UPDATE_FAILED_CLEANUP_IN_PROGRESS:
-       return (
-         <span>
-           <StatusPending /> Update failed (Cleanup in progress)
-         </span>
-       );
-     case ServiceStatus.UPDATE_FAILED_CLEANUP_COMPLETE:
-     case ServiceStatus.UPDATE_FAILED_CLEANUP_FAILED:
-     case ServiceStatus.UPDATE_FAILED:
-       return (
-         <span>
-           <StatusError /> Update failed
-         </span>
-       );
-     case ServiceStatus.ACTIVE:
-       return (
-         <span>
-           <StatusOK /> Active
-         </span>
-       );
-     default:
-       return (
-         <span>
-           <StatusWarning /> Unknown
-         </span>
-       );
-   }
- };
+const serviceStatusComponent = (state: string | undefined) => {
+  switch (state) {
+    case ServiceStatus.CREATE_IN_PROGRESS:
+      return (
+        <span>
+          <StatusRunning /> Create in progress
+        </span>
+      );
+    case ServiceStatus.CREATE_FAILED_CLEANUP_IN_PROGRESS:
+      return (
+        <span>
+          <StatusPending /> Create failed (Cleanup in progress)
+        </span>
+      );
+    case ServiceStatus.CREATE_FAILED_CLEANUP_COMPLETE:
+    case ServiceStatus.CREATE_FAILED_CLEANUP_FAILED:
+    case ServiceStatus.CREATE_FAILED:
+      return (
+        <span>
+          <StatusError /> Create failed
+        </span>
+      );
+    case ServiceStatus.DELETE_FAILED:
+      return (
+        <span>
+          <StatusError /> Delete failed
+        </span>
+      );
+    case ServiceStatus.DELETE_IN_PROGRESS:
+      return (
+        <span>
+          <StatusRunning /> Delete in progress
+        </span>
+      );
+    case ServiceStatus.UPDATE_IN_PROGRESS:
+      return (
+        <span>
+          <StatusRunning /> Update in progress
+        </span>
+      );
+    case ServiceStatus.UPDATE_FAILED_CLEANUP_IN_PROGRESS:
+      return (
+        <span>
+          <StatusPending /> Update failed (Cleanup in progress)
+        </span>
+      );
+    case ServiceStatus.UPDATE_FAILED_CLEANUP_COMPLETE:
+    case ServiceStatus.UPDATE_FAILED_CLEANUP_FAILED:
+    case ServiceStatus.UPDATE_FAILED:
+      return (
+        <span>
+          <StatusError /> Update failed
+        </span>
+      );
+    case ServiceStatus.ACTIVE:
+      return (
+        <span>
+          <StatusOK /> Active
+        </span>
+      );
+    default:
+      return (
+        <span>
+          <StatusWarning /> Unknown
+        </span>
+      );
+  }
+};
 
- const OverviewComponent = ({ serviceData }: { serviceData: ProtonServiceData }) => {
-   const arnParts = parse(serviceData.service.arn!);
-   const protonConsoleUrl = `https://${arnParts.region}.console.aws.amazon.com/proton/home?region=${arnParts.region}#/services/detail/${serviceData.service.name}`;
+const OverviewComponent = ({
+  serviceData,
+}: {
+  serviceData: ProtonServiceData;
+}) => {
+  const arnParts = parse(serviceData.service.arn!);
+  const protonConsoleUrl = `https://${arnParts.region}.console.aws.amazon.com/proton/home?region=${arnParts.region}#/services/detail/${serviceData.service.name}`;
 
-   const service = serviceData.service;
+  const service = serviceData.service;
 
-   const links : IconLinkVerticalProps[] = [{
-     label: 'View Service',
-     disabled: false,
-     icon: <ViewServiceIcon />,
-     href: protonConsoleUrl,
-   }]
+  const links: IconLinkVerticalProps[] = [
+    {
+      label: 'View Service',
+      disabled: false,
+      icon: <ViewServiceIcon />,
+      href: protonConsoleUrl,
+    },
+  ];
 
-   const classes = useStyles();
-   return (
-     <Card>
-       <CardHeader
-         title={<Typography variant="h5">AWS Proton Service</Typography>}
-         subheader={<HeaderIconLinkRow links={links} />}
-       />
-       <Divider />
-       <CardContent>
-         <Grid container>
-           <AboutField label="Service Name"
-             gridSizes={{ xs: 12, sm: 6, lg: 4 }}>
-             <Typography
-               variant="body2"
-               paragraph
-               className={classes.description}
-             >
-               {service.name}
-             </Typography>
-           </AboutField>
-           <AboutField label="Service Template"
-             gridSizes={{ xs: 12, sm: 6, lg: 4 }}>
-             <Typography
-               variant="body2"
-               paragraph
-               className={classes.description}
-             >
-               {service.templateName}
-             </Typography>
-           </AboutField>
-           <AboutField
-             label="Service Status"
-             gridSizes={{ xs: 12, sm: 6, lg: 4 }}
-           >
-             {serviceStatusComponent(service.status)}
-           </AboutField>
-         {service.pipeline &&
-         <React.Fragment>
-           <AboutField label="Pipeline Last Updated"
-             gridSizes={{ xs: 12, sm: 6, lg: 4 }}>
-             <Typography
-               variant="body2"
-               paragraph
-               className={classes.description}
-             >
-               {deploymentTimeComponent(service.pipeline?.lastDeploymentSucceededAt)}
-             </Typography>
-           </AboutField>
-           <AboutField label="Pipeline Template Version"
-           gridSizes={{ xs: 12, sm: 6, lg: 4 }}>
-             <Typography
-               variant="body2"
-               paragraph
-               className={classes.description}
-             >
-               {templateVersionComponent(service.pipeline?.templateMajorVersion, service.pipeline?.templateMinorVersion)}
-             </Typography>
-           </AboutField>
-           <AboutField label="Pipeline Provisioning Status"
-             gridSizes={{ xs: 12, sm: 6, lg: 4 }}>
-             <Typography
-               variant="body2"
-               paragraph
-               className={classes.description}
-             >
-               {deploymentStatusComponent(service.pipeline?.deploymentStatus)}
-             </Typography>
-           </AboutField>
-         </React.Fragment>
-         }
-         </Grid>
-       </CardContent>
-       <ServiceInstanceTable serviceData={serviceData}/>
-     </Card>
-   );
- };
+  const classes = useStyles();
+  return (
+    <Card>
+      <CardHeader
+        title={<Typography variant="h5">AWS Proton Service</Typography>}
+        subheader={<HeaderIconLinkRow links={links} />}
+      />
+      <Divider />
+      <CardContent>
+        <Grid container>
+          <AboutField label="Service Name" gridSizes={{ xs: 12, sm: 6, lg: 4 }}>
+            <Typography
+              variant="body2"
+              paragraph
+              className={classes.description}
+            >
+              {service.name}
+            </Typography>
+          </AboutField>
+          <AboutField
+            label="Service Template"
+            gridSizes={{ xs: 12, sm: 6, lg: 4 }}
+          >
+            <Typography
+              variant="body2"
+              paragraph
+              className={classes.description}
+            >
+              {service.templateName}
+            </Typography>
+          </AboutField>
+          <AboutField
+            label="Service Status"
+            gridSizes={{ xs: 12, sm: 6, lg: 4 }}
+          >
+            {serviceStatusComponent(service.status)}
+          </AboutField>
+          {service.pipeline && (
+            <React.Fragment>
+              <AboutField
+                label="Pipeline Last Updated"
+                gridSizes={{ xs: 12, sm: 6, lg: 4 }}
+              >
+                <Typography
+                  variant="body2"
+                  paragraph
+                  className={classes.description}
+                >
+                  {deploymentTimeComponent(
+                    service.pipeline?.lastDeploymentSucceededAt,
+                  )}
+                </Typography>
+              </AboutField>
+              <AboutField
+                label="Pipeline Template Version"
+                gridSizes={{ xs: 12, sm: 6, lg: 4 }}
+              >
+                <Typography
+                  variant="body2"
+                  paragraph
+                  className={classes.description}
+                >
+                  {templateVersionComponent(
+                    service.pipeline?.templateMajorVersion,
+                    service.pipeline?.templateMinorVersion,
+                  )}
+                </Typography>
+              </AboutField>
+              <AboutField
+                label="Pipeline Provisioning Status"
+                gridSizes={{ xs: 12, sm: 6, lg: 4 }}
+              >
+                <Typography
+                  variant="body2"
+                  paragraph
+                  className={classes.description}
+                >
+                  {deploymentStatusComponent(
+                    service.pipeline?.deploymentStatus,
+                  )}
+                </Typography>
+              </AboutField>
+            </React.Fragment>
+          )}
+        </Grid>
+      </CardContent>
+      <ServiceInstanceTable serviceData={serviceData} />
+    </Card>
+  );
+};
 
- const AWSProtonServiceOverview = ({ entity }: { entity: Entity }) => {
-   const { arn } = useProtonServiceArnFromEntity(entity);
+const AWSProtonServiceOverview = ({ entity }: { entity: Entity }) => {
+  const { arn } = useProtonServiceArnFromEntity(entity);
 
-   const [serviceData] = useProtonService({
-     arn
-   });
-   if (serviceData.loading) {
-     return (
-       <InfoCard title="AWS Proton Service">
-         <LinearProgress />
-       </InfoCard>
-     );
-   }
-   if (serviceData.error) {
-     return (
-       <InfoCard title="AWS Proton Service">
-          <ResponseErrorPanel error={serviceData.error} />
-       </InfoCard>
-     );
-   }
-   return (
-     <>{serviceData.service && <OverviewComponent serviceData={serviceData.service} />}</>
-   );
- };
+  const [serviceData] = useProtonService({
+    arn,
+  });
+  if (serviceData.loading) {
+    return (
+      <InfoCard title="AWS Proton Service">
+        <LinearProgress />
+      </InfoCard>
+    );
+  }
+  if (serviceData.error) {
+    return (
+      <InfoCard title="AWS Proton Service">
+        <ResponseErrorPanel error={serviceData.error} />
+      </InfoCard>
+    );
+  }
+  return (
+    <>
+      {serviceData.service && (
+        <OverviewComponent serviceData={serviceData.service} />
+      )}
+    </>
+  );
+};
 
- type Props = {
-   /** @deprecated The entity is now grabbed from context instead */
-   entity?: Entity;
- };
+type Props = {
+  /** @deprecated The entity is now grabbed from context instead */
+  entity?: Entity;
+};
 
- export const AWSProtonServiceOverviewWidget = (_props: Props) => {
-   const { entity } = useEntity();
-   return !isAWSProtonServiceAvailable(entity) ? (
-     <MissingAnnotationEmptyState annotation={AWS_PROTON_SERVICE_ANNOTATION} />
-   ) : (
-     <AWSProtonServiceOverview entity={entity} />
-   );
- };
+export const AWSProtonServiceOverviewWidget = (_props: Props) => {
+  const { entity } = useEntity();
+  return !isAWSProtonServiceAvailable(entity) ? (
+    <MissingAnnotationEmptyState annotation={AWS_PROTON_SERVICE_ANNOTATION} />
+  ) : (
+    <AWSProtonServiceOverview entity={entity} />
+  );
+};

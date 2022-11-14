@@ -13,7 +13,7 @@
 
 import { GetServiceCommand, ProtonClient } from '@aws-sdk/client-proton';
 import { getVoidLogger } from '@backstage/backend-common';
-import { mockClient } from "aws-sdk-client-mock";
+import { mockClient } from 'aws-sdk-client-mock';
 import { AwsProtonApi } from './AwsProtonApi';
 
 const protonMock = mockClient(ProtonClient);
@@ -32,13 +32,15 @@ describe('AwsProtonApi', () => {
         createdAt: new Date(),
         lastModifiedAt: new Date(),
         status: 'ACTIVE',
-        spec: 'asdasd'
-      }
+        spec: 'asdasd',
+      },
     });
 
     const client = new AwsProtonApi(getVoidLogger());
 
-    const service = await client.getProtonService('arn:aws:proton:us-west-2:1234567890:service/test')
+    const service = await client.getProtonService(
+      'arn:aws:proton:us-west-2:1234567890:service/test',
+    );
 
     expect(service.name).toEqual('test');
   });

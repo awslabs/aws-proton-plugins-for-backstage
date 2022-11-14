@@ -3,6 +3,7 @@
 This document covers the installation of the AWS Proton plugins for Backstage into your Backstage application.
 
 <!-- toc -->
+
 1. [Prerequisites](#prerequisites)
 1. [AWS credentials](#aws-credentials)
 1. [IAM permissions](#iam-permissions)
@@ -38,17 +39,14 @@ The AWS Proton backend plugin requires the AWS identity that it uses to have the
 
 ```json
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "proton:GetService",
-                "proton:ListServiceInstances"
-            ],
-            "Resource": "*"
-        }
-    ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": ["proton:GetService", "proton:ListServiceInstances"],
+      "Resource": "*"
+    }
+  ]
 }
 ```
 
@@ -56,24 +54,24 @@ The AWS Proton scaffolder action requires the AWS identity that it uses to have 
 
 ```json
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": "proton:CreateService",
-            "Resource": "*"
-        },
-        {
-            "Effect": "Allow",
-            "Action": "codestar-connections:PassConnection",
-            "Resource": "arn:aws:codestar-connections:*:*:connection/*",
-            "Condition": {
-                "StringEquals": {
-                    "codestar-connections:PassedToService": "proton.amazonaws.com"
-                }
-            }
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "proton:CreateService",
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "codestar-connections:PassConnection",
+      "Resource": "arn:aws:codestar-connections:*:*:connection/*",
+      "Condition": {
+        "StringEquals": {
+          "codestar-connections:PassedToService": "proton.amazonaws.com"
         }
-    ]
+      }
+    }
+  ]
 }
 ```
 
@@ -81,29 +79,29 @@ Depending on how you configure the AWS Proton scaffolder action in your Backstag
 
 ```json
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": "proton:CreateService",
-            "Resource": "*",
-            "Condition": {
-                "StringEquals": {
-                    "proton:ServiceTemplate": "arn:aws:proton:us-east-1:123456789012:service-template/my-service-template"
-                }
-            }
-        },
-        {
-            "Effect": "Allow",
-            "Action": "codestar-connections:PassConnection",
-            "Resource": "arn:aws:codestar-connections:us-east-1:123456789012:connection/c176b204-5bb1-48f1-b977-5aff4fa2df9d",
-            "Condition": {
-                "StringEquals": {
-                    "codestar-connections:PassedToService": "proton.amazonaws.com"
-                }
-            }
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "proton:CreateService",
+      "Resource": "*",
+      "Condition": {
+        "StringEquals": {
+          "proton:ServiceTemplate": "arn:aws:proton:us-east-1:123456789012:service-template/my-service-template"
         }
-    ]
+      }
+    },
+    {
+      "Effect": "Allow",
+      "Action": "codestar-connections:PassConnection",
+      "Resource": "arn:aws:codestar-connections:us-east-1:123456789012:connection/c176b204-5bb1-48f1-b977-5aff4fa2df9d",
+      "Condition": {
+        "StringEquals": {
+          "codestar-connections:PassedToService": "proton.amazonaws.com"
+        }
+      }
+    }
+  ]
 }
 ```
 

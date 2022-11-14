@@ -11,9 +11,9 @@
  * limitations under the License.
  */
 
-import { Service, ServiceInstanceSummary } from "@aws-sdk/client-proton";
+import { Service, ServiceInstanceSummary } from '@aws-sdk/client-proton';
 
- export type ProtonServiceData = {
-  service: Service,
-  serviceInstances: ServiceInstanceSummary[],
+export type ProtonServiceData = {
+  service: Service;
+  serviceInstances: ServiceInstanceSummary[];
 };
