@@ -104,6 +104,8 @@ jobs:
           echo -e "### Backstage Version\n\nThis release was built on Backstage version $BACKSTAGE_VERSION." >> release-notes.txt
           gh release edit v$NEW_VERSION --notes-file release-notes.txt
           rm release-notes.txt
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       - name: 'Login to NPM registry'
         if: ${{ env.COMMITS_TO_RELEASE != 0 && env.NEW_VERSION != env.CURRENT_VERSION }}
