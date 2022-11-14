@@ -70,31 +70,49 @@ jobs:
           yarn bump-version
 
           NEW_VERSION=$(cat lerna.json | jq -r '.version')
-          GIT_COMMIT_ID=$(git rev-parse HEAD)
-          BACKSTAGE_VERSION=$(cat backstage.json | jq -r '.version')
+          RELEASE_COMMIT_ID=$(git rev-parse HEAD)
 
-          gh release view v$NEW_VERSION --json body -q ".body" > release-notes.txt
-          echo -e "### Backstage Version\n\nThis release was built on Backstage version $BACKSTAGE_VERSION." >> release-notes.txt
-          gh release edit v$NEW_VERSION --notes-file release-notes.txt
+          echo "NEW_VERSION=${NEW_VERSION}" >> $GITHUB_ENV
+          echo "RELEASE_COMMIT_ID=${RELEASE_COMMIT_ID}" >> $GITHUB_ENV
+        env:
+          GH_TOKEN: ${{ github.token }}
 
+      - name: Check if version was bumped
+        # This can happen when all the new commits were outside of the plugin directories,
+        # so lerna does not bump the version number.
+        if: ${{ env.COMMITS_TO_RELEASE != 0 && env.NEW_VERSION == env.CURRENT_VERSION }}
+        run: |
+          echo No changes to release!
+          echo Current release: $CURRENT_VERSION
+
+      - name: 'Show new version details'
+        if: ${{ env.COMMITS_TO_RELEASE != 0 && env.NEW_VERSION != env.CURRENT_VERSION }}
+        shell: bash
+        run: |
           echo New version: v$NEW_VERSION
-          echo Commit ID: $GIT_COMMIT_ID
+          echo Commit ID: $RELEASE_COMMIT_ID
           echo Previous version: v$CURRENT_VERSION
           echo Changes released:
           git log --pretty=oneline v$CURRENT_VERSION..v$NEW_VERSION
 
-          echo "NEW_VERSION=${NEW_VERSION}" >> $GITHUB_ENV
-        env:
-          GH_TOKEN: ${{ github.token }}
+      - name: 'Update GitHub release notes'
+        if: ${{ env.COMMITS_TO_RELEASE != 0 && env.NEW_VERSION != env.CURRENT_VERSION }}
+        shell: bash
+        run: |
+          BACKSTAGE_VERSION=$(cat backstage.json | jq -r '.version')
+          gh release view v$NEW_VERSION --json body -q ".body" > release-notes.txt
+          echo -e "### Backstage Version\n\nThis release was built on Backstage version $BACKSTAGE_VERSION." >> release-notes.txt
+          gh release edit v$NEW_VERSION --notes-file release-notes.txt
+          rm release-notes.txt
 
       - name: 'Login to NPM registry'
-        if: ${{ env.COMMITS_TO_RELEASE != 0 }}
+        if: ${{ env.COMMITS_TO_RELEASE != 0 && env.NEW_VERSION != env.CURRENT_VERSION }}
         shell: bash
         run: |
           echo "//registry.npmjs.org/:_authToken=${{secrets.NPM_AUTH_TOKEN}}" >> .npmrc
           echo "always-auth = true" >> .npmrc
 
       - name: Publish new version to NPM registry
-        if: ${{ env.COMMITS_TO_RELEASE != 0 }}
+        if: ${{ env.COMMITS_TO_RELEASE != 0 && env.NEW_VERSION != env.CURRENT_VERSION }}
         run: |
           yarn publish-version
