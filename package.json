@@ -17,6 +17,9 @@
       "plugins/*"
     ]
   },
+  "engines": {
+    "node": "16 || 18"
+  },
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "tsc": "tsc",
