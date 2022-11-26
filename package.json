@@ -33,7 +33,7 @@
     "publish-version": "lerna publish from-package --yes --no-verify-access"
   },
   "devDependencies": {
-    "@backstage/cli": "^0.20.0",
+    "@backstage/cli": "^0.21.1",
     "@spotify/prettier-config": "^14.0.0",
     "@types/react": "^17.0.0",
     "lerna": "^6.0.1",
