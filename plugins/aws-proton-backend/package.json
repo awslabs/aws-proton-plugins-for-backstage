@@ -45,7 +45,7 @@
     "@types/express": "*",
     "express": "^4.17.1",
     "express-promise-router": "^4.1.0",
-    "fs-extra": "^10.0.1",
+    "fs-extra": "^11.1.0",
     "winston": "^3.7.1",
     "yn": "^4.0.0"
   },
