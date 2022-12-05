@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.7](https://github.com/awslabs/aws-proton-plugins-for-backstage/compare/v0.1.6...v0.1.7) (2022-12-05)
+
+**Note:** Version bump only for package @aws/aws-proton-plugin-for-backstage
+
 ## [0.1.6](https://github.com/awslabs/aws-proton-plugins-for-backstage/compare/v0.1.5...v0.1.6) (2022-11-14)
 
 ### Bug Fixes
