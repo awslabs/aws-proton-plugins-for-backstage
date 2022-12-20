@@ -134,6 +134,7 @@ import { PluginEnvironment } from '../types';
 export default async function createPlugin(env: PluginEnvironment) {
   return await createRouter({
     logger: env.logger,
+    config: env.config,
   });
 }
 ```
@@ -257,7 +258,7 @@ index 7ce5fcf..e2f1362 100644
 +    config: env.config,
 +  });
 +
-+  const actions = [...builtInActions, createAwsProtonServiceAction()];
++  const actions = [...builtInActions, createAwsProtonServiceAction({ config: env.config })];
 +
    return await createRouter({
      logger: env.logger,
