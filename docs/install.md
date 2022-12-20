@@ -18,7 +18,7 @@ These instructions assume you already have a working Backstage application that 
 
 ## AWS credentials
 
-The AWS Proton backend plugin relies on the [default behavior of the AWS SDK for Javascript](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/modules/_aws_sdk_credential_provider_node.html) to determine the AWS credentials that it uses to authenticate an identity to use with AWS APIs.
+By default, the AWS Proton backend plugin relies on the [default behavior of the AWS SDK for Javascript](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/modules/_aws_sdk_credential_provider_node.html) to determine the AWS credentials that it uses to authenticate an identity to use with AWS APIs.
 
 The AWS Proton backend plugin that runs in your Backstage app searches for credentials in the following order:
 
@@ -32,6 +32,18 @@ The AWS Proton backend plugin that runs in your Backstage app searches for crede
 We recommend that you don't hard-code long lived AWS credentials in your production Backstage application configuration. Hard-coding credentials is risky and might expose your access key ID and secret access key.
 
 Instead, we recommend that you use short lived AWS credentials for your production Backstage application by deploying it to Amazon ECS, Amazon Elastic Kubernetes Service (Amazon EKS), or Amazon EC2. For more information about deploying Backstage to Amazon EKS using a Helm chart or to Amazon ECS on AWS Fargate using the AWS Cloud Development Kit (CDK), see [Deploying Backstage](https://backstage.io/docs/deployment/) in the Backstage documentation.
+
+To use multiple AWS accounts with your Backstage app or to explicitly configure credentials for an AWS account, you can configure AWS accounts in your Backstage app's configuration.
+For example, to configure an AWS account to use with the AWS Proton backend plugin which requires using an IAM role to retrieve credentials, add the following to your Backstage app-config.yaml file.
+
+```yaml
+aws:
+  accounts:
+    - accountId: '111111111111'
+      roleName: 'my-iam-role-name'
+```
+
+For more account configuration examples, see the [Backstage integration-aws-node package documentation](https://www.npmjs.com/package/@backstage/integration-aws-node).
 
 ## IAM permissions
 
