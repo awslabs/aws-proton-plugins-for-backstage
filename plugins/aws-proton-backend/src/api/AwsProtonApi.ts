@@ -19,12 +19,14 @@ import {
   ServiceInstanceSummary,
   paginateListServiceInstances,
 } from '@aws-sdk/client-proton';
-import { getDefaultRoleAssumerWithWebIdentity } from '@aws-sdk/client-sts';
-import { defaultProvider } from '@aws-sdk/credential-provider-node';
+import { AwsCredentialsManager } from '@backstage/integration-aws-node';
 import { parse } from '@aws-sdk/util-arn-parser';
 
 export class AwsProtonApi {
-  public constructor(private readonly logger: Logger) {}
+  public constructor(
+    private readonly logger: Logger,
+    private readonly awsCredentialsManager: AwsCredentialsManager,
+  ) {}
 
   public async getProtonService(arn: string): Promise<Service> {
     this.logger?.debug(`Fetch Proton Service ${arn}`);
@@ -35,13 +37,13 @@ export class AwsProtonApi {
 
     const serviceName = segments[1];
 
+    const creds = await this.awsCredentialsManager.getCredentialProvider({
+      arn,
+    });
     const client = new ProtonClient({
       region: region,
       customUserAgent: 'aws-proton-plugin-for-backstage',
-      credentialDefaultProvider: () =>
-        defaultProvider({
-          roleAssumerWithWebIdentity: getDefaultRoleAssumerWithWebIdentity(),
-        }),
+      credentialDefaultProvider: () => creds.sdkCredentialProvider,
     });
     const resp = await client.send(
       new GetServiceCommand({
@@ -62,13 +64,13 @@ export class AwsProtonApi {
 
     const serviceName = segments[1];
 
+    const creds = await this.awsCredentialsManager.getCredentialProvider({
+      arn,
+    });
     const client = new ProtonClient({
       region: region,
       customUserAgent: 'aws-proton-plugin-for-backstage',
-      credentialDefaultProvider: () =>
-        defaultProvider({
-          roleAssumerWithWebIdentity: getDefaultRoleAssumerWithWebIdentity(),
-        }),
+      credentialDefaultProvider: () => creds.sdkCredentialProvider,
     });
     const serviceInstances: ServiceInstanceSummary[] = [];
     for await (const page of paginateListServiceInstances(

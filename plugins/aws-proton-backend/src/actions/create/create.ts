@@ -11,13 +11,15 @@
  * limitations under the License.
  */
 
+import { Config } from '@backstage/config';
 import { createTemplateAction } from '@backstage/plugin-scaffolder-backend';
 import { CreateServiceCommand, ProtonClient } from '@aws-sdk/client-proton';
-import { getDefaultRoleAssumerWithWebIdentity } from '@aws-sdk/client-sts';
-import { defaultProvider } from '@aws-sdk/credential-provider-node';
+import { DefaultAwsCredentialsManager } from '@backstage/integration-aws-node';
 import fs from 'fs-extra';
 
-export const createAwsProtonServiceAction = () => {
+export function createAwsProtonServiceAction(options: { config: Config }) {
+  const { config } = options;
+  const awsCredentialsManager = DefaultAwsCredentialsManager.fromConfig(config);
   return createTemplateAction<{
     serviceName: string;
     templateName: string;
@@ -27,6 +29,7 @@ export const createAwsProtonServiceAction = () => {
     branchName?: string;
     serviceSpecPath: string;
     region: string;
+    accountId?: string;
   }>({
     id: 'aws:proton:create-service',
     schema: {
@@ -81,6 +84,11 @@ export const createAwsProtonServiceAction = () => {
             title: 'AWS region',
             description: 'The AWS region',
           },
+          accountId: {
+            type: 'string',
+            title: 'AWS account ID',
+            description: 'The AWS account ID',
+          },
         },
       },
       output: {
@@ -100,13 +108,13 @@ export const createAwsProtonServiceAction = () => {
 
       ctx.logger.info(`Creating AWS Proton service ${ctx.input.serviceName}`);
 
+      const creds = await awsCredentialsManager.getCredentialProvider({
+        accountId: ctx.input.accountId,
+      });
       const client = new ProtonClient({
         region: ctx.input.region,
         customUserAgent: 'aws-proton-plugin-for-backstage',
-        credentialDefaultProvider: () =>
-          defaultProvider({
-            roleAssumerWithWebIdentity: getDefaultRoleAssumerWithWebIdentity(),
-          }),
+        credentialDefaultProvider: () => creds.sdkCredentialProvider,
       });
 
       const resp = await client.send(
@@ -130,4 +138,4 @@ export const createAwsProtonServiceAction = () => {
       }
     },
   });
-};
+}

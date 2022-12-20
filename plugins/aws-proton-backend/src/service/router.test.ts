@@ -12,6 +12,7 @@
  */
 
 import { getVoidLogger } from '@backstage/backend-common';
+import { ConfigReader } from '@backstage/config';
 import express from 'express';
 import request from 'supertest';
 
@@ -21,8 +22,10 @@ describe('createRouter', () => {
   let app: express.Express;
 
   beforeAll(async () => {
+    const config = new ConfigReader({});
     const router = await createRouter({
       logger: getVoidLogger(),
+      config,
     });
     app = express().use(router);
   });

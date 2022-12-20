@@ -36,11 +36,10 @@
   },
   "dependencies": {
     "@aws-sdk/client-proton": "^3.63.0",
-    "@aws-sdk/client-sts": "^3.63.0",
-    "@aws-sdk/credential-provider-node": "^3.63.0",
     "@aws-sdk/util-arn-parser": "^3.52.0",
     "@backstage/backend-common": "^0.17.0",
     "@backstage/config": "^1.0.5",
+    "@backstage/integration-aws-node": "^0.1.0",
     "@backstage/plugin-scaffolder-backend": "^1.9.0",
     "@types/express": "*",
     "express": "^4.17.1",

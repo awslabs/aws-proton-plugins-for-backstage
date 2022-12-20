@@ -16,10 +16,31 @@ import mockFs from 'mock-fs';
 import { PassThrough } from 'stream';
 import os from 'os';
 import { getVoidLogger } from '@backstage/backend-common';
+import { ConfigReader } from '@backstage/config';
+import {
+  AwsCredentialProvider,
+  AwsCredentialProviderOptions,
+  DefaultAwsCredentialsManager,
+} from '@backstage/integration-aws-node';
 import { createAwsProtonServiceAction } from '.';
 import { CreateServiceCommand, ProtonClient } from '@aws-sdk/client-proton';
 import { mockClient } from 'aws-sdk-client-mock';
 import { resolve as resolvePath } from 'path';
+
+function getMockCredentialProvider(): Promise<AwsCredentialProvider> {
+  return Promise.resolve({
+    sdkCredentialProvider: async () => {
+      return Promise.resolve({
+        accessKeyId: 'MY_ACCESS_KEY_ID',
+        secretAccessKey: 'MY_SECRET_ACCESS_KEY',
+      });
+    },
+  });
+}
+const credsProviderMock = jest.spyOn(
+  DefaultAwsCredentialsManager.prototype,
+  'getCredentialProvider',
+);
 
 const protonMock = mockClient(ProtonClient);
 
@@ -27,8 +48,6 @@ const root = os.platform() === 'win32' ? 'C:\\rootDir' : '/rootDir';
 const workspacePath = resolvePath(root, 'my-workspace');
 
 describe('aws:proton:create-service', () => {
-  const action = createAwsProtonServiceAction();
-
   const mockContext = {
     workspacePath,
     logger: getVoidLogger(),
@@ -39,6 +58,11 @@ describe('aws:proton:create-service', () => {
 
   beforeEach(() => {
     jest.resetAllMocks();
+
+    credsProviderMock.mockImplementation((_?: AwsCredentialProviderOptions) =>
+      getMockCredentialProvider(),
+    );
+
     protonMock.reset();
 
     protonMock.on(CreateServiceCommand).resolves({
@@ -65,6 +89,9 @@ describe('aws:proton:create-service', () => {
   });
 
   it('should call AWS Proton API', async () => {
+    const action = createAwsProtonServiceAction({
+      config: new ConfigReader({}),
+    });
     await action.handler({
       ...mockContext,
       input: {
@@ -88,5 +115,28 @@ describe('aws:proton:create-service', () => {
       'arn',
       'arn:aws:proton:us-west-2:1234567890:service/test',
     );
+  });
+
+  it('should call AWS Proton API in a specific account', async () => {
+    const action = createAwsProtonServiceAction({
+      config: new ConfigReader({}),
+    });
+
+    await action.handler({
+      ...mockContext,
+      input: {
+        serviceName: 'serviceName',
+        branchName: 'main',
+        region: 'us-west-2',
+        repository: 'repository',
+        repositoryConnectionArn: 'arn:mock',
+        serviceSpecPath: './spec.yaml',
+        templateMajorVersion: '1',
+        templateName: 'template',
+        accountId: '1234567890',
+      },
+    });
+
+    expect(credsProviderMock).toHaveBeenCalledWith({ accountId: '1234567890' });
   });
 });
