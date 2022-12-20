@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/awslabs/aws-proton-plugins-for-backstage/compare/v0.1.7...v0.2.0) (2022-12-20)
+
+### Features
+
+- Support using Proton across multiple AWS accounts in one Backstage app ([8c8778a](https://github.com/awslabs/aws-proton-plugins-for-backstage/commit/8c8778aa8ab9cc7c9c996482e323b30d50326753))
+
 ## [0.1.7](https://github.com/awslabs/aws-proton-plugins-for-backstage/compare/v0.1.6...v0.1.7) (2022-12-05)
 
 **Note:** Version bump only for package @aws/aws-proton-backend-plugin-for-backstage
