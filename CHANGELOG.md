@@ -9,6 +9,42 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - Support using Proton across multiple AWS accounts in one Backstage app ([8c8778a](https://github.com/awslabs/aws-proton-plugins-for-backstage/commit/8c8778aa8ab9cc7c9c996482e323b30d50326753))
 
+### BREAKING CHANGES
+
+You must make two changes to your Backstage app source code when upgrading your Backstage app to use this version of the Proton plugins:
+
+1. Pass configuration to the Proton backend plugin router:
+```diff
+diff --git a/packages/backend/src/plugins/awsProton.ts b/packages/backend/src/plugins/awsProton.ts
+index 68968b9..37de05a 100644
+--- a/packages/backend/src/plugins/awsProton.ts
++++ b/packages/backend/src/plugins/awsProton.ts
+@@ -4,5 +4,6 @@ import { PluginEnvironment } from '../types';
+ export default async function createPlugin(env: PluginEnvironment) {
+   return await createRouter({
+     logger: env.logger,
++    config: env.config,
+   });
+ }
+```
+
+2. Pass configuration to the Proton scaffolder action:
+```diff
+diff --git a/packages/backend/src/plugins/scaffolder.ts b/packages/backend/src/plugins/scaffolder.ts
+index d566691..fdb0f42 100644
+--- a/packages/backend/src/plugins/scaffolder.ts
++++ b/packages/backend/src/plugins/scaffolder.ts
+@@ -22,7 +22,7 @@ export default async function createPlugin(
+     config: env.config,
+   });
+
+-  const actions = [...builtInActions, createAwsProtonServiceAction()];
++  const actions = [...builtInActions, createAwsProtonServiceAction({ config: env.config })];
+
+   return await createRouter({
+     logger: env.logger,
+```
+
 ## [0.1.7](https://github.com/awslabs/aws-proton-plugins-for-backstage/compare/v0.1.6...v0.1.7) (2022-12-05)
 
 **Note:** Version bump only for package aws-proton-plugins-for-backstage
