@@ -5454,9 +5454,9 @@
   integrity sha512-JNTqTpZUa7qVIiRl3D+sX9fDVlhD/K2oqMVlk54LEK4uFXk3xZA7i94dawcmOvjR3+Wtk3s2RNGBc9jZ466uqw==
 
 "@spotify/prettier-config@^14.0.0":
-  version "14.1.5"
-  resolved "https://registry.yarnpkg.com/@spotify/prettier-config/-/prettier-config-14.1.5.tgz#fc281797af1b854bc448b73ae40f67a7a52b187a"
-  integrity sha512-GpxiaCzMBMu44ckWFrECtVMNWoqUrkskgGNwpgXa65NdQwNZc9846xixCtHccqfxD47+MKzJn4qOWUpzwsZvBQ==
+  version "14.1.6"
+  resolved "https://registry.yarnpkg.com/@spotify/prettier-config/-/prettier-config-14.1.6.tgz#5fea574e469ff2b87d139be7a27a293119620ac8"
+  integrity sha512-VDojGCGVV9CfCjM7642wWbpbFlMSVPCCCiYUnXNVewD+/l8t62Ypscko60ZJnWQuHu5KL0/hOD1UY8nUpEV70w==
 
 "@sucrase/webpack-loader@^2.0.0":
   version "2.0.0"
