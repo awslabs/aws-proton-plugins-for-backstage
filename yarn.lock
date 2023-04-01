@@ -6529,9 +6529,9 @@ available-typed-arrays@^1.0.5:
   integrity sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==
 
 aws-sdk-client-mock@^2.0.0:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/aws-sdk-client-mock/-/aws-sdk-client-mock-2.0.1.tgz#c37ec569fa88688d8d88d7a7f028af26d6d2086e"
-  integrity sha512-Ib/AnI8ZdoIxOBbKSs28TUwJb7FI/AYVYn48PcXx6guk5fBs4GZJJEc+Ci9aImRtVmgO6jHN/6Etz17fr6j3qw==
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/aws-sdk-client-mock/-/aws-sdk-client-mock-2.1.1.tgz#52e5e580fd5654492f9b477153928e373034798e"
+  integrity sha512-UuxXmICU4nmXTRm2BzLZdXmnyI+5NEBb5McRDkObasXVxXChvLm0Ci/PGENh4sCD+Es64SJiz70mtY48JROk0A==
   dependencies:
     "@types/sinon" "^10.0.10"
     sinon "^14.0.2"
