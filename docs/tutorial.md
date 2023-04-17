@@ -37,21 +37,22 @@ Create the following AWS resources in your AWS account for this tutorial:
 - An AWS Proton service template
 - An AWS Proton environment
 
-To create these resources, follow the **AWS Proton setup** section of the **Getting Started** guide in the AWS Proton console:
+To create these resources, follow the **Getting Started** guide in the AWS Proton console:
 
 https://us-east-1.console.aws.amazon.com/proton/home?region=us-east-1#/getting-started
 
 While you're following the **Getting Started** guide:
 
-- Fork the [AWS Proton Sample CloudFormation Templates](https://github.com/aws-samples/aws-proton-cloudformation-sample-templates/) repository into your GitHub account. Then, register the forked repository with AWS Proton. For more information, see [Create and register a link to your repository](https://docs.aws.amazon.com/proton/latest/adminguide/ag-create-repo.html) in the _AWS Proton Administrator Guide_.
-- To create the environment template, choose **Sync a template bundle with Git** and use the `environment-templates/fargate-env` example in the forked repository.
-- To create the service template, choose **Sync a template bundle with Git** and use the `service-templates/load-balanced-fargate-svc` example in the forked repository.
-- Proton creates each new template with a template version 1.0 that you need to publish. Select the template version, choose **Publish**, and wait for the template version to go into the **Published** status.
+- Copy the [AWS Proton Sample CloudFormation Templates](https://github.com/aws-samples/aws-proton-cloudformation-sample-templates/) into a new repository in your GitHub account by clicking the "Use this template" button on GitHub. Then, link your new template repository with AWS Proton when asked for a template definition repository in the Getting Started guide.
+- For the environment template, choose **Sync a template bundle from Git**, link your new template repository, and name the template `fargate-env`.
+- For the service template, choose **Sync a template bundle from Git**, link your new template repository, and name the template `load-balanced-fargate-svc`.
+- Once the environment and service templates are created, click on the "Create environment" button.  Choose the `fargate-env` template and name the environment `backstage-proton-plugins-tutorial-env`.
+- Proton creates each new template with a template version 1.0 that you need to publish. On both the [environment template page](https://us-east-1.console.aws.amazon.com/proton/home?region=us-east-1#/templates/environments/detail/fargate-env) and the [service template page](https://us-east-1.console.aws.amazon.com/proton/home?region=us-east-1#/templates/services/detail/load-balanced-fargate-svc), select the template version, choose **Publish**, and wait for the template version to go into the **Published** status.
 
 At the end of the **Getting started** guide, you should have at least one of each of the resources listed above. You can verify using the following commands:
 
 ```
-$ aws codestar-connections list-connections
+$ aws codestar-connections list-connections --region us-east-1
 {
     "Connections": [
         {
@@ -64,7 +65,7 @@ $ aws codestar-connections list-connections
     ]
 }
 
-$ aws proton list-repositories
+$ aws proton list-repositories --region us-east-1
 {
     "repositories": [
         {
@@ -75,44 +76,39 @@ $ aws proton list-repositories
     ]
 }
 
-$ aws proton list-environment-templates
+$ aws proton list-environment-templates --region us-east-1
 {
     "templates": [
         {
-            "arn": "arn:aws:proton:us-east-1:111111111111:environment-template/backstage-proton-plugins-tutorial-env-template",
+            "arn": "arn:aws:proton:us-east-1:111111111111:environment-template/fargate-env",
             "createdAt": "2022-04-21T11:29:01.800000-07:00",
-            "description": "Environment template for the Proton Backstage plugins tutorial",
-            "displayName": "Backstage tutorial template",
             "lastModifiedAt": "2022-04-21T11:29:01.800000-07:00",
-            "name": "backstage-proton-plugins-tutorial-env-template",
+            "name": "fargate-env",
             "recommendedVersion": "1.0"
         }
     ]
 }
 
-$ aws proton list-service-templates
+$ aws proton list-service-templates --region us-east-1
 {
     "templates": [
         {
-            "arn": "arn:aws:proton:us-east-1:111111111111:service-template/backstage-proton-plugins-tutorial-svc-template",
+            "arn": "arn:aws:proton:us-east-1:111111111111:service-template/load-balanced-fargate-svc",
             "createdAt": "2022-04-21T11:48:07.137000-07:00",
-            "description": "Service template for the Proton Backstage plugins tutorial",
-            "displayName": "Backstage tutorial template",
             "lastModifiedAt": "2022-04-21T11:48:07.137000-07:00",
-            "name": "backstage-proton-plugins-tutorial-svc-template",
+            "name": "load-balanced-fargate-svc",
             "recommendedVersion": "1.0"
         }
     ]
 }
 
-$ aws proton list-environments
+$ aws proton list-environments --region us-east-1
 {
     "environments": [
         {
             "arn": "arn:aws:proton:us-east-1:111111111111:environment/backstage-proton-plugins-tutorial-env",
             "createdAt": "2022-04-21T11:53:07.528000-07:00",
             "deploymentStatus": "SUCCEEDED",
-            "description": "Environment for the Proton Backstage plugins tutorial",
             "lastDeploymentAttemptedAt": "2022-04-21T11:53:07.528000-07:00",
             "lastDeploymentSucceededAt": "2022-04-21T11:53:07.528000-07:00",
             "name": "backstage-proton-plugins-tutorial-env",
@@ -129,11 +125,11 @@ $ aws proton list-environments
 
 You need to update the sample Software Template with the AWS resources you created in your account in the previous step. Clone your fork of this repository, and make the following changes to the file `docs/tutorial-assets/fargate-nginx-template/template.yaml`.
 
-1. Find the `template` step. Update the `aws_proton_dev_environment_name`, `aws_proton_prod_environment_name`, `aws_account_id`, and `aws_region` fields to match the resources in your AWS account.
+1. Find the `template` step. Update the `aws_account_id` field to match your AWS account.
 
    Note: The template is set up to create a service with instances in two environments, dev and prod. For the purpose of this tutorial, we use a single example environment, `backstage-proton-plugins-tutorial-env`, for both the dev and prod environments.
 
-2. Find the `create-proton-service` step. Update the `region`, `templateName`, `templateMajorVersion`, and `repositoryConnectionArn` fields to match the resources in your AWS account.
+2. Find the `create-proton-service` step. Update the `repositoryConnectionArn` field to match the CodeStar connection resource in your AWS account.
 
 Commit and push these changes to your fork of this repository.
 
