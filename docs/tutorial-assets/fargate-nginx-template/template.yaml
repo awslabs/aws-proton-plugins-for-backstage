@@ -64,7 +64,7 @@ spec:
           initial_message: ${{ parameters.initial_message }}
           owner: ${{ parameters.owner }}
           destination: ${{ parameters.repoUrl | parseRepoUrl }}
-          http_port: 8080
+          http_port: 80
           # The AWS Proton environments to use for deploying the initial service instances
           aws_proton_dev_environment_name: "backstage-proton-plugins-tutorial-env"
           aws_proton_prod_environment_name: "backstage-proton-plugins-tutorial-env"
