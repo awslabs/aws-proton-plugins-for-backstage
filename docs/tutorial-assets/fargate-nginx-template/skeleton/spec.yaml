@@ -1,6 +1,7 @@
 proton: ServiceSpec
 
 pipeline:
+  service_dir: "."
   unit_test_command: "./run-tests.sh"
 
 instances:
