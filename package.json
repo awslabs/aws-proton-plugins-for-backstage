@@ -47,7 +47,7 @@
     "react-router": "^6.3.0",
     "react-router-dom": "^6.3.0",
     "typescript": "~5.2.2",
-    "yarn-audit-fix": "^9.3.8"
+    "yarn-audit-fix": "^10.0.1"
   },
   "resolutions": {
     "**/yaml": "^2.2.2"
