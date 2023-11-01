@@ -58,7 +58,7 @@
     "@types/supertest": "^2.0.8",
     "aws-sdk-client-mock": "^3.0.0",
     "mock-fs": "^5.1.2",
-    "msw": "^1.0.0",
+    "msw": "^2.0.1",
     "supertest": "^6.2.2"
   },
   "files": [
