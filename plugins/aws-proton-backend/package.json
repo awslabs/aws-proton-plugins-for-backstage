@@ -55,7 +55,7 @@
     "@types/glob": "^8.0.0",
     "@types/jest": "^29.0.0",
     "@types/mock-fs": "^4.13.1",
-    "@types/supertest": "^2.0.8",
+    "@types/supertest": "^6.0.2",
     "aws-sdk-client-mock": "^3.0.0",
     "mock-fs": "^5.1.2",
     "msw": "^1.0.0",
