@@ -14,12 +14,12 @@
 import { Config } from '@backstage/config';
 import { createTemplateAction } from '@backstage/plugin-scaffolder-backend';
 import { CreateServiceCommand, ProtonClient } from '@aws-sdk/client-proton';
-import { DefaultAwsCredentialsManager } from '@backstage/integration-aws-node';
+import { AwsCredentialsManager, DefaultAwsCredentialsManager } from '@backstage/integration-aws-node';
 import fs from 'fs-extra';
 
-export function createAwsProtonServiceAction(options: { config: Config }) {
+export function createAwsProtonServiceAction(options: { config: Config, awsCredentialsManager?: AwsCredentialsManager }) {
   const { config } = options;
-  const awsCredentialsManager = DefaultAwsCredentialsManager.fromConfig(config);
+  const awsCredentialsManager = options.awsCredentialsManager || DefaultAwsCredentialsManager.fromConfig(config);
   return createTemplateAction<{
     serviceName: string;
     templateName: string;
