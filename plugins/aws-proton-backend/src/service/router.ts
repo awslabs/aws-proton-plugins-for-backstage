@@ -13,7 +13,7 @@
 
 import { errorHandler } from '@backstage/backend-common';
 import { Config } from '@backstage/config';
-import { DefaultAwsCredentialsManager } from '@backstage/integration-aws-node';
+import { DefaultAwsCredentialsManager, AwsCredentialsManager } from '@backstage/integration-aws-node';
 import express from 'express';
 import Router from 'express-promise-router';
 import { Logger } from 'winston';
@@ -22,13 +22,14 @@ import { AwsProtonApi } from '../api';
 export interface RouterOptions {
   logger: Logger;
   config: Config;
+  awsCredentialsManager?: AwsCredentialsManager
 }
 
 export async function createRouter(
   options: RouterOptions,
 ): Promise<express.Router> {
   const { logger, config } = options;
-  const awsCredentialsManager = DefaultAwsCredentialsManager.fromConfig(config);
+  const awsCredentialsManager = options.awsCredentialsManager || DefaultAwsCredentialsManager.fromConfig(config);
   const awsProtonApi = new AwsProtonApi(logger, awsCredentialsManager);
 
   const router = Router();
